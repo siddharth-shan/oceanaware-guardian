@@ -125,44 +125,44 @@ const AppContent = () => {
     }
   };
 
-  // Streamlined navigation for Congressional App Challenge - focusing on top 5 winning features
+  // Streamlined navigation for Ocean Awareness Contest 2026 - focusing on top 5 winning features
   const tabs = [
-    { 
-      id: 'dashboard', 
-      label: translate('nav.dashboard', 'Dashboard'), 
+    {
+      id: 'dashboard',
+      label: translate('nav.dashboard', 'Dashboard'),
       icon: Home,
-      description: translate('nav.dashboard', 'Real-time overview & emergency status'),
+      description: translate('nav.dashboard', 'Real-time ocean overview & hazard status'),
       highlight: true // Key feature #1: Real-time integration
     },
-    { 
-      id: 'fire-monitoring', 
-      label: 'Fire Monitoring', 
+    {
+      id: 'ocean-monitoring',
+      label: 'Ocean Monitoring',
       icon: Brain,
-      description: 'AI-powered fire risk assessment & real-time alerts',
+      description: 'AI-powered ocean hazard assessment & real-time alerts',
       highlight: true, // Key features #1 & #2: AI analysis & real-time data
       subFeatures: ['prediction', 'ai-analysis', 'alerts']
     },
-    { 
-      id: 'community', 
-      label: translate('nav.community', 'Community'), 
+    {
+      id: 'community',
+      label: translate('nav.community', 'Community'),
       icon: Users,
-      description: translate('nav.community', 'Hazard reports & family safety coordination'),
+      description: translate('nav.community', 'Coastal reports & conservation coordination'),
       highlight: true, // Key feature #2: Community coordination
       subFeatures: ['community-hub']
     },
-    { 
-      id: 'impact-analysis', 
-      label: 'Impact Analysis', 
+    {
+      id: 'impact-analysis',
+      label: 'Impact Analysis',
       icon: Map,
-      description: 'Community vulnerability & risk analysis mapping',
+      description: 'Coastal vulnerability & ocean hazard mapping',
       highlight: true, // Key feature #3: Impact analysis
       subFeatures: []
     },
-    { 
-      id: 'safety-prep', 
-      label: translate('nav.safety-quests', 'Safety Prep'), 
+    {
+      id: 'ocean-education',
+      label: translate('nav.ocean-quests', 'Ocean Education'),
       icon: Target,
-      description: translate('nav.safety-quests', 'Gamified safety education & preparedness'),
+      description: translate('nav.ocean-quests', 'Interactive ocean conservation quests & learning'),
       highlight: true, // Key feature #4: Gamified education
       subFeatures: ['quests']
     },
@@ -170,8 +170,8 @@ const AppContent = () => {
 
   // Sub-navigation state for consolidated tabs
   const [activeSubTab, setActiveSubTab] = useState({
-    'fire-monitoring': 'quick-scan',
-    'community': 'hazard-reports'
+    'ocean-monitoring': 'quick-scan',
+    'community': 'coastal-reports'
   });
 
   // Handle sub-tab navigation from showcase
@@ -192,23 +192,23 @@ const AppContent = () => {
       case 'dashboard':
         try {
           return (
-            <EnhancedDashboard 
+            <EnhancedDashboard
               userLocation={location}
               onLocationChange={updateLocation}
               onNavigateToAlerts={() => {
-                setActiveTab('fire-monitoring');
-                setActiveSubTab({...activeSubTab, 'fire-monitoring': 'alerts'});
+                setActiveTab('ocean-monitoring');
+                setActiveSubTab({...activeSubTab, 'ocean-monitoring': 'alerts'});
               }}
               onNavigateToTab={(tab) => {
                 // Route old tab navigation to new consolidated structure
                 if (tab === 'alerts' || tab === 'prediction' || tab === 'ai-analysis') {
-                  setActiveTab('fire-monitoring');
-                  setActiveSubTab({...activeSubTab, 'fire-monitoring': tab});
+                  setActiveTab('ocean-monitoring');
+                  setActiveSubTab({...activeSubTab, 'ocean-monitoring': tab});
                 } else if (tab === 'community-hub' || tab === 'community-impact') {
                   setActiveTab('community');
                   setActiveSubTab({...activeSubTab, 'community': tab});
                 } else if (tab === 'quests') {
-                  setActiveTab('safety-prep');
+                  setActiveTab('ocean-education');
                 } else {
                   setActiveTab(tab);
                 }
@@ -237,42 +237,42 @@ const AppContent = () => {
             </div>
           );
         }
-      
-      case 'fire-monitoring':
-        return renderFireMonitoringContent();
-      
+
+      case 'ocean-monitoring':
+        return renderOceanMonitoringContent();
+
       case 'community':
         return renderCommunityContent();
-      
+
       case 'impact-analysis':
         return (
-          <HooksErrorBoundary 
+          <HooksErrorBoundary
             onNavigateHome={() => setActiveTab('dashboard')}
             showDetails={process.env.NODE_ENV === 'development'}
           >
             <CommunityImpact userLocation={location} />
           </HooksErrorBoundary>
         );
-      
-      case 'safety-prep':
+
+      case 'ocean-education':
         return (
           <SafetyQuestHub userLocation={location} />
         );
-      
+
       default:
         return <div>Select a tab to get started</div>;
     }
   };
 
-  // Render Fire Monitoring content with sub-navigation
-  const renderFireMonitoringContent = () => {
-    const currentSubTab = activeSubTab['fire-monitoring'] || 'prediction';
-    
+  // Render Ocean Monitoring content with sub-navigation
+  const renderOceanMonitoringContent = () => {
+    const currentSubTab = activeSubTab['ocean-monitoring'] || 'prediction';
+
     const subTabs = [
       { id: 'quick-scan', label: 'Quick Scan', icon: Target },
-      { id: 'prediction', label: 'AI Prediction', icon: Zap },
-      { id: 'ai-analysis', label: 'Full Analysis', icon: Brain },
-      { id: 'alerts', label: 'Live Alerts', icon: AlertTriangle }
+      { id: 'prediction', label: 'Ocean Prediction', icon: Zap },
+      { id: 'ai-analysis', label: 'Health Analysis', icon: Brain },
+      { id: 'alerts', label: 'Ocean Alerts', icon: AlertTriangle }
     ];
 
     return (
@@ -286,25 +286,24 @@ const AppContent = () => {
               return (
                 <button
                   key={subTab.id}
-                  onClick={() => setActiveSubTab({...activeSubTab, 'fire-monitoring': subTab.id})}
+                  onClick={() => setActiveSubTab({...activeSubTab, 'ocean-monitoring': subTab.id})}
                   className={`flex flex-col items-center px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 min-w-0 flex-1 max-w-[120px] ${
-                    isActive 
-                      ? 'shadow-sm border' 
+                    isActive
+                      ? 'shadow-sm border'
                       : 'hover:shadow-sm'
                   }`}
-                  style={{ 
+                  style={{
                     minHeight: '60px',
-                    backgroundColor: isActive ? 'var(--color-fire-50)' : 'transparent',
-                    borderColor: isActive ? 'var(--color-fire-200)' : 'transparent',
-                    color: isActive ? 'var(--color-fire-700)' : 'var(--color-neutral-600)'
+                    backgroundColor: isActive ? 'rgb(240 249 255)' : 'transparent',
+                    borderColor: isActive ? 'rgb(186 230 253)' : 'transparent',
+                    color: isActive ? 'rgb(3 105 161)' : 'rgb(75 85 99)'
                   }}
                 >
-                  <Icon className="h-5 w-5 mb-1" 
-                        style={{ color: isActive ? 'var(--color-fire-600)' : 'var(--color-neutral-500)' }} />
+                  <Icon className="h-5 w-5 mb-1"
+                        style={{ color: isActive ? 'rgb(2 132 199)' : 'rgb(107 114 128)' }} />
                   <span className="leading-tight text-center">{subTab.label}</span>
                   {isActive && (
-                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-1 rounded-full mt-1" 
-                         style={{ backgroundColor: 'var(--color-fire-500)' }} />
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-1 rounded-full mt-1 bg-ocean-500" />
                   )}
                 </button>
               );
@@ -329,11 +328,11 @@ const AppContent = () => {
 
   // Render Community content with sub-navigation
   const renderCommunityContent = () => {
-    const currentSubTab = activeSubTab['community'] || 'hazard-reports';
-    
+    const currentSubTab = activeSubTab['community'] || 'coastal-reports';
+
     const subTabs = [
-      { id: 'hazard-reports', label: 'Hazard Reports', icon: AlertTriangle },
-      { id: 'family-safety', label: 'Family Safety', icon: Users }
+      { id: 'coastal-reports', label: 'Coastal Reports', icon: AlertTriangle },
+      { id: 'family-safety', label: 'Community Safety', icon: Users }
     ];
 
     return (
@@ -379,12 +378,12 @@ const AppContent = () => {
 
           {/* Content - Each tab wrapped individually for better error isolation */}
           <div>
-            {currentSubTab === 'hazard-reports' && (
-              <HooksErrorBoundary 
+            {currentSubTab === 'coastal-reports' && (
+              <HooksErrorBoundary
                 onNavigateHome={() => setActiveTab('dashboard')}
                 showDetails={process.env.NODE_ENV === 'development'}
               >
-                <CommunityHub 
+                <CommunityHub
                   userLocation={location}
                   emergencyLevel={getEmergencyLevel()}
                 />
@@ -426,10 +425,10 @@ const AppContent = () => {
     return (
       <div className="min-h-screen bg-emergency-normal flex items-center justify-center">
         <div className="enhanced-card p-8">
-          <LoadingSpinner 
-            size="xl" 
-            enhanced={true} 
-            text="Initializing EcoQuest Wildfire Watch System..." 
+          <LoadingSpinner
+            size="xl"
+            enhanced={true}
+            text="Initializing OceanAware Guardian System..."
           />
         </div>
       </div>
@@ -451,21 +450,21 @@ const AppContent = () => {
         </a>
 
         {/* Header */}
-        <header className="bg-gradient-to-r from-orange-500 to-orange-700 text-white shadow-xl" role="banner" data-testid="app-header">
+        <header className="bg-gradient-to-r from-ocean-500 to-ocean-700 text-white shadow-xl" role="banner" data-testid="app-header">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-18 lg:h-20">
               <div className="flex items-center">
-                <img 
-                  src="/icons/ecoquest_fw_logo.png" 
-                  alt="EcoQuest Wildfire Watch Logo" 
+                <img
+                  src="/icons/ecoquest_fw_logo.png"
+                  alt="OceanAware Guardian Logo"
                   className="h-10 w-10 lg:h-12 lg:w-12 mr-3 lg:mr-4 rounded-full shadow-lg ring-2 ring-white/20"
                 />
                 <div>
                   <h1 className="text-xl lg:text-2xl font-bold tracking-tight">
-                    {translate('app.title', 'EcoQuest Wildfire Watch')}
+                    {translate('app.title', 'OceanAware Guardian')}
                   </h1>
-                  <p className="text-orange-100 text-xs lg:text-sm font-medium hidden sm:block">
-                    {translate('app.subtitle', 'Real-time wildfire monitoring & safety')}
+                  <p className="text-ocean-100 text-xs lg:text-sm font-medium hidden sm:block">
+                    {translate('app.subtitle', 'Real-time ocean hazard monitoring & conservation')}
                   </p>
                 </div>
               </div>
@@ -530,10 +529,10 @@ const AppContent = () => {
                 </button>
                 <div className="text-right hidden lg:block">
                   <div className="text-sm font-semibold">
-                    AI-Powered Fire Safety
+                    AI-Powered Ocean Conservation
                   </div>
-                  <div className="text-xs text-orange-100">
-                    Advanced Fire Detection System
+                  <div className="text-xs text-ocean-100">
+                    Advanced Ocean Monitoring System
                   </div>
                 </div>
               </div>
@@ -563,29 +562,28 @@ const AppContent = () => {
                       aria-current={isActive ? 'page' : undefined}
                     >
                       <div className="relative mb-1">
-                        <IconComponent 
+                        <IconComponent
                           className={`h-6 w-6 transition-all duration-200 ${
-                            isActive 
-                              ? 'text-orange-600 scale-110' 
-                              : 'text-gray-500 group-hover:text-orange-500 group-hover:scale-105'
-                          }`} 
+                            isActive
+                              ? 'text-ocean-600 scale-110'
+                              : 'text-gray-500 group-hover:text-ocean-500 group-hover:scale-105'
+                          }`}
                         />
                         {tab.highlight && (
-                          <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full shadow-sm" 
-                               style={{ backgroundColor: 'var(--color-fire-400)' }} />
+                          <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full shadow-sm bg-ocean-400" />
                         )}
                       </div>
                       <span className={`text-sm font-semibold transition-all duration-200 ${
-                        isActive 
-                          ? 'text-orange-700' 
-                          : 'text-gray-600 group-hover:text-orange-600'
+                        isActive
+                          ? 'text-ocean-700'
+                          : 'text-gray-600 group-hover:text-ocean-600'
                       }`}>
                         {tab.label}
                       </span>
-                      
+
                       {/* Active indicator */}
                       {isActive && (
-                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-t-full" />
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-ocean-500 to-ocean-700 rounded-t-full" />
                       )}
                     </button>
                   );
@@ -605,25 +603,24 @@ const AppContent = () => {
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       className={`flex flex-col items-center py-2 px-3 min-w-0 flex-1 transition-all duration-200 ${
-                        isActive ? 'text-orange-600' : 'text-gray-500'
+                        isActive ? 'text-ocean-600' : 'text-gray-500'
                       }`}
                       aria-label={`Navigate to ${tab.label}`}
                       aria-current={isActive ? 'page' : undefined}
                       style={{ minHeight: '60px' }} // Ensure proper touch target size
                     >
                       <div className="relative mb-1">
-                        <IconComponent 
+                        <IconComponent
                           className={`h-6 w-6 transition-all duration-200 ${
                             isActive ? 'scale-110' : ''
-                          }`} 
+                          }`}
                         />
                         {tab.highlight && (
-                          <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full" 
-                               style={{ backgroundColor: 'var(--color-fire-400)' }} />
+                          <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-ocean-400" />
                         )}
                       </div>
                       <span className={`text-xs font-medium leading-tight text-center ${
-                        isActive ? 'text-orange-600' : 'text-gray-500'
+                        isActive ? 'text-ocean-600' : 'text-gray-500'
                       }`}>
                         {tab.label}
                       </span>
@@ -648,10 +645,9 @@ const AppContent = () => {
                   <>
                     {IconComponent && (
                       <div className="relative">
-                        <IconComponent className="h-6 w-6 lg:h-7 lg:w-7 text-orange-600" />
+                        <IconComponent className="h-6 w-6 lg:h-7 lg:w-7 text-ocean-600" />
                         {activeTabData?.highlight && (
-                          <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full shadow-sm" 
-                               style={{ backgroundColor: 'var(--color-fire-400)' }} />
+                          <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full shadow-sm bg-ocean-400" />
                         )}
                       </div>
                     )}
@@ -772,10 +768,10 @@ const AppContent = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="text-center">
               <p className="text-gray-400">
-                © 2024 EcoQuest Wildfire Watch - AI-Powered Fire Safety Platform
+                © 2025 OceanAware Guardian - AI-Powered Ocean Conservation Platform
               </p>
               <p className="text-gray-400 text-sm mt-2">
-                Built with AI for wildfire safety and education
+                Built with AI for ocean conservation and education
               </p>
             </div>
           </div>
