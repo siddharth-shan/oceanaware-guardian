@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './index.css';
 import './styles/accessibility.css';
 import './styles/themes.css';
-import { Home, Brain, Map, Target, AlertTriangle, Zap, Users, Settings, Activity, Bell, X, Shield, MapPin, Waves, GraduationCap, Palette } from 'lucide-react';
+import { Home, Brain, Map, Target, AlertTriangle, Zap, Users, Settings, Activity, Bell, X, Shield, MapPin, Waves, GraduationCap, Palette, Music, Sparkles } from 'lucide-react';
 
 // Import components
 import WeatherWidget from './components/weather/WeatherWidget';
@@ -32,6 +32,8 @@ import InteractiveCoastalStory from './components/narrative/InteractiveCoastalSt
 import OceanConservationGames from './components/games/OceanConservationGames';
 import DataArtTriptych from './components/visualization/DataArtTriptych';
 import OceanCurriculumHub from './components/curriculum/OceanCurriculumHub';
+import DataSonification from './components/visualization/DataSonification';
+import GenerativeArtTool from './components/visualization/GenerativeArtTool';
 // import OfflineIndicator from './components/offline/OfflineIndicator'; // Temporarily disabled
 
 // Import services
@@ -155,6 +157,22 @@ const AppContent = () => {
       badge: 'NEW'
     },
     {
+      id: 'art-generator',
+      label: 'Art Generator',
+      icon: Sparkles,
+      description: 'Create custom ocean data art - download & share your creation',
+      highlight: true, // Phase 3: User engagement & social virality
+      badge: 'NEW'
+    },
+    {
+      id: 'ocean-sounds',
+      label: 'Ocean Sounds',
+      icon: Music,
+      description: 'Hear the ocean\'s story through data sonification',
+      highlight: true, // Phase 3: Multi-sensory accessibility
+      badge: 'NEW'
+    },
+    {
       id: 'live-ocean-data',
       label: 'Live Ocean Data',
       icon: Waves,
@@ -208,6 +226,14 @@ const AppContent = () => {
       case 'data-art':
         // Point V from ocean-contest.txt - Data as artistic visualization
         return <DataArtTriptych userLocation={location} />;
+
+      case 'art-generator':
+        // Phase 3: Generative Art Tool - User-customizable ocean data art
+        return <GenerativeArtTool />;
+
+      case 'ocean-sounds':
+        // Phase 3: Data Sonification - Multi-sensory ocean data experience
+        return <DataSonification />;
 
       case 'live-ocean-data':
         // Real-time NOAA/USGS data - tsunami, erosion, sea-level rise

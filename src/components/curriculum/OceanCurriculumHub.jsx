@@ -13,6 +13,8 @@ import {
   TrendingUp
 } from 'lucide-react';
 import OceanExperimentsGuide from './OceanExperimentsGuide';
+import OceanLessonPlans from './OceanLessonPlans';
+import DigitalStorybook from './DigitalStorybook';
 
 /**
  * Ocean Curriculum Hub - Point IV from ocean-contest.txt
@@ -46,8 +48,8 @@ const OceanCurriculumHub = () => {
       description: 'Complete NGSS-aligned lesson plans for ocean science',
       color: 'blue',
       gradient: 'from-blue-500 to-cyan-600',
-      stats: { items: '8 Lessons', time: '1-2 weeks', ages: '10-18' },
-      comingSoon: true
+      stats: { items: '5 Lessons', time: '7.5 hours', ages: '4-12' },
+      component: OceanLessonPlans
     },
     {
       id: 'worksheets',
@@ -67,7 +69,7 @@ const OceanCurriculumHub = () => {
       color: 'orange',
       gradient: 'from-orange-500 to-red-600',
       stats: { items: '5 Chapters', time: '30-45 min', ages: '6-12' },
-      comingSoon: true
+      component: DigitalStorybook
     }
   ];
 
