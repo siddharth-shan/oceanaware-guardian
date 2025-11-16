@@ -10,7 +10,6 @@ import HazardDetector from './components/ai/HazardDetector';
 import QuickRiskAssessment from './components/ai/QuickRiskAssessment';
 import AlertBanner from './components/alerts/AlertBanner';
 import AlertsDashboard from './components/alerts/AlertsDashboard';
-import SafetyQuestHub from './components/quests/SafetyQuestHub';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import LocationInput from './components/location/LocationInput';
 import EnhancedDashboard from './components/dashboard/EnhancedDashboard';
@@ -304,24 +303,7 @@ const AppContent = () => {
       case 'ocean-quests':
         // Educational games: Tsunami Escape, Rebuild the Coast, Stop the Shrinking Beach
         // Point VI from ocean-contest.txt - Interactive conservation games
-        return (
-          <div className="space-y-8">
-            {/* Ocean Conservation Games - Point VI */}
-            <OceanConservationGames />
-
-            {/* Divider */}
-            <div className="border-t border-gray-300 my-8"></div>
-
-            {/* Educational Quests */}
-            <div>
-              <h2 className="text-2xl font-bold mb-4 text-gray-900">Ocean Education Quests</h2>
-              <p className="text-gray-600 mb-6">
-                Complete real-world conservation challenges to earn points and make a difference
-              </p>
-              <SafetyQuestHub userLocation={location} />
-            </div>
-          </div>
-        );
+        return <OceanConservationGames />;
 
       default:
         return (
