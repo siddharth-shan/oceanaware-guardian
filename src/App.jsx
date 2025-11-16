@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './index.css';
 import './styles/accessibility.css';
 import './styles/themes.css';
-import { Home, Brain, Map, Target, AlertTriangle, Zap, Users, Settings, Activity, Bell, X, Shield, MapPin, Waves } from 'lucide-react';
+import { Home, Brain, Map, Target, AlertTriangle, Zap, Users, Settings, Activity, Bell, X, Shield, MapPin, Waves, GraduationCap, Palette } from 'lucide-react';
 
 // Import components
 import WeatherWidget from './components/weather/WeatherWidget';
@@ -30,6 +30,8 @@ import HooksErrorBoundary from './components/ui/HooksErrorBoundary';
 import OceanHazardDashboard from './components/ocean/OceanHazardDashboard';
 import InteractiveCoastalStory from './components/narrative/InteractiveCoastalStory';
 import OceanConservationGames from './components/games/OceanConservationGames';
+import DataArtTriptych from './components/visualization/DataArtTriptych';
+import OceanCurriculumHub from './components/curriculum/OceanCurriculumHub';
 // import OfflineIndicator from './components/offline/OfflineIndicator'; // Temporarily disabled
 
 // Import services
@@ -145,6 +147,14 @@ const AppContent = () => {
       badge: 'NEW'
     },
     {
+      id: 'data-art',
+      label: 'Data Art',
+      icon: Palette,
+      description: 'Ocean data as artistic visualizations - science meets beauty',
+      highlight: true, // Point V: Data Art Triptych
+      badge: 'NEW'
+    },
+    {
       id: 'live-ocean-data',
       label: 'Live Ocean Data',
       icon: Waves,
@@ -152,17 +162,25 @@ const AppContent = () => {
       highlight: true
     },
     {
-      id: 'community-action',
-      label: 'Community Action',
-      icon: Users,
-      description: 'Coastal reporting & policy recommendations for conservation',
-      highlight: true
+      id: 'ocean-curriculum',
+      label: 'Ocean Curriculum',
+      icon: GraduationCap,
+      description: 'Free experiments, lessons & worksheets for educators',
+      highlight: true, // Point IV: Educational curriculum for community impact
+      badge: 'NEW'
     },
     {
       id: 'ocean-quests',
       label: 'Ocean Quests',
       icon: Target,
       description: 'Educational games: Tsunami Escape, Rebuild the Coast & more',
+      highlight: true
+    },
+    {
+      id: 'community-action',
+      label: 'Community Action',
+      icon: Users,
+      description: 'Coastal reporting & policy recommendations for conservation',
       highlight: true
     },
   ];
@@ -186,6 +204,10 @@ const AppContent = () => {
         // UNIQUE FEATURE: Interactive storytelling - "A Day in the Life of a Coastline"
         // Point VII from ocean-contest.txt - Scroll-based narrative experience
         return <InteractiveCoastalStory />;
+
+      case 'data-art':
+        // Point V from ocean-contest.txt - Data as artistic visualization
+        return <DataArtTriptych userLocation={location} />;
 
       case 'live-ocean-data':
         // Real-time NOAA/USGS data - tsunami, erosion, sea-level rise
@@ -248,6 +270,10 @@ const AppContent = () => {
             </div>
           </HooksErrorBoundary>
         );
+
+      case 'ocean-curriculum':
+        // Point IV from ocean-contest.txt - Educational curriculum for community impact
+        return <OceanCurriculumHub />;
 
       case 'ocean-quests':
         // Educational games: Tsunami Escape, Rebuild the Coast, Stop the Shrinking Beach
