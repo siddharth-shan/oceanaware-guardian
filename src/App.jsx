@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './index.css';
 import './styles/accessibility.css';
 import './styles/themes.css';
-import { Home, Brain, Map, Target, AlertTriangle, Zap, Users, Settings, Activity, Bell, X, Shield, MapPin } from 'lucide-react';
+import { Home, Brain, Map, Target, AlertTriangle, Zap, Users, Settings, Activity, Bell, X, Shield, MapPin, Waves } from 'lucide-react';
 
 // Import components
 import WeatherWidget from './components/weather/WeatherWidget';
@@ -14,8 +14,6 @@ import SafetyQuestHub from './components/quests/SafetyQuestHub';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import LocationInput from './components/location/LocationInput';
 import EnhancedDashboard from './components/dashboard/EnhancedDashboard';
-import PredictiveDashboard from './components/prediction/PredictiveDashboard';
-import CommunityImpact from './pages/CommunityImpact';
 import CommunityHub from './components/community/CommunityHub';
 import FamilySafetyHub from './components/family/FamilySafetyHub';
 import AccessibilityProvider from './components/accessibility/AccessibilityProvider';
@@ -251,7 +249,7 @@ const AppContent = () => {
             onNavigateHome={() => setActiveTab('dashboard')}
             showDetails={process.env.NODE_ENV === 'development'}
           >
-            <CommunityImpact userLocation={location} />
+            <OceanHazardDashboard userLocation={location} />
           </HooksErrorBoundary>
         );
 
@@ -317,7 +315,38 @@ const AppContent = () => {
         <div>
           {currentSubTab === 'ocean-hazards' && <OceanHazardDashboard userLocation={location} />}
           {currentSubTab === 'quick-scan' && <QuickRiskAssessment />}
-          {currentSubTab === 'prediction' && <PredictiveDashboard userLocation={location} />}
+          {currentSubTab === 'prediction' && (
+            <div className="bg-gradient-to-br from-ocean-50 to-blue-50 rounded-xl shadow-lg p-8 border border-ocean-200">
+              <div className="text-center">
+                <Waves className="h-16 w-16 text-ocean-500 mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-ocean-900 mb-2">Ocean Prediction Model</h3>
+                <p className="text-ocean-700 mb-4">
+                  Advanced AI-powered ocean hazard prediction coming in Phase 5
+                </p>
+                <div className="bg-white rounded-lg p-6 max-w-2xl mx-auto">
+                  <h4 className="font-semibold text-gray-900 mb-3">Planned Features:</h4>
+                  <ul className="text-left space-y-2 text-gray-700">
+                    <li className="flex items-start">
+                      <span className="text-ocean-500 mr-2">•</span>
+                      <span>Tsunami wave height and arrival time prediction</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-ocean-500 mr-2">•</span>
+                      <span>Harmful algae bloom forecasting</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-ocean-500 mr-2">•</span>
+                      <span>Coastal erosion risk assessment</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-ocean-500 mr-2">•</span>
+                      <span>Marine weather pattern analysis</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
           {currentSubTab === 'ai-analysis' && (
             <div className="bg-white rounded-lg shadow-lg p-6">
               <HazardDetector />

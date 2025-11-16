@@ -8,7 +8,7 @@ import FeatureShowcase from '../showcase/FeatureShowcase';
 import { useAlerts } from '../../hooks/useAlerts';
 import { useWeatherData } from '../../hooks/useWeatherData';
 import { useAccessibility } from '../accessibility/AccessibilityProvider';
-import FireMap from '../maps/FireMap';
+import OceanHazardDashboard from '../ocean/OceanHazardDashboard';
 
 /**
  * Enhanced Dashboard with Dynamic Priority Layout
@@ -365,9 +365,9 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
                 
                 {/* Map Integration */}
                 <div className="min-h-[300px]">
-                  <div className="bg-gray-100 rounded-lg h-full flex items-center justify-center border" 
+                  <div className="bg-gray-100 rounded-lg h-full flex items-center justify-center border"
                        style={{ borderColor: 'var(--color-neutral-200)' }}>
-                    <FireMap userLocation={userLocation} />
+                    <OceanHazardDashboard userLocation={userLocation} />
                   </div>
                 </div>
               </div>
