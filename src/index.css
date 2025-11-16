@@ -19,17 +19,17 @@
     --color-neutral-800: #262626;
     --color-neutral-900: #171717;
     
-    /* Subtle Fire/Emergency Colors - Less aggressive */
-    --color-fire-50: #fef7ed;
-    --color-fire-100: #fdedd3;
-    --color-fire-200: #fed7aa;
-    --color-fire-300: #fdba74;
-    --color-fire-400: #fb923c;
-    --color-fire-500: #f97316;
-    --color-fire-600: #ea580c;
-    --color-fire-700: #c2410c;
-    --color-fire-800: #9a3412;
-    --color-fire-900: #7c2d12;
+    /* Ocean Blue Colors - Primary Brand */
+    --color-ocean-50: #f0f9ff;
+    --color-ocean-100: #e0f2fe;
+    --color-ocean-200: #bae6fd;
+    --color-ocean-300: #7dd3fc;
+    --color-ocean-400: #38bdf8;
+    --color-ocean-500: #0ea5e9;
+    --color-ocean-600: #0077B6;
+    --color-ocean-700: #023E8A;
+    --color-ocean-800: #03045E;
+    --color-ocean-900: #001845;
     
     /* Calming Blues for Information */
     --color-info-50: #eff6ff;
@@ -75,7 +75,7 @@
     
     /* Background gradients - Subtle */
     --bg-gradient-subtle: linear-gradient(135deg, var(--color-neutral-50) 0%, var(--color-neutral-100) 100%);
-    --bg-gradient-warm: linear-gradient(135deg, var(--color-fire-50) 0%, var(--color-warning-50) 100%);
+    --bg-gradient-warm: linear-gradient(135deg, var(--color-ocean-50) 0%, var(--color-warning-50) 100%);
     --bg-gradient-cool: linear-gradient(135deg, var(--color-info-50) 0%, var(--color-neutral-50) 100%);
   }
   
@@ -97,7 +97,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-fire-500 hover:bg-fire-600 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-fire-500 focus:ring-offset-2;
+    @apply bg-ocean-500 hover:bg-ocean-600 text-white font-medium px-4 py-2 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:ring-offset-2;
   }
   
   .btn-secondary {
@@ -150,12 +150,12 @@
   .competition-highlight {
     position: relative;
     background: var(--bg-gradient-warm);
-    border: 1px solid var(--color-fire-200);
+    border: 1px solid var(--color-ocean-200);
     transition: all 0.2s ease;
   }
   
   .competition-highlight:hover {
-    border-color: var(--color-fire-300);
+    border-color: var(--color-ocean-300);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
@@ -212,7 +212,7 @@
   }
   
   .input {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-fire-500 focus:border-transparent outline-none transition-all duration-200 placeholder-gray-400;
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ocean-500 focus:border-transparent outline-none transition-all duration-200 placeholder-gray-400;
   }
   
   .input-dark {
@@ -220,7 +220,7 @@
   }
 
   .tab-active {
-    @apply border-fire-500 text-fire-600 bg-fire-50;
+    @apply border-ocean-500 text-ocean-600 bg-ocean-50;
   }
 
   .tab-inactive {
@@ -235,8 +235,8 @@
   }
   
   .alert-banner.critical {
-    background: var(--color-fire-100);
-    color: var(--color-fire-800);
+    background: var(--color-ocean-100);
+    color: var(--color-ocean-800);
     border-left-color: var(--color-emergency-critical);
   }
 
@@ -252,9 +252,9 @@
   }
 
   .risk-high {
-    background: var(--color-fire-100);
-    color: var(--color-fire-700);
-    border: 1px solid var(--color-fire-200);
+    background: var(--color-ocean-100);
+    color: var(--color-ocean-700);
+    border: 1px solid var(--color-ocean-200);
     @apply px-2 py-1 rounded-full text-sm font-medium;
   }
 
@@ -317,7 +317,7 @@
   
   .subtle-focus:focus {
     outline: none;
-    box-shadow: 0 0 0 3px var(--color-fire-200);
+    box-shadow: 0 0 0 3px var(--color-ocean-200);
   }
 
   @keyframes shimmer {
@@ -346,12 +346,12 @@
 }
 
 /* Fire heatmap specific styles - Static version */
-.fire-hotspot {
+.ocean-hotspot {
   opacity: 0.8;
   transition: opacity 0.3s ease;
 }
 
-.fire-hotspot:hover {
+.ocean-hotspot:hover {
   opacity: 1;
 }
 
@@ -506,7 +506,7 @@
 }
 
 .severity-high {
-  background: var(--color-fire-600);
+  background: var(--color-ocean-600);
   color: white;
 }
 
@@ -572,12 +572,12 @@
 
 /* Focus visible for accessibility */
 .focus-visible {
-  @apply outline-none ring-2 ring-fire-500 ring-offset-2;
+  @apply outline-none ring-2 ring-ocean-500 ring-offset-2;
 }
 
 /* Skip to content link for screen readers */
 .skip-link {
-  @apply absolute -top-10 left-6 bg-fire-600 text-white px-4 py-2 rounded-md transition-all duration-200 focus:top-6;
+  @apply absolute -top-10 left-6 bg-ocean-600 text-white px-4 py-2 rounded-md transition-all duration-200 focus:top-6;
 }
 
 /* Enhanced Emergency Action Bar Styles - Modern UX Design */
@@ -645,8 +645,8 @@
 }
 
 .hero-emergency-section {
-  background: linear-gradient(135deg, var(--color-fire-50) 0%, #fee2e2 100%);
-  border: 2px solid var(--color-fire-200);
+  background: linear-gradient(135deg, var(--color-ocean-50) 0%, #fee2e2 100%);
+  border: 2px solid var(--color-ocean-200);
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 20px;
@@ -665,7 +665,7 @@
 .emergency-guidance {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-fire-800);
+  color: var(--color-ocean-800);
   margin: 0;
 }
 
@@ -777,7 +777,7 @@
 }
 
 .quick-action-card:hover {
-  border-color: var(--color-fire-400);
+  border-color: var(--color-ocean-400);
   box-shadow: 0 4px 12px rgba(249, 115, 22, 0.15);
   transform: translateY(-1px);
 }
@@ -846,7 +846,7 @@
   }
   
   .quick-action-card:hover {
-    border-color: var(--color-fire-600);
+    border-color: var(--color-ocean-600);
   }
 }
 
