@@ -459,14 +459,37 @@ export const SafetyStatus = {
 /**
  * Community report types
  */
+/**
+ * Ocean and Coastal Hazard Report Types
+ * Adapted for ocean conservation and coastal safety
+ */
 export const ReportTypes = {
-  FIRE_SPOTTING: 'fire-spotting',
-  POWER_LINE_DOWN: 'power-line-down',
-  ROAD_CLOSURE: 'road-closure',
+  // Critical Ocean Hazards
+  TSUNAMI_SIGHTING: 'tsunami-sighting',
+  COASTAL_FLOODING: 'coastal-flooding',
+  RIP_CURRENT: 'rip-current',
+  MARINE_HAZARD: 'marine-hazard',
+
+  // Environmental/Conservation Reports
+  OIL_SPILL: 'oil-spill',
+  MARINE_DEBRIS: 'marine-debris',
+  HARMFUL_ALGAE_BLOOM: 'harmful-algae-bloom',
+  CORAL_BLEACHING: 'coral-bleaching',
+  BEACH_POLLUTION: 'beach-pollution',
+  COASTAL_EROSION: 'coastal-erosion',
+
+  // Infrastructure & Access
+  BEACH_CLOSURE: 'beach-closure',
+  UNSAFE_WATER_CONDITIONS: 'unsafe-water-conditions',
+
+  // Community Assistance (Universal)
   NEED_EVAC_HELP: 'need-evac-help',
   OFFER_HELP: 'offer-help',
   RESOURCE_SHORTAGE: 'resource-shortage',
-  UNSAFE_CONDITIONS: 'unsafe-conditions'
+
+  // Marine Wildlife
+  MARINE_ANIMAL_DISTRESS: 'marine-animal-distress',
+  ILLEGAL_FISHING: 'illegal-fishing'
 };
 
 /**

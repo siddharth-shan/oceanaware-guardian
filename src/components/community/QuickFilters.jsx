@@ -4,9 +4,9 @@
  */
 
 import { useState } from 'react';
-import { 
+import {
   AlertTriangle, MapPin, Clock, Users, Search, X, Filter,
-  Flame, Shield, Eye, CheckCircle, Zap
+  Waves, Shield, Eye, CheckCircle, Zap
 } from 'lucide-react';
 
 const QuickFilters = ({ 
@@ -209,15 +209,15 @@ const QuickFilters = ({
 
       {/* Emergency Mode Indicator */}
       {emergencyLevel === 'critical' && (
-        <div className="bg-red-100 border border-red-300 rounded-lg p-3">
+        <div className="bg-critical-100 border border-critical-300 rounded-lg p-3">
           <div className="flex items-center space-x-2">
-            <Flame className="h-5 w-5 text-red-600 animate-pulse" />
+            <Waves className="h-5 w-5 text-critical-600 animate-pulse" />
             <div>
-              <span className="text-red-800 font-semibold text-sm">
-                Emergency Mode Active
+              <span className="text-critical-800 font-semibold text-sm">
+                Ocean Emergency Mode Active
               </span>
-              <p className="text-red-700 text-xs">
-                Filters optimized for critical situation response
+              <p className="text-critical-700 text-xs">
+                Filters optimized for critical coastal hazard response
               </p>
             </div>
           </div>

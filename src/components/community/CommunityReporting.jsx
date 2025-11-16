@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
-import { AlertTriangle, Camera, MapPin, Clock, Send, CheckCircle, Users, Flame, RefreshCw } from 'lucide-react';
+import {
+  AlertTriangle, Camera, MapPin, Clock, Send, CheckCircle, Users, RefreshCw,
+  Waves, Droplets, Anchor, Fish, AlertOctagon, Trash2, Leaf, Shell, Ban, Wind
+} from 'lucide-react';
 import { useAuth } from '../../services/auth/AuthContext';
 import { communityThemes } from '../../utils/communityThemes';
 import { 
@@ -85,36 +88,109 @@ const CommunityReporting = ({ userLocation, preFilteredReports, emergencyLevel, 
   const [verifyingReports, setVerifyingReports] = useState(new Set());
 
   const reportTypes = [
+    // Critical Ocean Hazards
     {
-      id: ReportTypes.FIRE_SPOTTING,
-      label: 'Fire Spotting',
-      icon: Flame,
+      id: ReportTypes.TSUNAMI_SIGHTING,
+      label: 'Tsunami Warning',
+      icon: Waves,
       theme: communityThemes.emergency.primary,
-      description: 'Report visible fire or smoke',
+      description: 'Report tsunami sighting or unusual wave activity',
       urgentLevel: 'critical'
     },
     {
-      id: ReportTypes.POWER_LINE_DOWN,
-      label: 'Power Line Down',
-      icon: AlertTriangle,
+      id: ReportTypes.COASTAL_FLOODING,
+      label: 'Coastal Flooding',
+      icon: Droplets,
       theme: communityThemes.emergency.primary,
-      description: 'Downed power lines or electrical hazards',
+      description: 'Report flooding along coastline',
+      urgentLevel: 'critical'
+    },
+    {
+      id: ReportTypes.RIP_CURRENT,
+      label: 'Rip Current',
+      icon: Wind,
+      theme: communityThemes.emergency.primary,
+      description: 'Dangerous rip current detected',
+      urgentLevel: 'high'
+    },
+
+    // Environmental/Conservation Reports
+    {
+      id: ReportTypes.OIL_SPILL,
+      label: 'Oil Spill',
+      icon: AlertOctagon,
+      theme: communityThemes.emergency.primary,
+      description: 'Report oil or chemical spill in water',
       urgentLevel: 'high'
     },
     {
-      id: ReportTypes.ROAD_CLOSURE,
-      label: 'Road Closure',
-      icon: MapPin,
+      id: ReportTypes.MARINE_DEBRIS,
+      label: 'Marine Debris',
+      icon: Trash2,
       theme: communityThemes.reporting.primary,
-      description: 'Blocked or unsafe roads',
+      description: 'Report significant ocean debris or pollution',
       urgentLevel: 'normal'
     },
+    {
+      id: ReportTypes.HARMFUL_ALGAE_BLOOM,
+      label: 'Harmful Algae Bloom',
+      icon: Leaf,
+      theme: communityThemes.reporting.primary,
+      description: 'Report algae bloom or discolored water',
+      urgentLevel: 'normal'
+    },
+    {
+      id: ReportTypes.CORAL_BLEACHING,
+      label: 'Coral Bleaching',
+      icon: Shell,
+      theme: communityThemes.reporting.primary,
+      description: 'Report bleached or damaged coral',
+      urgentLevel: 'normal'
+    },
+    {
+      id: ReportTypes.BEACH_POLLUTION,
+      label: 'Beach Pollution',
+      icon: Trash2,
+      theme: communityThemes.reporting.primary,
+      description: 'Report beach contamination or excessive waste',
+      urgentLevel: 'normal'
+    },
+
+    // Infrastructure & Access
+    {
+      id: ReportTypes.BEACH_CLOSURE,
+      label: 'Beach Closure',
+      icon: Ban,
+      theme: communityThemes.reporting.primary,
+      description: 'Report closed or restricted beach access',
+      urgentLevel: 'normal'
+    },
+    {
+      id: ReportTypes.UNSAFE_WATER_CONDITIONS,
+      label: 'Unsafe Water',
+      icon: AlertTriangle,
+      theme: communityThemes.emergency.primary,
+      description: 'Report dangerous water conditions',
+      urgentLevel: 'high'
+    },
+
+    // Marine Wildlife
+    {
+      id: ReportTypes.MARINE_ANIMAL_DISTRESS,
+      label: 'Marine Animal in Distress',
+      icon: Fish,
+      theme: communityThemes.emergency.primary,
+      description: 'Report injured or stranded marine animal',
+      urgentLevel: 'high'
+    },
+
+    // Community Assistance (Universal)
     {
       id: ReportTypes.NEED_EVAC_HELP,
       label: 'Need Evacuation Help',
       icon: Users,
       theme: communityThemes.emergency.primary,
-      description: 'Request assistance with evacuation',
+      description: 'Request assistance with coastal evacuation',
       urgentLevel: 'critical'
     },
     {
@@ -122,16 +198,8 @@ const CommunityReporting = ({ userLocation, preFilteredReports, emergencyLevel, 
       label: 'Offer Help',
       icon: CheckCircle,
       theme: communityThemes.community.primary,
-      description: 'Volunteer assistance available',
+      description: 'Volunteer assistance available for conservation or safety',
       urgentLevel: 'low'
-    },
-    {
-      id: ReportTypes.UNSAFE_CONDITIONS,
-      label: 'Unsafe Conditions',
-      icon: AlertTriangle,
-      theme: communityThemes.emergency.primary,
-      description: 'Report dangerous environmental conditions',
-      urgentLevel: 'high'
     }
   ];
 
