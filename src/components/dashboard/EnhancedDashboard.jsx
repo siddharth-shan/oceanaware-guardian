@@ -437,10 +437,10 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 space-y-2 sm:space-y-0">
               <div>
                 <h2 className="text-xl lg:text-2xl font-bold text-gray-800 mb-1 lg:mb-2">
-                  {translate('app.title', 'EcoQuest Wildfire Watch')}
+                  {translate('app.title', 'OceanAware Guardian')}
                 </h2>
                 <p className="text-sm lg:text-base text-gray-600">
-                  {translate('app.tagline', 'AI-powered wildfire monitoring and safety companion')}
+                  {translate('app.tagline', 'AI-powered ocean conservation and coastal safety platform')}
                 </p>
               </div>
               <div className="text-left sm:text-right">
