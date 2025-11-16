@@ -487,7 +487,7 @@ const AppContent = () => {
             <div className="flex items-center justify-between h-18 lg:h-20">
               <div className="flex items-center">
                 <img
-                  src="/icons/ecoquest_fw_logo.png"
+                  src="/icons/oceanaware-guardian.png"
                   alt="OceanAware Guardian Logo"
                   className="h-10 w-10 lg:h-12 lg:w-12 mr-3 lg:mr-4 rounded-full shadow-lg ring-2 ring-white/20"
                 />

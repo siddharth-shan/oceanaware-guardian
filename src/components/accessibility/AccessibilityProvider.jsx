@@ -122,9 +122,9 @@ export const AccessibilityProvider = ({ children }) => {
       'action.safety-guide': 'Safety Guide',
       
       // App sections
-      'app.title': 'EcoQuest Wildfire Watch',
-      'app.subtitle': 'Real-time wildfire monitoring & safety',
-      'app.tagline': 'AI-powered wildfire monitoring and safety companion',
+      'app.title': 'OceanAware Guardian',
+      'app.subtitle': 'Real-time ocean hazard monitoring & conservation',
+      'app.tagline': 'AI-powered ocean conservation platform',
       
       // AI Scanner
       'ai.title': 'AI Wildfire Risk Scanner',
