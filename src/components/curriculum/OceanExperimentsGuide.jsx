@@ -70,7 +70,7 @@ const OceanExperimentsGuide = () => {
         {
           step: 2,
           title: 'Add Water (The Ocean)',
-          instructions: 'Carefully pour water into the other end of the pan until it's about 1 inch deep. The water should touch the base of your sandy beach.',
+          instructions: 'Carefully pour water into the other end of the pan until it\'s about 1 inch deep. The water should touch the base of your sandy beach.',
           tip: 'Add water slowly to avoid washing away your beach immediately'
         },
         {
