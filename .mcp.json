@@ -1,0 +1,85 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/work/projects/ecoquest/app/ecoquest-wildfire-watch"
+      ]
+    },
+    "memory": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "TestSprite": {
+      "command": "npx",
+      "args": ["@testsprite/testsprite-mcp@latest"],
+      "env": {
+        "API_KEY": "sk-user-TNIlHNDnNeq-8smB_BBNwftVmXdwAbL4pIOAGxzg3-VR2NkbswLkYRDBeFYrfx5wE0_PnoE9-qoFhEsVGFmvKaJ9cnvSd-BAtGMy6pCOFG-lyHmEfQUt6hSGwd0BBFm7pA0"
+      }
+    },
+    "puppeteer": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@hisma/server-puppeteer"
+      ]
+    },
+    "allPepper-memory-bank": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@allpepper/memory-bank-mcp@latest"
+      ],
+      "env": {
+        "MEMORY_BANK_ROOT": "/Users/work/projects/ecoquest/app/ecoquest-wildfire-watch"
+      }
+    },
+    "sequential-thinking": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },    
+    "mcp-server-firecrawl": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "fc-602b1d8ac3824e77b291f40e02fad4fb"
+      }
+    },
+    "browserbase": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "supergateway",
+        "--sse",
+        "https://mcp.pipedream.net/09cf09f7-469f-4073-9d05-6b5d70ef8877/browserbase"
+      ]
+    },    
+    "runner": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-server-code-runner@latest"
+      ],
+      "env": {}
+    },
+    "ref-tools": {
+      "type": "http",
+      "url": "https://api.ref.tools/mcp?apiKey=ref-46c38f6de3e8c09c0059"
+    }
+  }
+}

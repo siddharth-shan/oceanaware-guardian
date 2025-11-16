@@ -1,0 +1,38 @@
+{
+  "groupCode": "STRONG-GUARD-6195",
+  "data": {
+    "code": "STRONG-GUARD-6195",
+    "createdAt": "2025-07-27T23:48:54.159Z",
+    "createdBy": "local-1753660115261-bc8zn1mab",
+    "name": "test3",
+    "members": [
+      {
+        "id": "local-1753660115261-bc8zn1mab",
+        "joinedAt": "2025-07-27T23:48:54.159Z",
+        "nickname": "Group Creator",
+        "status": "safe",
+        "lastSeen": "2025-07-27T23:48:54.159Z",
+        "location": null,
+        "emergencyContacts": []
+      },
+      {
+        "id": "local-1753660239515-eorkt6trc",
+        "joinedAt": "2025-07-27T23:51:24.381Z",
+        "nickname": "Mom",
+        "status": "safe",
+        "lastSeen": "2025-07-27T23:51:24.381Z",
+        "location": null,
+        "emergencyContacts": []
+      }
+    ],
+    "lastActivity": "2025-07-27T23:51:24.381Z",
+    "settings": {
+      "requireCheckIn": true,
+      "checkInIntervalHours": 24,
+      "emergencyAutoShare": false,
+      "allowNewMembers": true
+    }
+  },
+  "createdAt": "2025-07-27T23:51:24.397Z",
+  "updatedAt": "2025-07-27T23:51:24.397Z"
+}

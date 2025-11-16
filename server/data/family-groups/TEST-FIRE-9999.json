@@ -1,0 +1,33 @@
+{
+  "groupCode": "TEST-FIRE-9999",
+  "data": {
+    "code": "TEST-FIRE-9999",
+    "name": "Cross Browser Test Group",
+    "createdBy": "user-cross-browser-test",
+    "createdAt": "2025-07-27T23:39:44.000Z",
+    "members": [
+      {
+        "id": "user-cross-browser-test",
+        "nickname": "Browser 1 Creator",
+        "status": "safe",
+        "joinedAt": "2025-07-27T23:39:44.000Z",
+        "lastSeen": "2025-07-27T23:39:44.000Z"
+      },
+      {
+        "id": "user-browser-2-test",
+        "nickname": "Browser 2 Joiner",
+        "status": "safe",
+        "joinedAt": "2025-07-27T23:41:10.000Z",
+        "lastSeen": "2025-07-27T23:41:10.000Z"
+      }
+    ],
+    "settings": {
+      "allowNewMembers": true,
+      "requireCheckIn": true,
+      "checkInIntervalHours": 24
+    },
+    "lastActivity": "2025-07-27T23:41:10.000Z"
+  },
+  "createdAt": "2025-07-27T23:41:10.778Z",
+  "updatedAt": "2025-07-27T23:41:10.778Z"
+}

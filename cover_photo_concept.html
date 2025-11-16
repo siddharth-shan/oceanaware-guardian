@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoQuest Wildfire Watch - Cover Photo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        .cover-container {
+            width: 600px;
+            height: 800px;
+            position: relative;
+            background: linear-gradient(135deg, #ff6b35 0%, #e85d04 50%, #9d0208 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Section */
+        .header {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #ff6b35;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            border: 3px solid white;
+        }
+        
+        .app-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px 0 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .app-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .ai-badge {
+            background: linear-gradient(45deg, #ff6b35, #ffd60a);
+            color: black;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        /* Main Interface Section */
+        .main-interface {
+            flex: 1;
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        /* AI Analysis Panel */
+        .ai-panel {
+            background: white;
+            padding: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .ai-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .ai-icon {
+            width: 20px;
+            height: 20px;
+            background: #ff6b35;
+            border-radius: 4px;
+            margin-right: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        
+        .vegetation-analysis {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        
+        .risk-score {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 8px 0;
+        }
+        
+        .score-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #28a745;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        /* Fire Map Section */
+        .map-section {
+            padding: 15px;
+            height: 200px;
+            background: linear-gradient(to bottom, #e3f2fd, #bbdefb);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .map-layers {
+            position: absolute;
+            top: 40px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            background: #81c784;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .fire-marker {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ff4444;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        .fire-marker:nth-child(1) { top: 30%; left: 20%; }
+        .fire-marker:nth-child(2) { top: 60%; left: 70%; }
+        .fire-marker:nth-child(3) { top: 80%; left: 40%; }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .wind-arrow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px;
+            height: 30px;
+            background: #333;
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%) rotate(45deg);
+        }
+        
+        .wind-arrow::after {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: -3px;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 8px solid #333;
+        }
+        
+        /* Community Features */
+        .community-section {
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        
+        .community-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+        
+        .stat-label {
+            font-size: 10px;
+            color: #666;
+            margin-top: 2px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .student-credit {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .cac-badge {
+            background: linear-gradient(45deg, #1976d2, #42a5f5);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="cover-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">🔥</div>
+            <div class="app-title">EcoQuest Wildfire Watch</div>
+            <div class="app-subtitle">AI-Powered Emergency Preparedness</div>
+            <div class="ai-badge">NVIDIA AI • Real-Time Intelligence</div>
+        </div>
+        
+        <!-- Main Interface -->
+        <div class="main-interface">
+            <!-- AI Analysis Panel -->
+            <div class="ai-panel">
+                <div class="ai-title">
+                    <div class="ai-icon">🤖</div>
+                    AI Vegetation Risk Assessment
+                </div>
+                <div class="vegetation-analysis">
+                    <div class="risk-score">
+                        <span style="font-size: 12px; color: #333;">Overall Fire Risk</span>
+                        <div class="score-circle">23</div>
+                    </div>
+                    <div style="font-size: 10px; color: #666; margin-top: 5px;">
+                        ✓ Low fuel load detected<br>
+                        ✓ Adequate defensible space<br>
+                        ⚠ Monitor dry vegetation areas
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fire Map Section -->
+            <div class="map-section">
+                <div class="map-title">🗺️ Real-Time Fire Intelligence</div>
+                <div class="map-layers">
+                    <div class="fire-marker"></div>
+                    <div class="fire-marker"></div>
+                    <div class="fire-marker"></div>
+                    <div class="wind-arrow"></div>
+                </div>
+            </div>
+            
+            <!-- Community Features -->
+            <div class="community-section">
+                <div style="font-size: 14px; font-weight: bold; color: #333; margin-bottom: 8px;">
+                    🏘️ Community Coordination
+                </div>
+                <div class="community-stats">
+                    <div class="stat">
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">FAMILIES<br>SAFE</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">ACTIVE<br>REPORTS</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">HELP<br>OFFERS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <div class="student-credit">Built by Siddharth Shan • High School Student</div>
+            <div class="cac-badge">Congressional App Challenge 2025</div>
+        </div>
+    </div>
+</body>
+</html>

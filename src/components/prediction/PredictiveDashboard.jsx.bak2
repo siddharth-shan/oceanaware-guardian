@@ -1,0 +1,677 @@
+import { useState, useEffect, useMemo } from 'react';
+import { 
+  Flame, 
+  AlertTriangle, 
+  TrendingUp, 
+  TrendingDown, 
+  Minus,
+  Wind, 
+  Thermometer, 
+  Droplets,
+  Eye,
+  RefreshCw,
+  Satellite,
+  Cloud,
+  Zap,
+  Brain,
+  Activity,
+  Target,
+  Navigation,
+  Clock
+} from 'lucide-react';
+import { useFireData } from '../../hooks/useFireData';
+import { useFireWeather } from '../../hooks/useFireWeather';
+import { useWeatherData } from '../../hooks/useWeatherData';
+import { useFirePrediction } from '../../hooks/useFirePrediction';
+import { usePurpleAir } from '../../hooks/usePurpleAir';
+import FireWeatherCard from './FireWeatherCard';
+import FireSpreadForecast from './FireSpreadForecast';
+import AirQualityTrendCard from './AirQualityTrendCard';
+
+/**
+ * Predictive Fire Safety Dashboard
+ * 
+ * Phase 1 & 2 Implementation:
+ * - Real-time NASA FIRMS fire detection
+ * - Enhanced fire weather monitoring  
+ * - Fire weather indices calculation
+ * - AI-powered fire spread prediction
+ * - Real-time air quality monitoring
+ * - Predictive risk assessment with transformer models
+ */
+const PredictiveDashboard = ({ userLocation }) => {
+  const [refreshing, setRefreshing] = useState(false);
+  const [selectedTimeRange, setSelectedTimeRange] = useState('24h');
+
+  // Data hooks
+  const { weather: currentWeather } = useWeatherData(userLocation);
+  
+  const { 
+    fires, 
+    metadata: fireMetadata,
+    loading: firesLoading,
+    error: firesError,
+    lastUpdate: firesLastUpdate,
+    refetch: refreshFires
+  } = useFireData(userLocation, {
+    radius: 100,
+    autoRefresh: true,
+    refreshInterval: 300000 // 5 minutes
+  });
+
+  // Transform fire data to match expected format
+  const fireData = useMemo(() => {
+    if (!fires || !Array.isArray(fires)) return { fires: [], stats: { total: 0, nearby: 0, critical: 0 } };
+    
+    const nearbyFires = fires.filter(fire => fire.distance <= 25);
+    const criticalFires = fires.filter(fire => fire.containment < 50 || fire.acres > 1000);
+    
+    return {
+      fires: fires,
+      stats: {
+        total: fires.length,
+        nearby: nearbyFires.length,
+        critical: criticalFires.length
+      },
+      lastUpdate: firesLastUpdate
+    };
+  }, [fires, firesLastUpdate]);
+  
+  // Phase 2: Enhanced AI prediction hooks (after fireData is available)
+  const {
+    airQualityData,
+    analytics: airQualityAnalytics,
+    loading: airQualityLoading,
+    error: airQualityError,
+    lastUpdate: airQualityLastUpdate,
+    refresh: refreshAirQuality
+  } = usePurpleAir(userLocation, {
+    radius: 75,
+    autoRefresh: true,
+    refreshInterval: 120000, // 2 minutes
+    enableSmokeDetection: true
+  });
+
+  const {
+    predictions,
+    analytics: predictionAnalytics,
+    loading: predictionLoading,
+    error: predictionError,
+    lastUpdate: predictionLastUpdate,
+    refresh: refreshPrediction
+  } = useFirePrediction(fireData, currentWeather, {}, {
+    predictionDays: 5,
+    autoRefresh: true,
+    refreshInterval: 1800000, // 30 minutes
+    enableAdvancedModels: true
+  });
+
+  const {
+    fireWeatherAlerts,
+    forecast,
+    fireWeatherIndices,
+    processedAlerts,
+    currentFireDanger,
+    forecastAnalysis,
+    loading: weatherLoading,
+    error: weatherError,
+    lastUpdate: weatherLastUpdate,
+    refresh: refreshWeather
+  } = useFireWeather(userLocation, currentWeather, {
+    autoRefresh: true,
+    refreshInterval: 600000, // 10 minutes
+    includeForecast: true,
+    includeIndices: true
+  });
+
+  // Manual refresh all data
+  const handleRefreshAll = async () => {
+    setRefreshing(true);
+    try {
+      await Promise.all([
+        refreshFires(), 
+        refreshWeather(), 
+        refreshAirQuality(), 
+        refreshPrediction()
+      ]);
+    } catch (error) {
+      console.error('Error refreshing data:', error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
+  // Overall risk assessment
+  const overallRiskAssessment = useMemo(() => {
+    let riskLevel = 'low';
+    let riskScore = 0;
+    let primaryThreats = [];
+    let recommendations = [];
+
+    // Fire proximity risk
+    if (fireData?.stats?.nearby > 0) {
+      riskScore += fireData.stats.nearby * 20;
+      primaryThreats.push(`${fireData.stats.nearby} fire(s) within 25 miles`);
+    }
+
+    if (fireData?.stats?.critical > 0) {
+      riskScore += fireData.stats.critical * 30;
+      primaryThreats.push(`${fireData.stats.critical} critical fire(s) detected`);
+    }
+
+    // Fire weather risk
+    if (currentFireDanger?.redFlagActive) {
+      riskScore += 50;
+      primaryThreats.push('Red Flag conditions active');
+    }
+
+    if (currentFireDanger?.level === 'extreme') {
+      riskScore += 40;
+      primaryThreats.push('Extreme fire weather conditions');
+    } else if (currentFireDanger?.level === 'very_high') {
+      riskScore += 30;
+      primaryThreats.push('Very high fire danger');
+    } else if (currentFireDanger?.level === 'high') {
+      riskScore += 20;
+      primaryThreats.push('High fire danger');
+    }
+
+    // Alert severity
+    if (processedAlerts?.critical?.length > 0) {
+      riskScore += processedAlerts.critical.length * 15;
+      primaryThreats.push(`${processedAlerts.critical.length} critical weather alert(s)`);
+    }
+
+    // Forecast risk
+    if (forecastAnalysis?.criticalDays > 0) {
+      riskScore += forecastAnalysis.criticalDays * 10;
+      primaryThreats.push(`${forecastAnalysis.criticalDays} critical day(s) in forecast`);
+    }
+
+    // Air quality risk
+    if (airQualityData?.smokeDetection?.detected) {
+      riskScore += airQualityData.smokeDetection.intensity === 'severe' ? 40 : 25;
+      primaryThreats.push(`Wildfire smoke detected (${airQualityData.smokeDetection.intensity})`);
+    }
+
+    if (airQualityData?.summary?.aqi > 150) {
+      riskScore += 30;
+      primaryThreats.push('Unhealthy air quality conditions');
+    }
+
+    // Fire spread prediction risk
+    if (predictionAnalytics?.criticalDays > 0) {
+      riskScore += predictionAnalytics.criticalDays * 15;
+      primaryThreats.push(`${predictionAnalytics.criticalDays} critical fire spread day(s) predicted`);
+    }
+
+    if (predictionAnalytics?.peakRiskDay?.riskScore > 70) {
+      riskScore += 20;
+      primaryThreats.push('High fire spread risk predicted');
+    }
+
+    // Determine risk level
+    if (riskScore >= 100) {
+      riskLevel = 'critical';
+      recommendations = [
+        'Prepare for potential evacuation',
+        'Monitor emergency channels continuously',
+        'Avoid all outdoor burning and spark-producing activities',
+        'Ensure emergency supplies are ready'
+      ];
+    } else if (riskScore >= 70) {
+      riskLevel = 'high';
+      recommendations = [
+        'Stay alert for evacuation orders',
+        'Monitor local emergency information',
+        'Avoid outdoor burning',
+        'Prepare emergency supplies'
+      ];
+    } else if (riskScore >= 40) {
+      riskLevel = 'moderate';
+      recommendations = [
+        'Stay informed about local fire conditions',
+        'Exercise caution with outdoor activities',
+        'Follow local fire restrictions'
+      ];
+    } else {
+      riskLevel = 'low';
+      recommendations = [
+        'Continue normal fire safety practices',
+        'Stay informed about changing conditions'
+      ];
+    }
+
+    return {
+      level: riskLevel,
+      score: riskScore,
+      threats: primaryThreats,
+      recommendations,
+      lastAssessment: new Date().toISOString()
+    };
+  }, [fireData, currentFireDanger, processedAlerts, forecastAnalysis]);
+
+  // Risk level styling
+  const getRiskStyling = (level) => {
+    switch (level) {
+      case 'critical':
+        return {
+          bg: 'bg-red-600',
+          text: 'text-white',
+          border: 'border-red-600',
+          lightBg: 'bg-red-50',
+          lightText: 'text-red-800',
+          icon: AlertTriangle
+        };
+      case 'high':
+        return {
+          bg: 'bg-orange-500',
+          text: 'text-white',
+          border: 'border-orange-500',
+          lightBg: 'bg-orange-50',
+          lightText: 'text-orange-800',
+          icon: Flame
+        };
+      case 'moderate':
+        return {
+          bg: 'bg-yellow-500',
+          text: 'text-white',
+          border: 'border-yellow-500',
+          lightBg: 'bg-yellow-50',
+          lightText: 'text-yellow-800',
+          icon: Eye
+        };
+      default:
+        return {
+          bg: 'bg-green-500',
+          text: 'text-white',
+          border: 'border-green-500',
+          lightBg: 'bg-green-50',
+          lightText: 'text-green-800',
+          icon: Eye
+        };
+    }
+  };
+
+  const riskStyling = getRiskStyling(overallRiskAssessment.level);
+  const RiskIcon = riskStyling.icon;
+
+  if (!userLocation) {
+    return (
+      <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+        <Satellite className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">Location Required</h3>
+        <p className="text-gray-600">
+          Please set your location to view predictive fire safety analysis
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header with Overall Risk Assessment */}
+      <div className={`${riskStyling.bg} ${riskStyling.text} rounded-lg p-6 shadow-lg`}>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <RiskIcon className="h-8 w-8" />
+            <div>
+              <h2 className="text-2xl font-bold">Predictive Fire Safety Analysis</h2>
+              <p className="text-sm opacity-90">
+                AI-powered risk assessment for {userLocation.displayName}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={handleRefreshAll}
+            disabled={refreshing}
+            className="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2"
+          >
+            <RefreshCw className={`h-4 w-4 ${refreshing ? 'animate-spin' : ''}`} />
+            <span>{refreshing ? 'Updating...' : 'Refresh'}</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white/10 rounded-lg p-4">
+            <div className="text-2xl font-bold">{overallRiskAssessment.level.toUpperCase()}</div>
+            <div className="text-sm opacity-90">Overall Risk Level</div>
+            <div className="text-xs opacity-75 mt-1">Score: {overallRiskAssessment.score}/200</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-4">
+            <div className="text-2xl font-bold">{fireData?.stats?.total || 0}</div>
+            <div className="text-sm opacity-90">Active Fires Detected</div>
+            <div className="text-xs opacity-75 mt-1">Within 100 miles</div>
+          </div>
+          <div className="bg-white/10 rounded-lg p-4">
+            <div className="text-2xl font-bold">{airQualityData?.summary?.aqi || '--'}</div>
+            <div className="text-sm opacity-90">Air Quality Index</div>
+            <div className="text-xs opacity-75 mt-1">{airQualityData?.summary?.aqiCategory || 'Loading...'}</div>
+          </div>
+        </div>
+
+        {overallRiskAssessment.threats.length > 0 && (
+          <div className="mt-4 p-3 bg-white/10 rounded-lg">
+            <h4 className="font-semibold mb-2">Primary Threats:</h4>
+            <ul className="text-sm space-y-1">
+              {overallRiskAssessment.threats.map((threat, index) => (
+                <li key={index} className="flex items-center space-x-2">
+                  <span className="w-1 h-1 bg-white rounded-full"></span>
+                  <span>{threat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+
+      {/* Time Range Selector */}
+      <div className="bg-white rounded-lg shadow-lg p-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-semibold text-gray-800">Data Time Range</h3>
+          <div className="flex space-x-2">
+            {[
+              { id: '24h', label: '24 Hours' },
+              { id: '7d', label: '7 Days' }
+            ].map((range) => (
+              <button
+                key={range.id}
+                onClick={() => setSelectedTimeRange(range.id)}
+                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                  selectedTimeRange === range.id
+                    ? 'bg-orange-600 text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {range.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Real-time Fire Detection */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-xl font-semibold text-gray-800 flex items-center">
+              <Satellite className="h-5 w-5 text-orange-600 mr-2" />
+              NASA FIRMS Fire Detection
+            </h3>
+            {firesLastUpdate && (
+              <span className="text-xs text-gray-500">
+                Updated {Math.floor((Date.now() - firesLastUpdate.getTime()) / 60000)}m ago
+              </span>
+            )}
+          </div>
+
+          {firesLoading ? (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600"></div>
+              <span className="ml-2 text-gray-600">Loading fire data...</span>
+            </div>
+          ) : firesError ? (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <div className="flex items-center">
+                <AlertTriangle className="h-4 w-4 text-red-600 mr-2" />
+                <span className="text-red-700 text-sm">{firesError}</span>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-red-50 p-3 rounded-lg">
+                  <div className="text-2xl font-bold text-red-600">{fireData?.stats?.nearby || 0}</div>
+                  <div className="text-sm text-red-800">Within 25 Miles</div>
+                </div>
+                <div className="bg-orange-50 p-3 rounded-lg">
+                  <div className="text-2xl font-bold text-orange-600">{fireData?.stats?.critical || 0}</div>
+                  <div className="text-sm text-orange-800">Critical Fires</div>
+                </div>
+              </div>
+
+              {fireData?.stats?.closestFire && (
+                <div className="border border-gray-200 rounded-lg p-3">
+                  <h4 className="font-semibold text-gray-800 mb-2">Closest Fire</h4>
+                  <div className="grid grid-cols-2 gap-2 text-sm">
+                    <div>
+                      <span className="text-gray-600">Distance:</span>
+                      <div className="font-bold">{fireData.stats.closestFire.distance} miles</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Intensity:</span>
+                      <div className="font-bold capitalize">{fireData.stats.closestFire.intensity}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {apiStatus && (
+                <div className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
+                  API Status: {apiStatus.requestsRemaining} requests remaining | 
+                  {apiStatus.isRateLimited ? ' Rate limited' : ' Active'} |
+                  Cache: {apiStatus.cacheSize} items
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Consolidated Fire Weather Card */}
+        <FireWeatherCard 
+          currentWeather={currentWeather}
+          fireWeatherIndices={fireWeatherIndices}
+          forecastAnalysis={forecastAnalysis}
+          currentFireDanger={currentFireDanger}
+        />
+      </div>
+
+
+      {/* Phase 2: AI Fire Spread Prediction */}
+      {predictionLoading ? (
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="flex items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+            <span className="ml-2 text-gray-600">Generating predictions...</span>
+          </div>
+        </div>
+      ) : predictionError ? (
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-center">
+              <AlertTriangle className="h-4 w-4 text-red-600 mr-2" />
+              <span className="text-red-700 text-sm">{predictionError}</span>
+            </div>
+          </div>
+        </div>
+      ) : predictions ? (
+        <FireSpreadForecast 
+          predictions={predictions}
+          analytics={predictionAnalytics}
+        />
+      ) : (
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <div className="flex items-center mb-2">
+              <AlertTriangle className="h-4 w-4 text-yellow-600 mr-2" />
+              <span className="text-yellow-700 text-sm">Waiting for fire and weather data to generate predictions...</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Phase 2: Air Quality Monitoring */}
+      <AirQualityTrendCard
+        airQualityData={airQualityData}
+        airQualityAnalytics={airQualityAnalytics}
+        loading={airQualityLoading}
+        error={airQualityError}
+      />
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xl font-semibold text-gray-800 flex items-center">
+            <Wind className="h-5 w-5 text-blue-600 mr-2" />
+            Real-time Air Quality Monitoring
+          </h3>
+          {airQualityLastUpdate && (
+            <span className="text-xs text-gray-500">
+              Updated {Math.floor((Date.now() - airQualityLastUpdate.getTime()) / 60000)}m ago
+            </span>
+          )}
+        </div>
+
+        {airQualityLoading ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <span className="ml-2 text-gray-600">Loading air quality data...</span>
+          </div>
+        ) : airQualityError ? (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <div className="flex items-center">
+              <AlertTriangle className="h-4 w-4 text-red-600 mr-2" />
+              <span className="text-red-700 text-sm">{airQualityError}</span>
+            </div>
+          </div>
+        ) : !airQualityData ? (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <div className="flex items-center mb-2">
+              <AlertTriangle className="h-4 w-4 text-yellow-600 mr-2" />
+              <span className="text-yellow-700 text-sm">Loading air quality sensors in your area...</span>
+            </div>
+            <div className="text-xs text-gray-600">
+              Debug: location={userLocation ? 'set' : 'not set'}, loading={airQualityLoading ? 'true' : 'false'}, error={airQualityError || 'none'}
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-6">
+              {/* Air Quality Summary */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className={`p-4 rounded-lg text-center`} style={{
+                  backgroundColor: airQualityData.summary.aqiColor + '20',
+                  borderColor: airQualityData.summary.aqiColor,
+                  borderWidth: '1px'
+                }}>
+                  <div className="text-3xl font-bold" style={{ color: airQualityData.summary.aqiColor }}>
+                    {airQualityData.summary.aqi}
+                  </div>
+                  <div className="text-sm font-medium">Air Quality Index</div>
+                  <div className="text-xs">{airQualityData.summary.aqiCategory}</div>
+                </div>
+                <div className="bg-gray-50 p-4 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-gray-800">{airQualityData.summary.pm25}</div>
+                  <div className="text-sm text-gray-600">PM2.5 (μg/m³)</div>
+                  <div className="text-xs text-gray-500">Particulate Matter</div>
+                </div>
+                <div className="bg-blue-50 p-4 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-blue-600">{airQualityData.metadata.totalSensors}</div>
+                  <div className="text-sm text-blue-800">Active Sensors</div>
+                  <div className="text-xs text-blue-600">Within {airQualityData.metadata.radius}km</div>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-green-600">{airQualityAnalytics?.dataFreshness || '--'}%</div>
+                  <div className="text-sm text-green-800">Data Freshness</div>
+                  <div className="text-xs text-green-600">Recent readings</div>
+                </div>
+              </div>
+
+              {/* Wildfire Smoke Detection */}
+              {airQualityData.smokeDetection.detected && (
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                  <div className="flex items-center mb-3">
+                    <Flame className="h-5 w-5 text-orange-600 mr-2" />
+                    <h4 className="font-semibold text-orange-800">Wildfire Smoke Detected</h4>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                    <div>
+                      <span className="text-orange-600 text-sm">Intensity:</span>
+                      <div className="font-bold capitalize">{airQualityData.smokeDetection.intensity}</div>
+                    </div>
+                    <div>
+                      <span className="text-orange-600 text-sm">Probability:</span>
+                      <div className="font-bold">{Math.round(airQualityData.smokeDetection.probability * 100)}%</div>
+                    </div>
+                    <div>
+                      <span className="text-orange-600 text-sm">Source:</span>
+                      <div className="font-bold capitalize">{airQualityData.smokeDetection.source}</div>
+                    </div>
+                    <div>
+                      <span className="text-orange-600 text-sm">Affected Sensors:</span>
+                      <div className="font-bold">{airQualityData.smokeDetection.affectedSensors}/{airQualityData.smokeDetection.totalSensors}</div>
+                    </div>
+                  </div>
+
+                  {/* Health Impact */}
+                  <div className="bg-white/50 p-3 rounded">
+                    <h5 className="font-semibold text-orange-800 mb-2">Health Impact: {airQualityData.smokeDetection.healthImpact.level}</h5>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="text-orange-600">Risk Groups:</span>
+                        <div>{airQualityData.smokeDetection.healthImpact.riskGroups.join(', ')}</div>
+                      </div>
+                      <div>
+                        <span className="text-orange-600">Possible Symptoms:</span>
+                        <div>{airQualityData.smokeDetection.healthImpact.symptoms.join(', ')}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Health Recommendations */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h4 className="font-semibold text-blue-800 mb-3">Health Recommendations</h4>
+                <div className="space-y-2">
+                  {airQualityData.healthRecommendations.map((rec, index) => (
+                    <div key={index} className="flex items-start space-x-2">
+                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <span className="text-blue-800 text-sm">{rec}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Sensor Coverage Quality */}
+              {airQualityAnalytics?.coverageQuality && (
+                <div className="text-xs text-gray-500 bg-gray-50 p-3 rounded">
+                  <strong>Coverage Quality:</strong> {airQualityAnalytics.coverageQuality.level} • 
+                  <strong>Sensor Density:</strong> {airQualityAnalytics.coverageQuality.sensorDensity} sensors/100km² • 
+                  <strong>Data Quality:</strong> {airQualityAnalytics.coverageQuality.dataQuality} • 
+                  {airQualityAnalytics.coverageQuality.recommendation}
+                </div>
+              )}
+            </div>
+        )}
+      </div>
+
+      {/* Recommendations */}
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <h3 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+          <Zap className="h-5 w-5 text-purple-600 mr-2" />
+          AI-Generated Recommendations
+        </h3>
+
+        <div className="space-y-3">
+          {overallRiskAssessment.recommendations.map((recommendation, index) => (
+            <div key={index} className="flex items-start space-x-3 p-3 bg-purple-50 rounded-lg">
+              <div className="w-2 h-2 bg-purple-600 rounded-full mt-2"></div>
+              <span className="text-purple-800">{recommendation}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+          <p className="text-xs text-gray-600">
+            <strong>Data Sources:</strong> NASA FIRMS (satellite fire detection), 
+            National Weather Service (fire weather alerts), 
+            OpenWeatherMap (current conditions),
+            PurpleAir (crowdsourced air quality), 
+            AI prediction models (fire spread analysis). 
+            Risk assessment updated every 2-5 minutes.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PredictiveDashboard;

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC001",
+    "title": "submit_community_hazard_report",
+    "description": "Test the POST /api/community/report endpoint to verify that community hazard reports can be submitted successfully with all required fields including location, description, hazardType, severity, reporterName, reporterEmail, and images."
+  },
+  {
+    "id": "TC002",
+    "title": "get_community_reports_by_location",
+    "description": "Test the GET /api/community/reports endpoint to ensure it returns community hazard reports filtered by latitude, longitude, radius, and limit parameters correctly."
+  },
+  {
+    "id": "TC003",
+    "title": "create_new_family_group",
+    "description": "Test the POST /api/family-groups/create endpoint to verify that a new family group can be created with groupName, creatorId, and creatorName."
+  },
+  {
+    "id": "TC004",
+    "title": "join_family_group_by_code",
+    "description": "Test the POST /api/family-groups/join endpoint to ensure users can join an existing family group using a valid groupCode along with userId and userName."
+  },
+  {
+    "id": "TC005",
+    "title": "activate_crisis_mode_for_area",
+    "description": "Test the POST /api/emergency/activate endpoint to verify that crisis mode can be activated for a specified location with emergencyLevel and reason parameters."
+  },
+  {
+    "id": "TC006",
+    "title": "get_nearby_fires_by_coordinates",
+    "description": "Test the GET /api/fire-data/nearby endpoint to ensure it returns accurate nearby fire data based on latitude, longitude, and radius query parameters."
+  },
+  {
+    "id": "TC007",
+    "title": "get_fires_by_state",
+    "description": "Test the GET /api/fire-data/state endpoint to verify it returns fire data filtered by the specified state parameter."
+  },
+  {
+    "id": "TC008",
+    "title": "get_ai_risk_analysis_for_location",
+    "description": "Test the GET /api/ai-analysis/risk endpoint to ensure it returns AI-powered wildfire risk analysis data for the given latitude and longitude."
+  },
+  {
+    "id": "TC009",
+    "title": "get_current_weather_conditions",
+    "description": "Test the GET /api/weather/current endpoint to verify it returns current weather conditions based on latitude and longitude parameters."
+  },
+  {
+    "id": "TC010",
+    "title": "get_current_alerts_for_location",
+    "description": "Test the GET /api/alerts/current endpoint to ensure it returns current emergency alerts for the specified location using latitude and longitude."
+  }
+]

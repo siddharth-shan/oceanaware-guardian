@@ -1,0 +1,85 @@
+{
+  "report_1754176089989_7zq4cb6ib": {
+    "latitude": 40.7128,
+    "longitude": -74.006,
+    "description": "New test report for verification",
+    "severity": "high",
+    "anonymous": true,
+    "location": {
+      "lat": 40.7128,
+      "lng": -74.006
+    },
+    "type": "wildfire",
+    "urgentLevel": "high",
+    "userId": "anon_creator-session-123",
+    "originalUserId": "anon_creator-session-123",
+    "timestamp": "2025-08-02T23:08:09.989Z",
+    "id": "report_1754176089989_7zq4cb6ib",
+    "verificationCount": 2,
+    "verifiedByUsers": [
+      "anon_verifier-session-456",
+      "anon_verifier-session-789"
+    ],
+    "status": "active",
+    "lastVerified": "2025-08-02T23:11:36.540Z"
+  },
+  "report_1754342035428_2w9s9c20a": {
+    "title": "Fire Spotting",
+    "description": "Spotted fire in Santa Maria area - needs immediate attention",
+    "type": "fire-spotting",
+    "urgentLevel": "critical",
+    "location": {
+      "lat": 34.9545,
+      "lng": -120.4325,
+      "region": "Santa Maria Area"
+    },
+    "userId": "anon_test_user_93454",
+    "originalUserId": "anon_test_user_93454",
+    "timestamp": "2025-08-04T21:15:35.428Z",
+    "id": "report_1754342035428_2w9s9c20a",
+    "verificationCount": 0,
+    "verifiedByUsers": [],
+    "status": "active",
+    "anonymous": true
+  },
+  "report_1754342089000_3w9s9c21b": {
+    "title": "Fire Spotting",
+    "description": "Additional fire spotted near Santa Maria - critical situation",
+    "type": "fire-spotting",
+    "urgentLevel": "critical",
+    "location": {
+      "lat": 34.9535,
+      "lng": -120.4335,
+      "region": "Santa Maria Area"
+    },
+    "userId": "anon_test_user2_93454",
+    "originalUserId": "anon_test_user2_93454",
+    "timestamp": "2025-08-04T21:16:29.000Z",
+    "id": "report_1754342089000_3w9s9c21b",
+    "verificationCount": 0,
+    "verifiedByUsers": [],
+    "status": "active",
+    "anonymous": true
+  },
+  "report_1754337446504_c471umi8e": {
+    "title": "Fire Spotting",
+    "description": "Test fire verification report - large smoke plume visible near highway 101, approximately 2 miles east of Santa Maria",
+    "type": "fire-spotting",
+    "urgentLevel": "critical",
+    "location": {
+      "lat": 34.9545,
+      "lng": -120.4325,
+      "region": "Santa Maria Area"
+    },
+    "userId": "anon_test_user_93454",
+    "originalUserId": "anon_test_user_93454",
+    "timestamp": "2025-08-04T02:13:00.000Z",
+    "id": "report_1754337446504_c471umi8e",
+    "verificationCount": 0,
+    "verifiedByUsers": [],
+    "status": "active",
+    "anonymous": true,
+    "hierarchicalPartition": "CA-OTHER-34.95,-120.44",
+    "geoRegion": "CA-OTHER"
+  }
+}

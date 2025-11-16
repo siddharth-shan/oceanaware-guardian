@@ -1,0 +1,8 @@
+{
+  "appId": "com.ecoquest.wildfirewatch",
+  "appName": "EcoQuest Wildfire Watch",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

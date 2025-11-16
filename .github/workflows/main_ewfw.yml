@@ -1,0 +1,126 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
+name: Build and deploy Node.js app to Azure Web App - ewfw
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read #This is required for actions/checkout
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.x'
+
+      - name: Create production environment file
+        run: |
+          cat > .env.production << EOF
+          VITE_APP_NAME="EcoQuest Wildfire Watch"
+          VITE_APP_VERSION="1.0.0"
+          VITE_NODE_ENV=production
+          VITE_API_BASE_URL=https://ewfw-hugafhdag5emcjgy.westus2-01.azurewebsites.net/api
+          VITE_OPENWEATHER_API_KEY=${{ secrets.VITE_OPENWEATHER_API_KEY }}
+          VITE_HUGGINGFACE_API_KEY=${{ secrets.VITE_HUGGINGFACE_API_KEY }}
+          VITE_HUGGINGFACE_API_TOKEN=${{ secrets.VITE_HUGGINGFACE_API_TOKEN }}
+          VITE_NASA_FIRMS_MAP_KEY=${{ secrets.VITE_NASA_FIRMS_MAP_KEY }}
+          VITE_PURPLEAIR_API_KEY=${{ secrets.VITE_PURPLEAIR_API_KEY }}
+          VITE_CDC_API_KEY_ID=${{ secrets.VITE_CDC_API_KEY_ID }}
+          VITE_CDC_API_SECRET=${{ secrets.VITE_CDC_API_SECRET }}
+          VITE_VAPID_PUBLIC_KEY=${{ secrets.VITE_VAPID_PUBLIC_KEY }}
+          EOF
+
+      - name: npm install, build, and test
+        env:
+          # Backend Configuration
+          PORT: 3001
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          
+          # Database Configuration
+          COSMOS_PRIMARY_CONNECTION_STRING: ${{ secrets.COSMOS_PRIMARY_CONNECTION_STRING }}
+          COSMOS_DB_ENDPOINT: ${{ secrets.COSMOS_DB_ENDPOINT }}
+          
+          # Push Notifications
+          VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+          VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
+          VAPID_EMAIL: ${{ secrets.VAPID_EMAIL }}
+          
+          # Legacy Keys
+          FIRMS_MAP_KEY: ${{ secrets.FIRMS_MAP_KEY }}
+          ARCGIS_USR: ${{ secrets.ARCGIS_USR }}
+          ARCGIS_PWD: ${{ secrets.ARCGIS_PWD }}
+          
+          # EPA & Air Quality APIs
+          EPA_AQS_API_KEY: ${{ secrets.EPA_AQS_API_KEY }}
+          EPA_AQS_API_EMAIL: ${{ secrets.EPA_AQS_API_EMAIL }}
+          AIRNOW_API_KEY: ${{ secrets.AIRNOW_API_KEY }}
+          
+          # News API
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          
+          # Rate Limiting (more permissive for production)
+          RATE_LIMIT_WINDOW: 15
+          RATE_LIMIT_MAX_REQUESTS: 1000
+          
+          # File Upload
+          MAX_FILE_SIZE: 5242880
+          ALLOWED_FILE_TYPES: "image/jpeg,image/png,image/webp"
+          
+          # External APIs
+          NIFC_API_URL: "https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services"
+          NOMINATIM_API_URL: "https://nominatim.openstreetmap.org"
+          
+          # Email Configuration
+          EMAIL_SERVICE: gmail
+          EMAIL_USER: ${{ secrets.EMAIL_USER }}
+          EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+        run: |
+          npm install
+          cd server && npm install && cd ..
+          npm run build
+          ls -la dist/
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-app
+          path: .
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      id-token: write #This is required for requesting the JWT
+      contents: read #This is required for actions/checkout
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: node-app
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_102DB8818ED24C65AF36657BA4049455 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A70453F482F4445BA85F2708BEB4B35C }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7B1436076E984BB1B2B641DE5476284A }}
+
+      - name: 'Deploy to Azure Web App'
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'ewfw'
+          slot-name: 'Production'
+          package: .
+          

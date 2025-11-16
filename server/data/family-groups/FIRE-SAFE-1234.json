@@ -1,0 +1,18 @@
+{
+  "groupCode": "FIRE-SAFE-1234",
+  "data": {
+    "code": "FIRE-SAFE-1234",
+    "name": "Test Family Group",
+    "createdBy": "test-user-123",
+    "members": [
+      {
+        "id": "test-user-123",
+        "nickname": "Test User",
+        "status": "safe",
+        "joinedAt": "2025-07-27T23:19:11.000Z"
+      }
+    ]
+  },
+  "createdAt": "2025-07-27T23:19:11.792Z",
+  "updatedAt": "2025-07-27T23:19:11.792Z"
+}

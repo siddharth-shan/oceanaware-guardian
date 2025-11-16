@@ -1,0 +1,576 @@
+/* Accessibility Styles for EcoQuest Wildfire Watch */
+
+/* High Contrast Mode */
+.high-contrast {
+  /* CSS custom properties for high contrast */
+  --hc-bg-primary: #000000;
+  --hc-bg-secondary: #1a1a1a;
+  --hc-bg-card: #2a2a2a;
+  --hc-text-primary: #ffffff;
+  --hc-text-secondary: #f0f0f0;
+  --hc-border-primary: #666666;
+  --hc-accent-color: #ffff00;
+  --hc-danger-color: #ff6b6b;
+  --hc-success-color: #51cf66;
+  --hc-warning-color: #ffd43b;
+  --hc-info-color: #74c0fc;
+}
+
+/* Apply high contrast to main layout elements */
+.high-contrast {
+  background-color: var(--hc-bg-primary) !important;
+  color: var(--hc-text-primary) !important;
+}
+
+.high-contrast body {
+  background-color: var(--hc-bg-primary) !important;
+  color: var(--hc-text-primary) !important;
+}
+
+/* Specific component high contrast styles */
+.high-contrast .bg-white,
+.high-contrast .bg-gray-100,
+.high-contrast .bg-gray-50 {
+  background-color: var(--hc-bg-card) !important;
+}
+
+.high-contrast .bg-gray-800 {
+  background-color: var(--hc-bg-secondary) !important;
+}
+
+.high-contrast .text-gray-600,
+.high-contrast .text-gray-700,
+.high-contrast .text-gray-800,
+.high-contrast .text-gray-900 {
+  color: var(--hc-text-secondary) !important;
+}
+
+.high-contrast .text-gray-500 {
+  color: var(--hc-text-secondary) !important;
+  opacity: 0.8;
+}
+
+/* Button and interactive elements */
+.high-contrast .bg-red-600,
+.high-contrast .bg-red-500 {
+  background-color: var(--hc-danger-color) !important;
+  color: var(--hc-bg-primary) !important;
+}
+
+.high-contrast .bg-green-600,
+.high-contrast .bg-green-500 {
+  background-color: var(--hc-success-color) !important;
+  color: var(--hc-bg-primary) !important;
+}
+
+.high-contrast .bg-orange-600,
+.high-contrast .bg-orange-500,
+.high-contrast .bg-yellow-500,
+.high-contrast .bg-yellow-400 {
+  background-color: var(--hc-warning-color) !important;
+  color: var(--hc-bg-primary) !important;
+}
+
+.high-contrast .bg-blue-600,
+.high-contrast .bg-blue-500 {
+  background-color: var(--hc-info-color) !important;
+  color: var(--hc-bg-primary) !important;
+}
+
+/* Form elements */
+.high-contrast button,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  border: 2px solid var(--hc-border-primary) !important;
+  background-color: var(--hc-bg-card) !important;
+  color: var(--hc-text-primary) !important;
+}
+
+.high-contrast button:hover,
+.high-contrast button:focus {
+  background-color: var(--hc-accent-color) !important;
+  color: var(--hc-bg-primary) !important;
+  outline: 3px solid var(--hc-border-primary) !important;
+}
+
+/* Text colors */
+.high-contrast .text-red-600,
+.high-contrast .text-red-700,
+.high-contrast .text-red-800 {
+  color: var(--hc-danger-color) !important;
+}
+
+.high-contrast .text-green-600,
+.high-contrast .text-green-700,
+.high-contrast .text-green-800 {
+  color: var(--hc-success-color) !important;
+}
+
+.high-contrast .text-orange-600,
+.high-contrast .text-orange-700,
+.high-contrast .text-orange-800,
+.high-contrast .text-yellow-600,
+.high-contrast .text-yellow-700,
+.high-contrast .text-yellow-800 {
+  color: var(--hc-warning-color) !important;
+}
+
+.high-contrast .text-blue-600,
+.high-contrast .text-blue-700,
+.high-contrast .text-blue-800 {
+  color: var(--hc-info-color) !important;
+}
+
+/* Border colors for cards and components */
+.high-contrast .border-gray-200,
+.high-contrast .border-gray-300 {
+  border-color: var(--hc-border-primary) !important;
+}
+
+.high-contrast .border-red-200,
+.high-contrast .border-red-400 {
+  border-color: var(--hc-danger-color) !important;
+}
+
+.high-contrast .border-green-200,
+.high-contrast .border-green-400 {
+  border-color: var(--hc-success-color) !important;
+}
+
+.high-contrast .border-orange-200,
+.high-contrast .border-orange-400,
+.high-contrast .border-yellow-200,
+.high-contrast .border-yellow-400 {
+  border-color: var(--hc-warning-color) !important;
+}
+
+.high-contrast .border-blue-200,
+.high-contrast .border-blue-400 {
+  border-color: var(--hc-info-color) !important;
+}
+
+/* Large Text Mode */
+.large-text {
+  font-size: 1.2em;
+}
+
+.large-text .text-xs {
+  font-size: 0.875rem !important;
+}
+
+.large-text .text-sm {
+  font-size: 1rem !important;
+}
+
+.large-text .text-base {
+  font-size: 1.25rem !important;
+}
+
+.large-text .text-lg {
+  font-size: 1.5rem !important;
+}
+
+.large-text .text-xl {
+  font-size: 1.875rem !important;
+}
+
+.large-text .text-2xl {
+  font-size: 2.25rem !important;
+}
+
+.large-text .text-3xl {
+  font-size: 3rem !important;
+}
+
+.large-text button,
+.large-text input,
+.large-text select,
+.large-text textarea {
+  font-size: 1.125rem !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.large-text .h-4,
+.large-text .w-4 {
+  height: 1.25rem !important;
+  width: 1.25rem !important;
+}
+
+.large-text .h-5,
+.large-text .w-5 {
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+
+.large-text .h-6,
+.large-text .w-6 {
+  height: 2rem !important;
+  width: 2rem !important;
+}
+
+/* Reduced Motion */
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+.reduced-motion .animate-pulse,
+.reduced-motion .animate-spin,
+.reduced-motion .animate-bounce {
+  animation: none !important;
+}
+
+/* Screen Reader Support */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Focus indicators */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+a:focus {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.high-contrast button:focus,
+.high-contrast input:focus,
+.high-contrast select:focus,
+.high-contrast textarea:focus,
+.high-contrast a:focus {
+  outline: 3px solid var(--accent-color) !important;
+  outline-offset: 2px;
+}
+
+/* Skip links for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Emergency alert accessibility */
+.emergency-alert {
+  /* Ensure emergency alerts are always visible */
+  position: relative;
+  z-index: 50;
+}
+
+.high-contrast .emergency-alert {
+  background-color: var(--hc-danger-color) !important;
+  color: var(--hc-text-primary) !important;
+  border: 3px solid var(--hc-text-primary) !important;
+  box-shadow: 0 0 20px var(--hc-danger-color) !important;
+}
+
+/* Header gradient override for high contrast */
+.high-contrast header {
+  background: var(--hc-bg-secondary) !important;
+  background-image: none !important;
+}
+
+.high-contrast .text-orange-100 {
+  color: var(--hc-text-secondary) !important;
+}
+
+/* Fix gradient backgrounds in high contrast */
+.high-contrast .bg-gradient-to-r {
+  background-image: none !important;
+}
+
+.high-contrast .from-red-600 {
+  background-color: var(--hc-danger-color) !important;
+}
+
+.high-contrast .from-orange-500 {
+  background-color: var(--hc-warning-color) !important;
+}
+
+.high-contrast .from-yellow-400 {
+  background-color: var(--hc-warning-color) !important;
+}
+
+/* Shadows and effects */
+.high-contrast .shadow-lg,
+.high-contrast .shadow-xl {
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Language support - Right-to-left for future expansion */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .mr-2 { 
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+/* Mobile accessibility improvements */
+@media (max-width: 640px) {
+  .large-text button {
+    min-height: 48px;
+    font-size: 1.25rem !important;
+  }
+  
+  .large-text input,
+  .large-text select,
+  .large-text textarea {
+    min-height: 48px;
+    font-size: 1.125rem !important;
+  }
+  
+  /* Larger touch targets */
+  button,
+  input[type="button"],
+  input[type="submit"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .large-text button,
+  .large-text input[type="button"],
+  .large-text input[type="submit"],
+  .large-text a {
+    min-height: 56px;
+    min-width: 56px;
+  }
+}
+
+/* Print styles for emergency information */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .emergency-info {
+    page-break-inside: avoid;
+    border: 2px solid #000 !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+  
+  /* Ensure emergency contact info is always printed */
+  .emergency-contacts {
+    page-break-before: avoid;
+    font-size: 14pt !important;
+    font-weight: bold;
+  }
+}
+
+/* Color blind friendly patterns */
+.color-blind-pattern-dots::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2px);
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+
+.color-blind-pattern-lines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 4px);
+  pointer-events: none;
+}
+
+/* Voice alert visual indicators */
+.speaking {
+  position: relative;
+}
+
+.speaking::after {
+  content: '🔊';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  animation: pulse 1s infinite;
+}
+
+.reduced-motion .speaking::after {
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Enhanced theme integration for accessibility */
+.high-contrast .enhanced-card {
+  background-color: var(--hc-bg-card) !important;
+  border-color: var(--hc-border-primary) !important;
+}
+
+.high-contrast .enhanced-button {
+  background-color: var(--hc-accent-color) !important;
+  color: var(--hc-bg-primary) !important;
+  border: 2px solid var(--hc-border-primary) !important;
+}
+
+.high-contrast .nav-tab.active {
+  background-color: var(--hc-bg-primary) !important;
+  color: var(--hc-accent-color) !important;
+  border: 3px solid var(--hc-accent-color) !important;
+}
+
+.high-contrast .nav-tab:hover {
+  background-color: var(--hc-bg-secondary) !important;
+  color: var(--hc-accent-color) !important;
+}
+
+.high-contrast .status-indicator {
+  border: 2px solid var(--hc-border-primary) !important;
+}
+
+.high-contrast .status-normal {
+  background-color: var(--hc-success-color) !important;
+  color: var(--hc-bg-primary) !important;
+}
+
+.high-contrast .status-watch {
+  background-color: var(--hc-warning-color) !important;
+  color: var(--hc-bg-primary) !important;
+}
+
+.high-contrast .status-warning {
+  background-color: var(--hc-warning-color) !important;
+  color: var(--hc-bg-primary) !important;
+}
+
+.high-contrast .status-critical {
+  background-color: var(--hc-danger-color) !important;
+  color: var(--hc-text-primary) !important;
+}
+
+/* Enhanced emergency background gradients for high contrast */
+.high-contrast .bg-emergency-normal,
+.high-contrast .bg-emergency-watch,
+.high-contrast .bg-emergency-warning,
+.high-contrast .bg-emergency-critical {
+  background: var(--hc-bg-primary) !important;
+}
+
+/* Focus ring improvements for new components */
+.enhanced-card:focus-within {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.high-contrast .enhanced-card:focus-within {
+  outline: 3px solid var(--hc-accent-color) !important;
+}
+
+/* Loading spinner accessibility */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+}
+
+.high-contrast .loading-shimmer {
+  background: linear-gradient(90deg, var(--hc-bg-card) 25%, var(--hc-bg-secondary) 50%, var(--hc-bg-card) 75%) !important;
+  background-size: 200% 100%;
+}
+
+.reduced-motion .loading-shimmer {
+  background: var(--hc-bg-card) !important;
+  animation: none !important;
+}
+
+/* Celebration animation accessibility */
+.reduced-motion .animate-bounce {
+  animation: none !important;
+  transform: scale(1.1);
+}
+
+.reduced-motion .animate-pulse {
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+/* Enhanced notification accessibility */
+.high-contrast .enhanced-card[role="alert"] {
+  border: 3px solid var(--hc-text-primary) !important;
+  background-color: var(--hc-bg-card) !important;
+}
+
+/* Improved focus management for modals */
+.modal-backdrop {
+  backdrop-filter: blur(4px);
+}
+
+.reduced-motion .modal-backdrop {
+  backdrop-filter: none;
+}
+
+.high-contrast .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Enhanced keyboard navigation for quest system */
+.quest-card:focus-within {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.high-contrast .quest-card:focus-within {
+  outline: 3px solid var(--hc-accent-color) !important;
+}

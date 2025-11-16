@@ -1,0 +1,22 @@
+1. What did you learn or take away from participating in the Congressional App Challenge?
+
+Original:
+Participating in the Congressional App Challenge taught me a lot more than just coding or app design. It showed me how technology can be used to make a real difference in people’s lives. When I started working on EcoQuest Wildfire Watch, I wanted to build something meaningful that connected my interest in the environment with my growing passion for computer science. Through the challenge, I learned how to turn an idea into a working app that could actually help people stay safe. One of the biggest things I learned was how important it is to understand your users. I had to think about what people really needed to know about wildfire risk and how to make that information clear and easy to access. That meant researching wildfire data, learning about APIs, and testing my app with others to get feedback. It pushed me to think like both a developer and a problem solver. I also learned a lot about perseverance. There were times when my code didn’t work or data wouldn’t load, and I had to figure out how to fix it. I realized that failure is part of the process, and every mistake taught me something new about debugging, design, or time management. Another takeaway was how inspiring it was to see other students’ creativity. Everyone had such different ideas, and it reminded me that technology can be used for anything—from health to education to the environment. It made me want to keep improving my skills and maybe even pursue a career where I can combine tech and sustainability.
+
+
+Refined:
+The Congressional App Challenge transformed my understanding of what students can accomplish when combining programming skills with genuine desire to serve communities. Building EcoQuest taught me that coding isn't just about algorithms and syntax—it's about solving real problems affecting real people.
+
+The technical learning was incredible. I mastered React, API integration, cloud deployment, and AI implementation. But more importantly, I learned systems thinking—considering user experience, accessibility, security, and performance simultaneously. When your app needs to work during life-threatening emergencies, every design decision matters.
+
+User feedback was eye-opening. Testing EcoQuest with families showed me how differently people interact with technology during stress. Features that seemed intuitive to me confused others. I learned to design for worst-case scenarios—when people are scared, rushed, and might not have perfect internet connectivity. This taught me empathy as a core programming skill.
+
+The challenge taught me perseverance through failure. My first AI model had 60% accuracy. My initial interface was too complex. Early versions crashed under load. Each failure taught me something crucial about debugging, optimization, or user-centered design. I learned that building quality software requires iterating based on real feedback, not just personal assumptions.
+
+Research became as important as coding. Understanding fire science, emergency management principles, and accessibility requirements forced me beyond technical skills into domain expertise. I read peer-reviewed papers, studied emergency protocols, and learned about human factors in crisis situations. This interdisciplinary approach made me a more well-rounded problem solver.
+
+Most importantly, I discovered my passion for civic technology. Seeing how EcoQuest helps families prepare for emergencies and connects communities during crises showed me that technology can be a force for social good. This experience convinced me to pursue computer science in college with a focus on public service applications.
+
+The Congressional App Challenge proved that students don't need to wait until we're adults to make meaningful contributions to society. When we combine technical skills with empathy and determination, we can build solutions that protect and serve our communities.
+
+Working on EcoQuest showed me that the most rewarding programming projects address real human needs. The technical challenges were immense, but knowing that families might use this app to stay safe during wildfires motivated me through every debugging session and late-night coding marathon. That's the kind of future I want to help create—where technology serves humanity's greatest challenges.

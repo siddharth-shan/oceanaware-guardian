@@ -1,0 +1,38 @@
+{
+  "groupCode": "GUARD-WATCH-1092",
+  "data": {
+    "code": "GUARD-WATCH-1092",
+    "createdAt": "2025-07-27T23:45:51.650Z",
+    "createdBy": "local-1753659929140-qu8h3twf8",
+    "name": "test",
+    "members": [
+      {
+        "id": "local-1753659929140-qu8h3twf8",
+        "joinedAt": "2025-07-27T23:45:51.650Z",
+        "nickname": "Group Creator",
+        "status": "safe",
+        "lastSeen": "2025-07-27T23:45:51.650Z",
+        "location": null,
+        "emergencyContacts": []
+      },
+      {
+        "id": "local-1753636086513-mjx9y75hm",
+        "joinedAt": "2025-07-27T23:46:23.447Z",
+        "nickname": "dad",
+        "status": "safe",
+        "lastSeen": "2025-07-27T23:46:23.447Z",
+        "location": null,
+        "emergencyContacts": []
+      }
+    ],
+    "lastActivity": "2025-07-27T23:46:23.447Z",
+    "settings": {
+      "requireCheckIn": true,
+      "checkInIntervalHours": 24,
+      "emergencyAutoShare": false,
+      "allowNewMembers": true
+    }
+  },
+  "createdAt": "2025-07-27T23:46:23.468Z",
+  "updatedAt": "2025-07-27T23:46:23.468Z"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "ecoquest-azure-api",
+  "version": "1.0.0",
+  "description": "Azure-native API server for EcoQuest family group coordination",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "azure",
+    "cosmos-db",
+    "family-safety",
+    "ecoquest",
+    "wildfire",
+    "privacy-first"
+  ],
+  "author": "EcoQuest Team",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/cosmos": "^4.1.1",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "express-rate-limit": "^7.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
