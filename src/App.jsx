@@ -28,6 +28,8 @@ import { NotificationContainer, useNotifications } from './components/ui/Enhance
 import PrivacyFirstAuth from './components/auth/PrivacyFirstAuth';
 import HooksErrorBoundary from './components/ui/HooksErrorBoundary';
 import OceanHazardDashboard from './components/ocean/OceanHazardDashboard';
+import InteractiveCoastalStory from './components/narrative/InteractiveCoastalStory';
+import OceanConservationGames from './components/games/OceanConservationGames';
 // import OfflineIndicator from './components/offline/OfflineIndicator'; // Temporarily disabled
 
 // Import services
@@ -182,80 +184,8 @@ const AppContent = () => {
 
       case 'ocean-story':
         // UNIQUE FEATURE: Interactive storytelling - "A Day in the Life of a Coastline"
-        return (
-          <div className="bg-gradient-to-br from-ocean-50 via-blue-50 to-purple-50 rounded-xl shadow-xl p-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <Map className="h-16 w-16 text-ocean-600 mx-auto mb-4 animate-pulse" />
-                <h2 className="text-3xl font-bold text-ocean-900 mb-3">
-                  Ocean Story: Our Changing Coasts
-                </h2>
-                <p className="text-lg text-ocean-700 mb-2">
-                  Interactive Journey Through Time
-                </p>
-                <span className="inline-block bg-ocean-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
-                  🌟 UNIQUE STORYTELLING FEATURE
-                </span>
-              </div>
-
-              <div className="bg-white rounded-lg p-8 shadow-lg mb-6">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Witness Climate Change Transform Our Coastlines
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  Experience an interactive timeline showing how rising seas, erosion, and storms
-                  are reshaping coastal communities from 2020 to 2100. This unique storytelling
-                  feature brings ocean data to life through narrative and visualization.
-                </p>
-
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="bg-green-50 p-6 rounded-lg border-2 border-green-200">
-                    <h4 className="font-bold text-green-900 mb-2">📅 2020: Today</h4>
-                    <p className="text-sm text-green-800">
-                      Explore current coastlines, thriving communities, and existing ocean challenges
-                    </p>
-                  </div>
-                  <div className="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200">
-                    <h4 className="font-bold text-yellow-900 mb-2">⚠️ 2050: Warning</h4>
-                    <p className="text-sm text-yellow-800">
-                      See projections of sea-level rise, increased storms, and coastal erosion
-                    </p>
-                  </div>
-                  <div className="bg-red-50 p-6 rounded-lg border-2 border-red-200">
-                    <h4 className="font-bold text-red-900 mb-2">🌊 2100: Future</h4>
-                    <p className="text-sm text-red-800">
-                      Understand the long-term impacts and why we must act now
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
-                <h4 className="font-semibold text-blue-900 mb-3">
-                  🎮 Interactive Elements Coming Soon:
-                </h4>
-                <ul className="space-y-2 text-blue-800">
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span><strong>"A Day in the Life of a Coastline"</strong> - Animated story mode</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span><strong>Interactive Timeline Slider</strong> - Drag through decades of change</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span><strong>"You Are a Coastal Scientist"</strong> - Make decisions, see outcomes</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span><strong>Real Community Stories</strong> - Voices from affected coastal areas</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        );
+        // Point VII from ocean-contest.txt - Scroll-based narrative experience
+        return <InteractiveCoastalStory />;
 
       case 'live-ocean-data':
         // Real-time NOAA/USGS data - tsunami, erosion, sea-level rise
@@ -320,9 +250,25 @@ const AppContent = () => {
         );
 
       case 'ocean-quests':
-        // Educational games: Tsunami Escape, Rebuild the Coast
+        // Educational games: Tsunami Escape, Rebuild the Coast, Stop the Shrinking Beach
+        // Point VI from ocean-contest.txt - Interactive conservation games
         return (
-          <SafetyQuestHub userLocation={location} />
+          <div className="space-y-8">
+            {/* Ocean Conservation Games - Point VI */}
+            <OceanConservationGames />
+
+            {/* Divider */}
+            <div className="border-t border-gray-300 my-8"></div>
+
+            {/* Educational Quests */}
+            <div>
+              <h2 className="text-2xl font-bold mb-4 text-gray-900">Ocean Education Quests</h2>
+              <p className="text-gray-600 mb-6">
+                Complete real-world conservation challenges to earn points and make a difference
+              </p>
+              <SafetyQuestHub userLocation={location} />
+            </div>
+          </div>
         );
 
       default:
