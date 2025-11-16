@@ -1,11 +1,11 @@
 {
-  "name": "EcoQuest Wildfire Watch",
-  "short_name": "EcoQuest",
-  "description": "AI-powered wildfire detection and safety education app",
+  "name": "OceanAware Guardian",
+  "short_name": "OceanGuard",
+  "description": "AI-powered ocean hazard monitoring and conservation education platform",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#f97316",
+  "theme_color": "#0077B6",
   "orientation": "portrait-primary",
   "scope": "/",
   "icons": [
@@ -58,20 +58,20 @@
       "purpose": "maskable any"
     }
   ],
-  "categories": ["education", "safety", "utilities", "productivity"],
+  "categories": ["education", "conservation", "environmental", "utilities"],
   "shortcuts": [
     {
-      "name": "AI Scanner",
+      "name": "Ocean Health Scanner",
       "short_name": "Scanner",
-      "description": "Analyze vegetation for fire hazards",
+      "description": "Analyze coastal imagery for conservation",
       "url": "/?tab=scanner",
       "icons": [{ "src": "/icons/scanner-shortcut.png", "sizes": "96x96" }]
     },
     {
-      "name": "Fire Alerts",
-      "short_name": "Alerts",
-      "description": "View nearby fire activity",
-      "url": "/?tab=alerts",
+      "name": "Ocean Hazards",
+      "short_name": "Hazards",
+      "description": "View tsunami warnings and coastal threats",
+      "url": "/?tab=hazards",
       "icons": [{ "src": "/icons/alerts-shortcut.png", "sizes": "96x96" }]
     }
   ]

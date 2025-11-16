@@ -1,7 +1,7 @@
 {
-  "name": "ecoquest-server",
+  "name": "oceanaware-guardian-server",
   "version": "1.0.0",
-  "description": "Backend API for EcoQuest Wildfire Watch",
+  "description": "Backend API for OceanAware Guardian - Ocean Conservation Platform",
   "type": "module",
   "main": "server.js",
   "scripts": {
@@ -63,9 +63,13 @@
   "keywords": [
     "api",
     "express",
-    "wildfire",
+    "ocean",
+    "conservation",
+    "tsunami",
     "ai",
-    "backend"
+    "backend",
+    "marine-conservation",
+    "climate-change"
   ],
   "author": "Siddharth Shan",
   "license": "MIT"

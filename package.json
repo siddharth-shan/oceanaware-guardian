@@ -1,7 +1,7 @@
 {
-  "name": "ecoquest-wildfire-watch",
+  "name": "oceanaware-guardian",
   "version": "1.0.0",
-  "description": "AI-powered wildfire detection and safety education app for Congressional App Challenge",
+  "description": "AI-powered ocean hazard monitoring and conservation education platform for Bow Seat Ocean Awareness Contest 2026",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -96,19 +96,24 @@
     "vitest": "^0.34.0"
   },
   "keywords": [
-    "wildfire",
-    "safety",
+    "ocean",
+    "conservation",
+    "tsunami",
+    "coastal-erosion",
+    "sea-level-rise",
+    "climate-change",
     "ai",
     "computer-vision",
-    "emergency-preparedness",
-    "california",
-    "congressional-app-challenge"
+    "ocean-awareness-contest",
+    "marine-conservation",
+    "bow-seat",
+    "ecoquest"
   ],
   "author": "Siddharth Shan",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siddharth-shan/ecoquest-wildfire-watch.git"
+    "url": "https://github.com/siddharth-shan/oceanaware-guardian.git"
   },
   "engines": {
     "node": ">=18.0.0",
