@@ -37,15 +37,20 @@ if [ ! -f ".env.local" ]; then
 fi
 
 echo ""
-echo "🚀 Starting Development Servers..."
+echo "🚀 Starting Development Server..."
 echo ""
 echo "📱 Frontend (Vite):  http://localhost:5173"
-echo "🔧 Backend (Express): http://localhost:3000"
 echo ""
-echo "Press Ctrl+C to stop both servers"
+echo "⚠️  Note: Backend server optional for Phase 3-4 features"
+echo "   (Most features work with frontend only + mock data)"
+echo ""
+echo "Press Ctrl+C to stop the server"
 echo ""
 echo "================================================"
 echo ""
 
-# Start both servers concurrently
-npm run dev:all
+# Start frontend server (backend is optional for current features)
+npm run dev
+
+# Uncomment below to start both servers:
+# npm run dev:all
