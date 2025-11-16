@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   AlertTriangle, Camera, MapPin, Clock, Send, CheckCircle, Users, RefreshCw,
-  Waves, Droplets, Anchor, Fish, AlertOctagon, Trash2, Leaf, Shell, Ban, Wind
+  Waves, Droplets, Anchor, Fish, AlertOctagon, Trash2, Leaf, Flower, Ban, Wind
 } from 'lucide-react';
 import { useAuth } from '../../services/auth/AuthContext';
 import { communityThemes } from '../../utils/communityThemes';
@@ -142,7 +142,7 @@ const CommunityReporting = ({ userLocation, preFilteredReports, emergencyLevel, 
     {
       id: ReportTypes.CORAL_BLEACHING,
       label: 'Coral Bleaching',
-      icon: Shell,
+      icon: Flower,
       theme: communityThemes.reporting.primary,
       description: 'Report bleached or damaged coral',
       urgentLevel: 'normal'
