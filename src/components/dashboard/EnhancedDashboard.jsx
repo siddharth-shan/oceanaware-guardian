@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { AlertTriangle, Flame, Wind, MapPin, Clock, Shield, Eye, Navigation, Phone, Users } from 'lucide-react';
+import { AlertTriangle, Waves, Wind, MapPin, Clock, Shield, Eye, Navigation, Phone, Users, Droplets, Fish } from 'lucide-react';
 import CompactNewsWidget from '../news/CompactNewsWidget';
 import AirQualityDetail from '../air-quality/AirQualityDetail';
 import UnifiedLocationCard from '../location/UnifiedLocationCard';
@@ -97,36 +97,36 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
                     URGENT
                   </span>
                 </div>
-                <p className="text-sm font-medium mb-2" style={{ color: 'var(--color-fire-700)' }}>
-                  Multiple fire threats detected in your area
+                <p className="text-sm font-medium mb-2" style={{ color: 'var(--color-ocean-700)' }}>
+                  Critical ocean hazards detected in your area
                 </p>
-                <p className="text-xs" style={{ color: 'var(--color-fire-600)' }}>
-                  Follow evacuation orders immediately • Call 911 if in immediate danger
+                <p className="text-xs" style={{ color: 'var(--color-ocean-600)' }}>
+                  Follow coastal safety advisories immediately • Call 911 if in immediate danger
                 </p>
               </div>
             </div>
           </div>
           
-          {/* Detailed Fire and Threat Information */}
+          {/* Detailed Ocean Hazard and Threat Information */}
           <div className="space-y-3">
             <h3 className="font-semibold text-sm" style={{ color: 'var(--color-fire-800)' }}>
               Active Threats:
             </h3>
             
-            {/* Nearby Fires */}
+            {/* Nearby Ocean Hazards */}
             {nearbyFires.slice(0, 3).map((fire, index) => (
               <div key={index} className="flex items-center justify-between p-3 rounded-lg border" 
                    style={{ backgroundColor: 'var(--color-fire-100)', borderColor: 'var(--color-fire-200)' }}>
                 <div className="flex items-center space-x-3">
-                  <Flame className="h-5 w-5" style={{ color: 'var(--color-emergency-critical)' }} />
+                  <Waves className="h-5 w-5" style={{ color: 'var(--color-emergency-critical)' }} />
                   <div>
                     <h4 className="font-medium text-sm" style={{ color: 'var(--color-fire-800)' }}>
                       {fire.title}
                     </h4>
                     <div className="flex items-center space-x-3 text-xs" style={{ color: 'var(--color-fire-600)' }}>
                       <span>📍 {fire.data?.distance?.toFixed(1) || 'Unknown'} miles away</span>
-                      <span>🔥 {fire.data?.acres?.toLocaleString() || 'Unknown'} acres</span>
-                      <span>🚧 {fire.data?.containment || 0}% contained</span>
+                      <span>🌊 {fire.data?.acres?.toLocaleString() || 'Unknown'} affected area</span>
+                      <span>⚠️ Active hazard</span>
                     </div>
                   </div>
                 </div>
@@ -168,10 +168,10 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
                 Immediate Actions:
               </h4>
               <ul className="text-sm space-y-1" style={{ color: 'var(--color-neutral-700)' }}>
-                <li>• Monitor emergency alerts and evacuation orders</li>
-                <li>• Prepare emergency supplies and evacuation plan</li>
-                <li>• Stay informed through official channels</li>
-                <li>• Avoid outdoor activities if air quality is poor</li>
+                <li>• Monitor coastal advisories and tsunami warnings</li>
+                <li>• Move to higher ground if flooding is imminent</li>
+                <li>• Stay informed through NOAA and local authorities</li>
+                <li>• Avoid beaches and coastal areas during hazardous conditions</li>
               </ul>
             </div>
           </div>
@@ -189,14 +189,14 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
             <div className="flex items-center space-x-4">
               <div className="p-2 rounded-lg" 
                    style={{ backgroundColor: 'var(--color-warning-100)' }}>
-                <Flame className="h-6 w-6" style={{ color: 'var(--color-emergency-warning)' }} />
+                <Waves className="h-6 w-6" style={{ color: 'var(--color-emergency-warning)' }} />
               </div>
               <div>
                 <h3 className="font-bold text-lg mb-1" style={{ color: 'var(--color-warning-800)' }}>
-                  Fire Warning Active
+                  Ocean Hazard Warning Active
                 </h3>
                 <p className="text-sm" style={{ color: 'var(--color-warning-700)' }}>
-                  Fire activity detected in your area - stay alert
+                  Coastal hazards detected in your area - stay alert
                 </p>
               </div>
             </div>
@@ -258,28 +258,28 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
       {/* Critical Emergency Information - Above the fold priority */}
       {emergencyLevel !== 'normal' && (
         <div className="space-y-4">
-          {/* Consolidated Fire Activity Section */}
+          {/* Consolidated Ocean Hazard Activity Section */}
           <div className="bg-white rounded-lg shadow-md border-l-4 p-6" 
                style={{ borderLeftColor: nearbyFires.length > 0 ? 'var(--color-emergency-critical)' : 'var(--color-fire-400)' }}>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-3">
                 <div className="p-2 rounded-lg" 
                      style={{ backgroundColor: nearbyFires.length > 0 ? 'var(--color-fire-100)' : 'var(--color-neutral-100)' }}>
-                  <Flame className="h-6 w-6" 
+                  <Waves className="h-6 w-6" 
                          style={{ color: nearbyFires.length > 0 ? 'var(--color-emergency-critical)' : 'var(--color-fire-500)' }} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold mb-1" 
-                      style={{ color: nearbyFires.length > 0 ? 'var(--color-fire-800)' : 'var(--color-neutral-800)' }}>
-                    Fire Activity
+                  <h3 className="text-xl font-bold mb-1"
+                      style={{ color: nearbyFires.length > 0 ? 'var(--color-ocean-800)' : 'var(--color-neutral-800)' }}>
+                    Ocean Hazard Activity
                   </h3>
-                  <p className="text-sm" 
-                     style={{ color: nearbyFires.length > 0 ? 'var(--color-fire-700)' : 'var(--color-neutral-600)' }}>
-                    {nearbyFires.length > 0 
-                      ? `${nearbyFires.length} fire${nearbyFires.length > 1 ? 's' : ''} within 25 miles` 
-                      : fireAlerts.length > 0 
-                        ? `${fireAlerts.length} fire${fireAlerts.length > 1 ? 's' : ''} in region (25-50 miles)`
-                        : 'No active fires detected'}
+                  <p className="text-sm"
+                     style={{ color: nearbyFires.length > 0 ? 'var(--color-ocean-700)' : 'var(--color-neutral-600)' }}>
+                    {nearbyFires.length > 0
+                      ? `${nearbyFires.length} ocean hazard${nearbyFires.length > 1 ? 's' : ''} within 25 miles`
+                      : fireAlerts.length > 0
+                        ? `${fireAlerts.length} ocean hazard${fireAlerts.length > 1 ? 's' : ''} in region (25-50 miles)`
+                        : 'No active ocean hazards detected'}
                   </p>
                 </div>
               </div>
@@ -305,15 +305,15 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
               </button>
             </div>
             
-            {/* Fire Details with Map Integration */}
+            {/* Ocean Hazard Details with Map Integration */}
             {(nearbyFires.length > 0 || fireAlerts.length > 0) ? (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Fire List */}
+                {/* Ocean Hazard List */}
                 <div className="space-y-3">
                   {nearbyFires.length > 0 && (
                     <div>
-                      <h4 className="font-semibold text-sm mb-2" style={{ color: 'var(--color-fire-800)' }}>
-                        Nearby Fires (≤25 miles)
+                      <h4 className="font-semibold text-sm mb-2" style={{ color: 'var(--color-ocean-800)' }}>
+                        Nearby Ocean Hazards (≤25 miles)
                       </h4>
                       {nearbyFires.slice(0, 3).map((fire, index) => (
                         <div key={index} className="p-3 rounded-lg border" 
@@ -325,8 +325,8 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
                               </h5>
                               <div className="flex items-center space-x-4 mt-1 text-xs" style={{ color: 'var(--color-fire-600)' }}>
                                 <span>📍 {fire.data?.distance?.toFixed(1) || 'Unknown'} mi</span>
-                                <span>🔥 {fire.data?.acres?.toLocaleString() || 'Unknown'} acres</span>
-                                <span>🚧 {fire.data?.containment || 0}% contained</span>
+                                <span>🌊 {fire.data?.acres?.toLocaleString() || 'Unknown'} affected area</span>
+                                <span>⚠️ Active hazard</span>
                               </div>
                             </div>
                             <div className="text-xs px-2 py-1 rounded-full" 
@@ -345,7 +345,7 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
                   {fireAlerts.length > nearbyFires.length && (
                     <div>
                       <h4 className="font-semibold text-sm mb-2" style={{ color: 'var(--color-warning-700)' }}>
-                        Regional Fires (25-50 miles)
+                        Regional Ocean Hazards (25-50 miles)
                       </h4>
                       {fireAlerts.filter(fire => !nearbyFires.includes(fire)).slice(0, 2).map((fire, index) => (
                         <div key={index} className="p-3 rounded-lg border" 
@@ -355,7 +355,7 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
                           </h5>
                           <div className="flex items-center space-x-3 mt-1 text-xs" style={{ color: 'var(--color-warning-600)' }}>
                             <span>📍 {fire.data?.distance?.toFixed(1) || 'Unknown'} mi</span>
-                            <span>🔥 {fire.data?.acres?.toLocaleString() || 'Unknown'} acres</span>
+                            <span>🌊 {fire.data?.acres?.toLocaleString() || 'Unknown'} affected area</span>
                           </div>
                         </div>
                       ))}
@@ -376,10 +376,10 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
                 <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--color-success-50)' }}>
                   <Shield className="h-12 w-12 mx-auto mb-3" style={{ color: 'var(--color-success-600)' }} />
                   <h4 className="font-semibold mb-2" style={{ color: 'var(--color-success-800)' }}>
-                    No Active Fires Detected
+                    No Active Ocean Hazards Detected
                   </h4>
                   <p className="text-sm" style={{ color: 'var(--color-success-700)' }}>
-                    No fires currently detected within 50 miles of your location.
+                    No significant ocean hazards currently detected in your area.
                   </p>
                   <p className="text-xs mt-2" style={{ color: 'var(--color-success-600)' }}>
                     Last checked: {lastUpdate.toLocaleTimeString()}
@@ -503,7 +503,7 @@ const EnhancedDashboard = ({ userLocation, onLocationChange, onNavigateToAlerts,
       {/* Priority Content Area - Dynamic Layout */}
       {emergencyLevel !== 'normal' && (
         <div ref={priorityContentRef} className="space-y-4 lg:space-y-6">
-          {/* Critical Fire Information - Additional alerts only */}
+          {/* Critical Ocean Hazard Information - Additional alerts only */}
 
           {/* Critical Air Quality */}
           {criticalAirQuality?.data && (
