@@ -124,333 +124,215 @@ const AppContent = () => {
     }
   };
 
-  // Streamlined navigation for Ocean Awareness Contest 2026 - focusing on top 5 winning features
+  // Ocean Awareness Contest 2026 - Unique, Storytelling-Driven Features
+  // Based on Bow Seat's emphasis on narrative, youth activism, and impactful innovation
   const tabs = [
     {
       id: 'dashboard',
       label: translate('nav.dashboard', 'Dashboard'),
       icon: Home,
-      description: translate('nav.dashboard', 'Real-time ocean overview & hazard status'),
-      highlight: true // Key feature #1: Real-time integration
+      description: 'Ocean health at a glance - key metrics & urgent actions',
+      highlight: true
     },
     {
-      id: 'ocean-monitoring',
-      label: 'Ocean Monitoring',
-      icon: Brain,
-      description: 'AI-powered ocean hazard assessment & real-time alerts',
-      highlight: true, // Key features #1 & #2: AI analysis & real-time data
-      subFeatures: ['prediction', 'ai-analysis', 'alerts']
-    },
-    {
-      id: 'community',
-      label: translate('nav.community', 'Community'),
-      icon: Users,
-      description: translate('nav.community', 'Coastal reports & conservation coordination'),
-      highlight: true, // Key feature #2: Community coordination
-      subFeatures: ['community-hub']
-    },
-    {
-      id: 'impact-analysis',
-      label: 'Impact Analysis',
+      id: 'ocean-story',
+      label: 'Ocean Story',
       icon: Map,
-      description: 'Coastal vulnerability & ocean hazard mapping',
-      highlight: true, // Key feature #3: Impact analysis
-      subFeatures: []
+      description: 'Interactive journey: How climate change transforms our coasts',
+      highlight: true, // UNIQUE FEATURE: Storytelling layer - Bow Seat's top priority
+      badge: 'NEW'
     },
     {
-      id: 'ocean-education',
-      label: translate('nav.ocean-quests', 'Ocean Education'),
+      id: 'live-ocean-data',
+      label: 'Live Ocean Data',
+      icon: Waves,
+      description: 'Real-time NOAA/USGS tsunami, erosion & sea-level rise data',
+      highlight: true
+    },
+    {
+      id: 'community-action',
+      label: 'Community Action',
+      icon: Users,
+      description: 'Coastal reporting & policy recommendations for conservation',
+      highlight: true
+    },
+    {
+      id: 'ocean-quests',
+      label: 'Ocean Quests',
       icon: Target,
-      description: translate('nav.ocean-quests', 'Interactive ocean conservation quests & learning'),
-      highlight: true, // Key feature #4: Gamified education
-      subFeatures: ['quests']
+      description: 'Educational games: Tsunami Escape, Rebuild the Coast & more',
+      highlight: true
     },
   ];
 
-  // Sub-navigation state for consolidated tabs
-  const [activeSubTab, setActiveSubTab] = useState({
-    'ocean-monitoring': 'ocean-hazards',
-    'community': 'coastal-reports'
-  });
-
-  // Handle sub-tab navigation from showcase
-  useEffect(() => {
-    const handleSubTabNavigation = (event) => {
-      const { tab, subTab } = event.detail;
-      if (subTab) {
-        setActiveSubTab(prev => ({...prev, [tab]: subTab}));
-      }
-    };
-
-    window.addEventListener('navigateSubTab', handleSubTabNavigation);
-    return () => window.removeEventListener('navigateSubTab', handleSubTabNavigation);
-  }, []);
+  // No sub-navigation needed - each tab has focused, unique content
 
   const renderTabContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        try {
-          return (
-            <EnhancedDashboard
-              userLocation={location}
-              onLocationChange={updateLocation}
-              onNavigateToAlerts={() => {
-                setActiveTab('ocean-monitoring');
-                setActiveSubTab({...activeSubTab, 'ocean-monitoring': 'alerts'});
-              }}
-              onNavigateToTab={(tab) => {
-                // Route old tab navigation to new consolidated structure
-                if (tab === 'alerts' || tab === 'prediction' || tab === 'ai-analysis') {
-                  setActiveTab('ocean-monitoring');
-                  setActiveSubTab({...activeSubTab, 'ocean-monitoring': tab});
-                } else if (tab === 'community-hub' || tab === 'community-impact') {
-                  setActiveTab('community');
-                  setActiveSubTab({...activeSubTab, 'community': tab});
-                } else if (tab === 'quests') {
-                  setActiveTab('ocean-education');
-                } else {
-                  setActiveTab(tab);
-                }
-              }}
-            />
-          );
-        } catch (error) {
-          console.error('Enhanced Dashboard Error:', error);
-          return (
-            <div className="space-y-6">
-              <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-                <h2 className="text-xl font-bold text-red-800 mb-4">Dashboard Error</h2>
-                <p className="text-red-600">Enhanced dashboard failed to load: {error.message}</p>
-                <p className="text-red-600 text-sm mt-2">Falling back to basic dashboard...</p>
+        // Compact dashboard with key ocean metrics
+        return (
+          <EnhancedDashboard
+            userLocation={location}
+            onLocationChange={updateLocation}
+            onNavigateToAlerts={() => setActiveTab('live-ocean-data')}
+            onNavigateToTab={(tab) => setActiveTab(tab)}
+          />
+        );
+
+      case 'ocean-story':
+        // UNIQUE FEATURE: Interactive storytelling - "A Day in the Life of a Coastline"
+        return (
+          <div className="bg-gradient-to-br from-ocean-50 via-blue-50 to-purple-50 rounded-xl shadow-xl p-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <Map className="h-16 w-16 text-ocean-600 mx-auto mb-4 animate-pulse" />
+                <h2 className="text-3xl font-bold text-ocean-900 mb-3">
+                  Ocean Story: Our Changing Coasts
+                </h2>
+                <p className="text-lg text-ocean-700 mb-2">
+                  Interactive Journey Through Time
+                </p>
+                <span className="inline-block bg-ocean-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  🌟 UNIQUE STORYTELLING FEATURE
+                </span>
               </div>
-              <div className="bg-white rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl font-bold text-gray-800 mb-4">Basic Dashboard</h2>
-                {location && (
-                  <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-                    <h3 className="font-semibold text-blue-800">Location: {location.displayName}</h3>
-                    <p className="text-blue-600">{location.lat}, {location.lng}</p>
+
+              <div className="bg-white rounded-lg p-8 shadow-lg mb-6">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                  Witness Climate Change Transform Our Coastlines
+                </h3>
+                <p className="text-gray-700 leading-relaxed mb-6">
+                  Experience an interactive timeline showing how rising seas, erosion, and storms
+                  are reshaping coastal communities from 2020 to 2100. This unique storytelling
+                  feature brings ocean data to life through narrative and visualization.
+                </p>
+
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="bg-green-50 p-6 rounded-lg border-2 border-green-200">
+                    <h4 className="font-bold text-green-900 mb-2">📅 2020: Today</h4>
+                    <p className="text-sm text-green-800">
+                      Explore current coastlines, thriving communities, and existing ocean challenges
+                    </p>
                   </div>
-                )}
+                  <div className="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-200">
+                    <h4 className="font-bold text-yellow-900 mb-2">⚠️ 2050: Warning</h4>
+                    <p className="text-sm text-yellow-800">
+                      See projections of sea-level rise, increased storms, and coastal erosion
+                    </p>
+                  </div>
+                  <div className="bg-red-50 p-6 rounded-lg border-2 border-red-200">
+                    <h4 className="font-bold text-red-900 mb-2">🌊 2100: Future</h4>
+                    <p className="text-sm text-red-800">
+                      Understand the long-term impacts and why we must act now
+                    </p>
+                  </div>
+                </div>
               </div>
-              <WeatherWidget data={weatherData} />
+
+              <div className="bg-blue-50 rounded-lg p-6 border border-blue-200">
+                <h4 className="font-semibold text-blue-900 mb-3">
+                  🎮 Interactive Elements Coming Soon:
+                </h4>
+                <ul className="space-y-2 text-blue-800">
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span><strong>"A Day in the Life of a Coastline"</strong> - Animated story mode</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span><strong>Interactive Timeline Slider</strong> - Drag through decades of change</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span><strong>"You Are a Coastal Scientist"</strong> - Make decisions, see outcomes</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2">•</span>
+                    <span><strong>Real Community Stories</strong> - Voices from affected coastal areas</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-          );
-        }
+          </div>
+        );
 
-      case 'ocean-monitoring':
-        return renderOceanMonitoringContent();
+      case 'live-ocean-data':
+        // Real-time NOAA/USGS data - tsunami, erosion, sea-level rise
+        return (
+          <div className="space-y-4">
+            <OceanHazardDashboard userLocation={location} />
+            <AlertsDashboard userLocation={location} />
+          </div>
+        );
 
-      case 'community':
-        return renderCommunityContent();
-
-      case 'impact-analysis':
+      case 'community-action':
+        // Community reporting + Policy & Action Recommendations
         return (
           <HooksErrorBoundary
             onNavigateHome={() => setActiveTab('dashboard')}
             showDetails={process.env.NODE_ENV === 'development'}
           >
-            <OceanHazardDashboard userLocation={location} />
+            <div className="space-y-4">
+              <CommunityHub
+                userLocation={location}
+                emergencyLevel={getEmergencyLevel()}
+              />
+
+              {/* Policy & Action Recommendations Section */}
+              <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl shadow-lg p-6 border border-green-200">
+                <h3 className="text-2xl font-bold text-green-900 mb-4 flex items-center">
+                  <Shield className="h-6 w-6 mr-2" />
+                  Policy & Action Recommendations
+                </h3>
+                <p className="text-green-800 mb-4">
+                  Region-specific conservation actions you can take to protect our oceans:
+                </p>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <h4 className="font-semibold text-green-900 mb-2">🌿 Wetland Restoration</h4>
+                    <p className="text-sm text-gray-700">
+                      Support local wetland protection initiatives to buffer storm surge
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <h4 className="font-semibold text-blue-900 mb-2">🪸 Coral Reef Protection</h4>
+                    <p className="text-sm text-gray-700">
+                      Join reef monitoring programs and reduce ocean pollution
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <h4 className="font-semibold text-purple-900 mb-2">♻️ Plastic Management</h4>
+                    <p className="text-sm text-gray-700">
+                      Participate in beach cleanups and reduce single-use plastics
+                    </p>
+                  </div>
+                  <div className="bg-white p-4 rounded-lg shadow">
+                    <h4 className="font-semibold text-orange-900 mb-2">🏖️ Coastline Buffer Zones</h4>
+                    <p className="text-sm text-gray-700">
+                      Advocate for protected coastal areas and dune restoration
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </HooksErrorBoundary>
         );
 
-      case 'ocean-education':
+      case 'ocean-quests':
+        // Educational games: Tsunami Escape, Rebuild the Coast
         return (
           <SafetyQuestHub userLocation={location} />
         );
 
       default:
-        return <div>Select a tab to get started</div>;
+        return (
+          <div className="text-center py-12">
+            <Waves className="h-16 w-16 text-ocean-400 mx-auto mb-4" />
+            <p className="text-gray-600">Select a feature to explore ocean conservation</p>
+          </div>
+        );
     }
-  };
-
-  // Render Ocean Monitoring content with sub-navigation
-  const renderOceanMonitoringContent = () => {
-    const currentSubTab = activeSubTab['ocean-monitoring'] || 'ocean-hazards';
-
-    const subTabs = [
-      { id: 'ocean-hazards', label: 'Ocean Hazards', icon: Waves },
-      { id: 'quick-scan', label: 'Quick Scan', icon: Target },
-      { id: 'prediction', label: 'Ocean Prediction', icon: Zap },
-      { id: 'ai-analysis', label: 'Health Analysis', icon: Brain },
-      { id: 'alerts', label: 'Live Alerts', icon: AlertTriangle }
-    ];
-
-    return (
-      <div className="space-y-4">
-        {/* Sub-navigation - Clean design */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-          <div className="flex justify-center space-x-1 p-3 overflow-x-auto scrollbar-hide">
-            {subTabs.map((subTab, index) => {
-              const Icon = subTab.icon;
-              const isActive = currentSubTab === subTab.id;
-              return (
-                <button
-                  key={subTab.id}
-                  onClick={() => setActiveSubTab({...activeSubTab, 'ocean-monitoring': subTab.id})}
-                  className={`flex flex-col items-center px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 min-w-0 flex-1 max-w-[120px] ${
-                    isActive
-                      ? 'shadow-sm border'
-                      : 'hover:shadow-sm'
-                  }`}
-                  style={{
-                    minHeight: '60px',
-                    backgroundColor: isActive ? 'rgb(240 249 255)' : 'transparent',
-                    borderColor: isActive ? 'rgb(186 230 253)' : 'transparent',
-                    color: isActive ? 'rgb(3 105 161)' : 'rgb(75 85 99)'
-                  }}
-                >
-                  <Icon className="h-5 w-5 mb-1"
-                        style={{ color: isActive ? 'rgb(2 132 199)' : 'rgb(107 114 128)' }} />
-                  <span className="leading-tight text-center">{subTab.label}</span>
-                  {isActive && (
-                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-1 rounded-full mt-1 bg-ocean-500" />
-                  )}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Content */}
-        <div>
-          {currentSubTab === 'ocean-hazards' && <OceanHazardDashboard userLocation={location} />}
-          {currentSubTab === 'quick-scan' && <QuickRiskAssessment />}
-          {currentSubTab === 'prediction' && (
-            <div className="bg-gradient-to-br from-ocean-50 to-blue-50 rounded-xl shadow-lg p-8 border border-ocean-200">
-              <div className="text-center">
-                <Waves className="h-16 w-16 text-ocean-500 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-ocean-900 mb-2">Ocean Prediction Model</h3>
-                <p className="text-ocean-700 mb-4">
-                  Advanced AI-powered ocean hazard prediction coming in Phase 5
-                </p>
-                <div className="bg-white rounded-lg p-6 max-w-2xl mx-auto">
-                  <h4 className="font-semibold text-gray-900 mb-3">Planned Features:</h4>
-                  <ul className="text-left space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-ocean-500 mr-2">•</span>
-                      <span>Tsunami wave height and arrival time prediction</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-ocean-500 mr-2">•</span>
-                      <span>Harmful algae bloom forecasting</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-ocean-500 mr-2">•</span>
-                      <span>Coastal erosion risk assessment</span>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-ocean-500 mr-2">•</span>
-                      <span>Marine weather pattern analysis</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )}
-          {currentSubTab === 'ai-analysis' && (
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <HazardDetector />
-            </div>
-          )}
-          {currentSubTab === 'alerts' && <AlertsDashboard userLocation={location} />}
-        </div>
-      </div>
-    );
-  };
-
-  // Render Community content with sub-navigation
-  const renderCommunityContent = () => {
-    const currentSubTab = activeSubTab['community'] || 'coastal-reports';
-
-    const subTabs = [
-      { id: 'coastal-reports', label: 'Coastal Reports', icon: AlertTriangle },
-      { id: 'family-safety', label: 'Community Safety', icon: Users }
-    ];
-
-    return (
-      <HooksErrorBoundary 
-        onNavigateHome={() => setActiveTab('dashboard')}
-        showDetails={process.env.NODE_ENV === 'development'}
-      >
-        <div className="space-y-4">
-          {/* Sub-navigation - Clean design */}
-          <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-            <div className="flex justify-center space-x-1 p-3 overflow-x-auto scrollbar-hide">
-              {subTabs.map((subTab, index) => {
-                const Icon = subTab.icon;
-                const isActive = currentSubTab === subTab.id;
-                return (
-                  <button
-                    key={subTab.id}
-                    onClick={() => setActiveSubTab({...activeSubTab, 'community': subTab.id})}
-                    className={`flex flex-col items-center px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 min-w-0 flex-1 max-w-[120px] ${
-                      isActive 
-                        ? 'shadow-sm border' 
-                        : 'hover:shadow-sm'
-                    }`}
-                    style={{ 
-                      minHeight: '60px',
-                      backgroundColor: isActive ? 'var(--color-info-50)' : 'transparent',
-                      borderColor: isActive ? 'var(--color-info-200)' : 'transparent',
-                      color: isActive ? 'var(--color-info-700)' : 'var(--color-neutral-600)'
-                    }}
-                  >
-                    <Icon className="h-5 w-5 mb-1" 
-                          style={{ color: isActive ? 'var(--color-info-600)' : 'var(--color-neutral-500)' }} />
-                    <span className="leading-tight text-center">{subTab.label}</span>
-                    {isActive && (
-                      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-6 h-1 rounded-full mt-1" 
-                           style={{ backgroundColor: 'var(--color-info-500)' }} />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Content - Each tab wrapped individually for better error isolation */}
-          <div>
-            {currentSubTab === 'coastal-reports' && (
-              <HooksErrorBoundary
-                onNavigateHome={() => setActiveTab('dashboard')}
-                showDetails={process.env.NODE_ENV === 'development'}
-              >
-                <CommunityHub
-                  userLocation={location}
-                  emergencyLevel={getEmergencyLevel()}
-                />
-              </HooksErrorBoundary>
-            )}
-            {currentSubTab === 'family-safety' && (
-              <HooksErrorBoundary 
-                onNavigateHome={() => setActiveTab('dashboard')}
-                showDetails={process.env.NODE_ENV === 'development'}
-              >
-                {needsAuthForFamily() ? (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 text-center">
-                    <Users className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                    <h2 className="text-xl font-bold text-blue-900 mb-2">
-                      Family Safety Features
-                    </h2>
-                    <p className="text-blue-700 mb-4">
-                      Enable family coordination and emergency communication with privacy protection.
-                    </p>
-                    <button
-                      onClick={() => setShowAuth(true)}
-                      className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                    >
-                      Set Up Family Safety
-                    </button>
-                  </div>
-                ) : (
-                  <FamilySafetyHub />
-                )}
-              </HooksErrorBoundary>
-            )}
-          </div>
-        </div>
-      </HooksErrorBoundary>
-    );
   };
 
   if (loading) {
