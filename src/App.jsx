@@ -29,6 +29,7 @@ import PrivacyControlPanel from './components/privacy/PrivacyControlPanel';
 import { NotificationContainer, useNotifications } from './components/ui/EnhancedNotification';
 import PrivacyFirstAuth from './components/auth/PrivacyFirstAuth';
 import HooksErrorBoundary from './components/ui/HooksErrorBoundary';
+import OceanHazardDashboard from './components/ocean/OceanHazardDashboard';
 // import OfflineIndicator from './components/offline/OfflineIndicator'; // Temporarily disabled
 
 // Import services
@@ -170,7 +171,7 @@ const AppContent = () => {
 
   // Sub-navigation state for consolidated tabs
   const [activeSubTab, setActiveSubTab] = useState({
-    'ocean-monitoring': 'quick-scan',
+    'ocean-monitoring': 'ocean-hazards',
     'community': 'coastal-reports'
   });
 
@@ -266,13 +267,14 @@ const AppContent = () => {
 
   // Render Ocean Monitoring content with sub-navigation
   const renderOceanMonitoringContent = () => {
-    const currentSubTab = activeSubTab['ocean-monitoring'] || 'prediction';
+    const currentSubTab = activeSubTab['ocean-monitoring'] || 'ocean-hazards';
 
     const subTabs = [
+      { id: 'ocean-hazards', label: 'Ocean Hazards', icon: Waves },
       { id: 'quick-scan', label: 'Quick Scan', icon: Target },
       { id: 'prediction', label: 'Ocean Prediction', icon: Zap },
       { id: 'ai-analysis', label: 'Health Analysis', icon: Brain },
-      { id: 'alerts', label: 'Ocean Alerts', icon: AlertTriangle }
+      { id: 'alerts', label: 'Live Alerts', icon: AlertTriangle }
     ];
 
     return (
@@ -313,6 +315,7 @@ const AppContent = () => {
 
         {/* Content */}
         <div>
+          {currentSubTab === 'ocean-hazards' && <OceanHazardDashboard userLocation={location} />}
           {currentSubTab === 'quick-scan' && <QuickRiskAssessment />}
           {currentSubTab === 'prediction' && <PredictiveDashboard userLocation={location} />}
           {currentSubTab === 'ai-analysis' && (
