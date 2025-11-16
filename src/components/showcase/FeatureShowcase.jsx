@@ -1,71 +1,79 @@
 import React from 'react';
-import { Brain, Users, Zap, Target, Activity } from 'lucide-react';
+import { Brain, Users, Zap, Target, Activity, Waves, Palette, BookOpen, Music, Sparkles } from 'lucide-react';
 
 const FeatureShowcase = ({ onNavigate }) => {
   const coreFeatures = [
     {
-      id: 'ai-risk-assessment',
-      title: 'Predictive Fire Analysis',
-      description: 'Advanced AI processes NASA satellite imagery to predict fire behavior and assess risk levels in real-time',
-      icon: Brain,
-      color: 'from-orange-500 to-red-500',
-      tab: 'fire-monitoring',
-      subTab: 'prediction',
-      status: 'Live Data',
-      cta: 'View Predictions'
+      id: 'ocean-story',
+      title: 'Interactive Coastal Story',
+      description: 'Scroll-driven narrative showing how climate change transforms coastlines from 2020 to 2100',
+      icon: Waves,
+      color: 'from-blue-500 to-cyan-500',
+      tab: 'ocean-story',
+      status: 'Interactive Story',
+      cta: 'Experience the Journey'
     },
     {
-      id: 'community-vulnerability',
-      title: 'Community Risk Mapping',
-      description: 'Analyzes 22 years of social vulnerability data to identify at-risk communities and prioritize resources',
-      icon: Users,
-      color: 'from-blue-500 to-purple-500',
-      tab: 'community',
-      subTab: 'community-impact',
-      status: 'Multi-Year Analysis',
-      cta: 'Explore Impact Data'
-    },
-    {
-      id: 'real-time-integration',
-      title: 'Unified Monitoring Hub',
-      description: 'Combines air quality, weather, and fire data from multiple government and sensor networks',
-      icon: Activity,
-      color: 'from-green-500 to-teal-500',
-      tab: 'dashboard',
-      status: 'Real-Time',
-      cta: 'View Dashboard'
-    },
-    {
-      id: 'gamified-education',
-      title: 'Interactive Safety Training',
-      description: 'Gamified preparedness challenges that make fire safety education engaging and measurable',
-      icon: Target,
+      id: 'data-art',
+      title: 'Ocean Data Art',
+      description: 'Beautiful artistic visualizations of ocean health data - science meets beauty in three panels',
+      icon: Palette,
       color: 'from-purple-500 to-pink-500',
-      tab: 'safety-prep',
-      status: 'Achievement-Based',
-      cta: 'Start Training'
+      tab: 'data-art',
+      status: 'Artistic Viz',
+      cta: 'View Data Art'
     },
     {
-      id: 'pwa-offline',
-      title: 'Emergency-Ready App',
-      description: 'Works without internet connection during emergencies, installable on any device',
-      icon: Zap,
-      color: 'from-indigo-500 to-blue-500',
-      tab: 'dashboard',
-      status: 'Offline Capable',
-      cta: 'Install App'
+      id: 'conservation-games',
+      title: 'Conservation Games',
+      description: 'Learn through play: Tsunami Escape, Rebuild the Coast, and Stop the Shrinking Beach',
+      icon: Target,
+      color: 'from-green-500 to-teal-500',
+      tab: 'ocean-quests',
+      status: '3 Games',
+      cta: 'Play Games'
+    },
+    {
+      id: 'ocean-curriculum',
+      title: 'Ocean Curriculum',
+      description: 'Free experiments, lesson plans, and digital storybook for teachers and students',
+      icon: BookOpen,
+      color: 'from-orange-500 to-red-500',
+      tab: 'ocean-curriculum',
+      status: 'NGSS-Aligned',
+      cta: 'Explore Resources'
+    },
+    {
+      id: 'data-sonification',
+      title: 'Ocean Sounds',
+      description: 'Hear ocean data as music - multi-sensory learning and accessibility for visually impaired',
+      icon: Music,
+      color: 'from-indigo-500 to-purple-500',
+      tab: 'ocean-sounds',
+      status: 'Audio Innovation',
+      cta: 'Listen Now'
+    },
+    {
+      id: 'art-generator',
+      title: 'Art Generator',
+      description: 'Create custom ocean data art - download and share your unique visualization',
+      icon: Sparkles,
+      color: 'from-pink-500 to-rose-500',
+      tab: 'art-generator',
+      status: 'User Creation',
+      cta: 'Generate Art'
     }
   ];
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg border border-gray-200">
+    <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl shadow-lg border border-blue-200">
       <div className="p-6">
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Core Platform Features
           </h2>
           <p className="text-gray-600 text-sm">
-            Advanced wildfire monitoring and community protection tools
+            Interactive ocean conservation and coastal safety education tools
           </p>
         </div>
 
@@ -84,11 +92,11 @@ const FeatureShowcase = ({ onNavigate }) => {
                 }}
                 className="group relative bg-white rounded-xl p-4 border border-gray-200 hover:border-transparent hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-left"
               >
-                
+
 
                 {/* Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 rounded-xl transition-opacity duration-300`} />
-                
+
                 <div className="relative z-10">
                   {/* Icon and Title */}
                   <div className="flex items-start space-x-3 mb-3">
@@ -129,14 +137,14 @@ const FeatureShowcase = ({ onNavigate }) => {
         </div>
 
         {/* Quick Access Note */}
-        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
           <div className="flex items-center space-x-2 mb-2">
             <div className="w-2 h-2 bg-blue-500 rounded-full" />
             <h4 className="font-bold text-blue-800 text-sm">Quick Access</h4>
           </div>
           <p className="text-xs text-blue-700 leading-relaxed">
-            Click any feature above to explore its capabilities. Each tool integrates seamlessly 
-            to provide comprehensive wildfire risk assessment and community protection.
+            Click any feature above to explore its capabilities. Each tool combines storytelling,
+            science, and innovation to inspire ocean conservation action.
           </p>
         </div>
       </div>
