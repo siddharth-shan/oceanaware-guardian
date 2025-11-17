@@ -529,14 +529,6 @@ const OceanExperimentsGuide = () => {
           Five engaging experiments that bring ocean science to life using everyday materials.
           Each experiment includes downloadable PDF guides, safety protocols, and curriculum alignment.
         </p>
-
-        <div className="bg-purple-50 border-l-4 border-purple-500 p-4 rounded-lg inline-block">
-          <p className="text-sm text-purple-900">
-            <Lightbulb className="inline w-4 h-4 mr-1" />
-            <strong>Point IV: Ocean Curriculum</strong> - Downloadable lessons, experiments, and
-            worksheets for community impact
-          </p>
-        </div>
       </div>
 
       {/* Quick Stats */}
