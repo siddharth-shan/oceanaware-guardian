@@ -12,7 +12,7 @@ import AlertBanner from './components/alerts/AlertBanner';
 import AlertsDashboard from './components/alerts/AlertsDashboard';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import LocationInput from './components/location/LocationInput';
-import EnhancedDashboard from './components/dashboard/EnhancedDashboard';
+import OceanAwareDashboard from './components/dashboard/OceanAwareDashboard';
 import CommunityHub from './components/community/CommunityHub';
 import FamilySafetyHub from './components/family/FamilySafetyHub';
 import AccessibilityProvider from './components/accessibility/AccessibilityProvider';
@@ -33,6 +33,7 @@ import DataArtTriptych from './components/visualization/DataArtTriptych';
 import OceanCurriculumHub from './components/curriculum/OceanCurriculumHub';
 import DataSonification from './components/visualization/DataSonification';
 import GenerativeArtTool from './components/visualization/GenerativeArtTool';
+import PolicyActionEngine from './components/policy/PolicyActionEngine';
 // import OfflineIndicator from './components/offline/OfflineIndicator'; // Temporarily disabled
 
 // Import services
@@ -207,9 +208,9 @@ const AppContent = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'dashboard':
-        // Compact dashboard with key ocean metrics
+        // Ocean-focused dashboard with health metrics, quick actions, and feature highlights
         return (
-          <EnhancedDashboard
+          <OceanAwareDashboard
             userLocation={location}
             onLocationChange={updateLocation}
             onNavigateToAlerts={() => setActiveTab('live-ocean-data')}
@@ -250,48 +251,15 @@ const AppContent = () => {
             onNavigateHome={() => setActiveTab('dashboard')}
             showDetails={process.env.NODE_ENV === 'development'}
           >
-            <div className="space-y-4">
+            <div className="space-y-6">
+              {/* Policy & Action Recommendations Engine - Enhanced with real actions */}
+              <PolicyActionEngine userLocation={location} />
+
+              {/* Community Coastal Safety Reports */}
               <CommunityHub
                 userLocation={location}
                 emergencyLevel={getEmergencyLevel()}
               />
-
-              {/* Policy & Action Recommendations Section */}
-              <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl shadow-lg p-6 border border-green-200">
-                <h3 className="text-2xl font-bold text-green-900 mb-4 flex items-center">
-                  <Shield className="h-6 w-6 mr-2" />
-                  Policy & Action Recommendations
-                </h3>
-                <p className="text-green-800 mb-4">
-                  Region-specific conservation actions you can take to protect our oceans:
-                </p>
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-white p-4 rounded-lg shadow">
-                    <h4 className="font-semibold text-green-900 mb-2">🌿 Wetland Restoration</h4>
-                    <p className="text-sm text-gray-700">
-                      Support local wetland protection initiatives to buffer storm surge
-                    </p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow">
-                    <h4 className="font-semibold text-blue-900 mb-2">🪸 Coral Reef Protection</h4>
-                    <p className="text-sm text-gray-700">
-                      Join reef monitoring programs and reduce ocean pollution
-                    </p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow">
-                    <h4 className="font-semibold text-purple-900 mb-2">♻️ Plastic Management</h4>
-                    <p className="text-sm text-gray-700">
-                      Participate in beach cleanups and reduce single-use plastics
-                    </p>
-                  </div>
-                  <div className="bg-white p-4 rounded-lg shadow">
-                    <h4 className="font-semibold text-orange-900 mb-2">🏖️ Coastline Buffer Zones</h4>
-                    <p className="text-sm text-gray-700">
-                      Advocate for protected coastal areas and dune restoration
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           </HooksErrorBoundary>
         );
