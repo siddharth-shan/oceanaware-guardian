@@ -266,12 +266,7 @@ const AppContent = () => {
 
       case 'live-ocean-data':
         // Real-time NOAA/USGS data - tsunami, erosion, sea-level rise
-        return (
-          <div className="space-y-4">
-            <OceanHazardDashboard userLocation={location} />
-            <AlertsDashboard userLocation={location} />
-          </div>
-        );
+        return <OceanHazardDashboard userLocation={location} />;
 
       case 'community-action':
         // Community reporting + Policy & Action Recommendations
