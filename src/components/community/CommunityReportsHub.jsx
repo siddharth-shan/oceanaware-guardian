@@ -4,11 +4,11 @@
  */
 
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { 
-  Users, Shield, AlertTriangle, RefreshCw, Filter, Search, 
+import {
+  Users, Shield, AlertTriangle, RefreshCw, Filter, Search,
   ChevronDown, ChevronUp, MapPin, Clock, Flame, Zap, Eye, X,
   Settings, Grid, List, Map as MapIcon, MoreHorizontal,
-  CheckCircle, ExternalLink, Phone, Navigation
+  CheckCircle, ExternalLink, Phone, Navigation, Waves
 } from 'lucide-react';
 import { useAuth } from '../../services/auth/AuthContext';
 import { useAccessibility } from '../accessibility/AccessibilityProvider';
@@ -752,7 +752,7 @@ const CommunityReportsHub = ({ userLocation, emergencyLevel: propEmergencyLevel 
             </div>
             <div>
               <h1 className="text-2xl lg:text-3xl font-bold text-gray-800">
-                Hazard Reports
+                Coastal Safety Reports
               </h1>
               <p className="text-sm lg:text-base text-gray-600">
                 {filteredReports.length} reports • {communityStats.activeUsers} community members active
@@ -768,10 +768,10 @@ const CommunityReportsHub = ({ userLocation, emergencyLevel: propEmergencyLevel 
           <div className="flex items-center space-x-2">
             <button
               onClick={() => setShowReportForm(true)}
-              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-medium flex items-center space-x-2"
+              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center space-x-2"
             >
-              <AlertTriangle className="h-4 w-4" />
-              <span>Report Hazard</span>
+              <Waves className="h-4 w-4" />
+              <span>Report Coastal Issue</span>
             </button>
             
             <button

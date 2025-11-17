@@ -15,6 +15,7 @@ import {
 import OceanExperimentsGuide from './OceanExperimentsGuide';
 import OceanLessonPlans from './OceanLessonPlans';
 import DigitalStorybook from './DigitalStorybook';
+import OceanWorksheets from './OceanWorksheets';
 
 /**
  * Ocean Curriculum Hub - Point IV from ocean-contest.txt
@@ -58,8 +59,8 @@ const OceanCurriculumHub = () => {
       description: 'Data collection sheets, assessments, and activity guides',
       color: 'green',
       gradient: 'from-green-500 to-emerald-600',
-      stats: { items: '15+ Sheets', time: 'Varies', ages: '8-16' },
-      comingSoon: true
+      stats: { items: '6 Worksheets', time: 'Varies', ages: '4-12' },
+      component: OceanWorksheets
     },
     {
       id: 'storybook',

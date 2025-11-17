@@ -788,9 +788,117 @@ const OceanLessonPlans = () => {
     }
   ];
 
+  const downloadAllLessons = () => {
+    // Download all 5 lesson plans
+    lessonPlans.forEach((lesson, index) => {
+      setTimeout(() => {
+        downloadLesson(lesson.id);
+      }, index * 500); // Stagger downloads by 500ms
+    });
+  };
+
   const downloadLesson = (lessonId) => {
     const lesson = lessonPlans.find(l => l.id === lessonId);
-    alert(`Downloading "${lesson.title}" lesson plan as PDF...\n\nIncludes:\n- Full lesson procedure\n- Assessment rubrics\n- Student worksheets\n- Teacher notes\n\n(PDF generation in development)`);
+
+    // Generate comprehensive lesson plan document
+    const lessonContent = `
+${lesson.title}
+${'='.repeat(lesson.title.length + 20)}
+
+Grade Level: ${lesson.grade}
+Duration: ${lesson.duration}
+NGSS Standards: ${lesson.ngss.join(', ')}
+
+ESSENTIAL QUESTION
+${lesson.essentialQuestion}
+
+LEARNING OBJECTIVES
+${lesson.objectives.map((obj, i) => `${i + 1}. ${obj}`).join('\n')}
+
+VOCABULARY
+${lesson.vocabulary.join(', ')}
+
+MATERIALS
+${lesson.materials.map((item, i) => `• ${item}`).join('\n')}
+
+SAFETY NOTES
+${lesson.safetyNotes ? lesson.safetyNotes.map(note => `⚠️ ${note}`).join('\n') : 'Standard lab safety protocols apply.'}
+
+===================
+LESSON PROCEDURE (5E Model)
+===================
+
+ENGAGE (${lesson.procedure.engage.duration})
+${lesson.procedure.engage.activities.map((act, i) => `${i + 1}. ${act}`).join('\n')}
+
+EXPLORE (${lesson.procedure.explore.duration})
+${lesson.procedure.explore.activities.map((act, i) => `${i + 1}. ${act}`).join('\n')}
+
+EXPLAIN (${lesson.procedure.explain.duration})
+${lesson.procedure.explain.activities.map((act, i) => `${i + 1}. ${act}`).join('\n')}
+
+ELABORATE (${lesson.procedure.elaborate.duration})
+${lesson.procedure.elaborate.activities.map((act, i) => `${i + 1}. ${act}`).join('\n')}
+
+EVALUATE (${lesson.procedure.evaluate.duration})
+${lesson.procedure.evaluate.activities.map((act, i) => `${i + 1}. ${act}`).join('\n')}
+
+===================
+ASSESSMENT
+===================
+
+FORMATIVE ASSESSMENT:
+${lesson.assessment.formative.map((item, i) => `• ${item}`).join('\n')}
+
+SUMMATIVE ASSESSMENT:
+${lesson.assessment.summative.map((item, i) => `• ${item}`).join('\n')}
+
+RUBRIC CATEGORIES:
+${lesson.assessment.rubric.categories.map(cat => `
+${cat.criterion}:
+${cat.levels.map((level, i) => `  ${4-i}. ${level}`).join('\n')}
+`).join('\n')}
+
+===================
+DIFFERENTIATION STRATEGIES
+===================
+
+SUPPORT (for struggling learners):
+${lesson.differentiation.support.map(item => `• ${item}`).join('\n')}
+
+EXTENSION (for advanced learners):
+${lesson.differentiation.extension.map(item => `• ${item}`).join('\n')}
+
+ELL SUPPORT (for English Language Learners):
+${lesson.differentiation.ell.map(item => `• ${item}`).join('\n')}
+
+===================
+HOMEWORK
+===================
+${lesson.homework.map((item, i) => `${i + 1}. ${item}`).join('\n')}
+
+===================
+REAL-WORLD CONNECTIONS
+===================
+${lesson.connections.realWorld.map(item => `• ${item}`).join('\n')}
+
+CAREER PATHWAYS:
+${lesson.connections.careers.join(', ')}
+
+===================
+Created with OceanAware Guardian - Ocean Awareness Contest 2026
+https://oceanaware-guardian.com
+===================
+`;
+
+    // Create and download file
+    const element = document.createElement('a');
+    const file = new Blob([lessonContent], { type: 'text/plain' });
+    element.href = URL.createObjectURL(file);
+    element.download = `${lesson.title.replace(/\s+/g, '-')}-Lesson-Plan.txt`;
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
   };
 
   return (
@@ -883,9 +991,12 @@ const OceanLessonPlans = () => {
         </div>
 
         <div className="mt-6 text-center">
-          <button className="bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition-colors shadow-lg">
+          <button
+            onClick={downloadAllLessons}
+            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-bold hover:bg-blue-50 transition-colors shadow-lg"
+          >
             <Download className="inline w-5 h-5 mr-2" />
-            Download Complete Curriculum Package (ZIP)
+            Download All 5 Lesson Plans
           </button>
         </div>
       </div>
