@@ -95,3 +95,10 @@ coverage/
 *.md
 !README.md
 !TESTING_FRAMEWORK.md
+!MCP-SETUP.md
+
+# MCP configuration (contains API keys)
+.mcp.json
+
+# Planning and implementation files (may contain sensitive data)
+imp-plan.txt
