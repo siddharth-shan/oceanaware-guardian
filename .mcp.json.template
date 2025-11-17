@@ -5,7 +5,7 @@
       "command": "npx",
       "args": [
         "@modelcontextprotocol/server-filesystem",
-        "/Users/work/projects/ecoquest/app/ecoquest-wildfire-watch"
+        "/path/to/your/project"
       ]
     },
     "memory": {
@@ -19,7 +19,7 @@
       "command": "npx",
       "args": ["@testsprite/testsprite-mcp@latest"],
       "env": {
-        "API_KEY": "sk-user-TNIlHNDnNeq-8smB_BBNwftVmXdwAbL4pIOAGxzg3-VR2NkbswLkYRDBeFYrfx5wE0_PnoE9-qoFhEsVGFmvKaJ9cnvSd-BAtGMy6pCOFG-lyHmEfQUt6hSGwd0BBFm7pA0"
+        "API_KEY": "YOUR_TESTSPRITE_API_KEY_HERE"
       }
     },
     "puppeteer": {
@@ -37,7 +37,7 @@
         "@allpepper/memory-bank-mcp@latest"
       ],
       "env": {
-        "MEMORY_BANK_ROOT": "/Users/work/projects/ecoquest/app/ecoquest-wildfire-watch"
+        "MEMORY_BANK_ROOT": "/path/to/your/project"
       }
     },
     "sequential-thinking": {
@@ -46,7 +46,7 @@
       "args": [
         "@modelcontextprotocol/server-sequential-thinking"
       ]
-    },    
+    },
     "mcp-server-firecrawl": {
       "type": "stdio",
       "command": "npx",
@@ -55,7 +55,7 @@
         "firecrawl-mcp"
       ],
       "env": {
-        "FIRECRAWL_API_KEY": "fc-602b1d8ac3824e77b291f40e02fad4fb"
+        "FIRECRAWL_API_KEY": "YOUR_FIRECRAWL_API_KEY_HERE"
       }
     },
     "browserbase": {
@@ -65,9 +65,9 @@
         "-y",
         "supergateway",
         "--sse",
-        "https://mcp.pipedream.net/09cf09f7-469f-4073-9d05-6b5d70ef8877/browserbase"
+        "https://mcp.pipedream.net/YOUR_BROWSERBASE_ID/browserbase"
       ]
-    },    
+    },
     "runner": {
       "type": "stdio",
       "command": "npx",
@@ -79,7 +79,7 @@
     },
     "ref-tools": {
       "type": "http",
-      "url": "https://api.ref.tools/mcp?apiKey=ref-46c38f6de3e8c09c0059"
+      "url": "https://api.ref.tools/mcp?apiKey=YOUR_REF_TOOLS_API_KEY_HERE"
     }
   }
 }

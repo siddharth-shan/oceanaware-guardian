@@ -3,7 +3,7 @@ import {
   Waves, TrendingUp, TrendingDown, Droplets, Fish, AlertCircle,
   ThermometerSun, Wind, MapPin, Clock, Shield, Sparkles, Heart,
   Target, Users, BookOpen, Palette, Music, ArrowRight, ChevronRight,
-  Globe, Leaf, Anchor, Shell, Activity
+  Globe, Leaf, Anchor, Compass, Activity
 } from 'lucide-react';
 import { useAccessibility } from '../accessibility/AccessibilityProvider';
 
@@ -370,7 +370,7 @@ const OceanAwareDashboard = ({ userLocation, onLocationChange, onNavigateToAlert
       <div className="bg-white rounded-xl shadow-md border-2 border-blue-100 p-6">
         <div className="flex items-start space-x-4">
           <div className="bg-blue-100 p-3 rounded-full">
-            <Shell className="h-8 w-8 text-blue-600" />
+            <Compass className="h-8 w-8 text-blue-600" />
           </div>
           <div className="flex-1">
             <h3 className="text-xl font-bold text-gray-900 mb-2">Our Mission</h3>
