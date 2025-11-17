@@ -34,16 +34,15 @@ import OceanCurriculumHub from './components/curriculum/OceanCurriculumHub';
 import DataSonification from './components/visualization/DataSonification';
 import GenerativeArtTool from './components/visualization/GenerativeArtTool';
 import PolicyActionEngine from './components/policy/PolicyActionEngine';
+import AIMarineTrainer from './components/ai/AIMarineTrainer';
 // import OfflineIndicator from './components/offline/OfflineIndicator'; // Temporarily disabled
 
 // Import services
 import { useOffline } from './hooks/useOfflineSimple';
 import { useLocationManager } from './hooks/useLocationManager';
 import { useWeatherData } from './hooks/useWeatherData';
-import { useAlerts } from './hooks/useAlerts';
 import { useAccessibility } from './components/accessibility/AccessibilityProvider';
 import { useAuth } from './services/auth/AuthContext';
-import { calculateEmergencyLevel } from './utils/emergencyHelpers';
 
 const AppContent = () => {
   const { translate } = useAccessibility();
@@ -68,14 +67,6 @@ const AppContent = () => {
   
   // Get weather data
   const { weather: weatherData, loading: weatherLoading } = useWeatherData(location);
-  
-  // Get alerts data for emergency level calculation
-  const { 
-    alerts, 
-    getHighPriorityAlerts,
-    getAlertsByType,
-    getActiveAlertsCount 
-  } = useAlerts(location);
 
   useEffect(() => {
     // Set loading to false once initial data is loaded
@@ -110,38 +101,8 @@ const AppContent = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [openDropdown]);
 
-  // Calculate emergency level based on alerts and community reports
-  const getEmergencyLevel = () => {
-    if (!getHighPriorityAlerts || !getAlertsByType || !getActiveAlertsCount) {
-      return 'normal';
-    }
-
-    try {
-      const highPriorityAlerts = getHighPriorityAlerts() || [];
-      const fireAlerts = getAlertsByType('fire') || [];
-      const nearbyFires = fireAlerts.filter(alert => alert?.data?.distance <= 25);
-      
-      // Convert alerts to reports format for emergency calculation
-      const alertsAsReports = [
-        ...nearbyFires.map(alert => ({
-          type: 'fire-spotting',
-          urgentLevel: 'critical',
-          timestamp: new Date().toISOString()
-        })),
-        ...highPriorityAlerts.map(alert => ({
-          type: 'unsafe-conditions', 
-          urgentLevel: 'high',
-          timestamp: new Date().toISOString()
-        }))
-      ];
-      
-      // Use the centralized emergency level calculation
-      return calculateEmergencyLevel(alertsAsReports, alerts, { userLocation: location });
-    } catch (error) {
-      console.error('Error calculating emergency level:', error);
-      return 'normal';
-    }
-  };
+  // Ocean conservation app - no fire alerts, always normal status
+  const emergencyLevel = 'normal';
 
   // Ocean Awareness Contest 2026 - Reorganized Navigation
   // Grouped into 5 main categories for better UX
@@ -169,6 +130,13 @@ const AppContent = () => {
           icon: Map,
           description: 'Interactive journey: How climate change transforms our coasts',
           badge: 'Popular'
+        },
+        {
+          id: 'ai-ocean-guardian',
+          label: 'AI Ocean Guardian',
+          icon: Brain,
+          description: 'Train an AI to identify marine life & pollution - Learn ML basics',
+          badge: 'NEW'
         },
         {
           id: 'data-art',
@@ -252,6 +220,11 @@ const AppContent = () => {
         // Point VII from ocean-contest.txt - Scroll-based narrative experience
         return <InteractiveCoastalStory />;
 
+      case 'ai-ocean-guardian':
+        // AI Education: Train ML model to identify marine life vs pollution
+        // Teaches AI literacy, bias, ethics, and real-world conservation applications
+        return <AIMarineTrainer />;
+
       case 'data-art':
         // Point V from ocean-contest.txt - Data as artistic visualization
         return <DataArtTriptych userLocation={location} />;
@@ -282,7 +255,7 @@ const AppContent = () => {
               {/* Community Coastal Safety Reports */}
               <CommunityHub
                 userLocation={location}
-                emergencyLevel={getEmergencyLevel()}
+                emergencyLevel={emergencyLevel}
               />
             </div>
           </HooksErrorBoundary>
@@ -321,8 +294,6 @@ const AppContent = () => {
     );
   }
 
-  const emergencyLevel = getEmergencyLevel();
-  
   return (
     <div className={`min-h-screen transition-all duration-500 bg-emergency-${emergencyLevel}`}>
         {/* Skip to main content link for screen readers */}
