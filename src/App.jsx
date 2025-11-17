@@ -34,6 +34,7 @@ import OceanCurriculumHub from './components/curriculum/OceanCurriculumHub';
 import DataSonification from './components/visualization/DataSonification';
 import GenerativeArtTool from './components/visualization/GenerativeArtTool';
 import PolicyActionEngine from './components/policy/PolicyActionEngine';
+import AIMarineTrainer from './components/ai/AIMarineTrainer';
 // import OfflineIndicator from './components/offline/OfflineIndicator'; // Temporarily disabled
 
 // Import services
@@ -131,6 +132,13 @@ const AppContent = () => {
           badge: 'Popular'
         },
         {
+          id: 'ai-ocean-guardian',
+          label: 'AI Ocean Guardian',
+          icon: Brain,
+          description: 'Train an AI to identify marine life & pollution - Learn ML basics',
+          badge: 'NEW'
+        },
+        {
           id: 'data-art',
           label: 'Data Art',
           icon: Palette,
@@ -211,6 +219,11 @@ const AppContent = () => {
         // UNIQUE FEATURE: Interactive storytelling - "A Day in the Life of a Coastline"
         // Point VII from ocean-contest.txt - Scroll-based narrative experience
         return <InteractiveCoastalStory />;
+
+      case 'ai-ocean-guardian':
+        // AI Education: Train ML model to identify marine life vs pollution
+        // Teaches AI literacy, bias, ethics, and real-world conservation applications
+        return <AIMarineTrainer />;
 
       case 'data-art':
         // Point V from ocean-contest.txt - Data as artistic visualization
