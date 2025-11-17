@@ -150,14 +150,6 @@ const DataArtTriptych = ({ userLocation }) => {
           Live ocean data transformed into artistic visualizations. Each pattern tells a story
           of change, challenge, and the urgent need for action.
         </p>
-
-        <div className="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg inline-block">
-          <p className="text-sm text-blue-900">
-            <Info className="inline w-4 h-4 mr-1" />
-            <strong>Point V: Data as Art</strong> - Converting NOAA/USGS ocean data into emotionally
-            resonant visual patterns
-          </p>
-        </div>
       </motion.div>
 
       {/* Triptych Panels */}

@@ -320,7 +320,12 @@ const DigitalStorybook = () => {
   const toggleReadAloud = () => {
     setReadAloud(!readAloud);
     if (!readAloud && 'speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(currentChapterData.title);
+      // Create full text with title and all content
+      const fullText = `${currentChapterData.title}. ${currentChapterData.content.join(' ')}`;
+      const utterance = new SpeechSynthesisUtterance(fullText);
+      utterance.rate = 0.9; // Slightly slower for better comprehension
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
       window.speechSynthesis.speak(utterance);
     } else if (readAloud) {
       window.speechSynthesis.cancel();
