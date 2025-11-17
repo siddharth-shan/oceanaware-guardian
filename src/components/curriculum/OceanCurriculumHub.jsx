@@ -92,14 +92,6 @@ const OceanCurriculumHub = () => {
           Comprehensive ocean science curriculum designed for community impact. All resources are
           free, downloadable, and aligned to educational standards.
         </p>
-
-        <div className="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg inline-block">
-          <p className="text-sm text-blue-900">
-            <Award className="inline w-4 h-4 mr-1" />
-            <strong>Point IV: Ocean Curriculum</strong> - Expanding educational reach beyond the app
-            to classrooms worldwide
-          </p>
-        </div>
       </div>
 
       {/* Impact Stats */}
