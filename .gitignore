@@ -102,6 +102,7 @@ coverage/
 !OCEAN-CONTEST-IMPLEMENTATION.md
 !CONTEST-WINNER-STRATEGY.md
 !VERCEL-DEPLOYMENT-GUIDE.md
+!CONTEST-GAP-ANALYSIS.md
 
 # MCP configuration (contains API keys)
 .mcp.json
