@@ -143,7 +143,7 @@ const GuidedExperience = ({ onNavigate }) => {
       time: 'Next Morning - 7:00 AM',
       timeIcon: Star,
       title: 'Building Community',
-      subtitle: 'Realizing I'm not alone',
+      subtitle: 'Realizing I am not alone',
       color: 'from-teal-400 to-green-500',
       marinaSays: "I woke up the next day feeling different. I had tools, knowledge, and a commitment.\n\nBut I also realized: I can't do this alone. No guardian can.\n\nThat's when I started looking for my crew - other people who care about the ocean, who want to make a difference, who are ready to take action together.\n\nLet me show you how we can connect, organize, and multiply our impact.",
       mariaEmotion: 'celebrating',
