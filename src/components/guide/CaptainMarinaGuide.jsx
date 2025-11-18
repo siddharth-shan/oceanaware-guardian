@@ -94,6 +94,21 @@ const CaptainMarinaGuide = ({
   const config = emotionConfig[emotion] || emotionConfig.friendly;
   const Icon = config.icon;
 
+  // Map emotions to available character images
+  // We have: friendly, teaching, celebrating, concerned, encouraging
+  // "thoughtful" maps to "teaching" since they're similar
+  const getEmotionImageName = (emotion) => {
+    const imageMap = {
+      'friendly': 'friendly',
+      'teaching': 'teaching',
+      'celebrating': 'celebrating',
+      'concerned': 'concerned',
+      'encouraging': 'encouraging',
+      'thoughtful': 'teaching' // Fallback: use teaching image for thoughtful
+    };
+    return imageMap[emotion] || 'friendly';
+  };
+
   // Position classes
   const positionClasses = {
     'bottom-right': 'bottom-4 right-4 sm:bottom-6 sm:right-6',
@@ -162,10 +177,19 @@ const CaptainMarinaGuide = ({
             {/* Message content */}
             <div className={`p-4 ${config.bgColor}`}>
               <div className="flex items-start gap-3">
-                {/* Avatar with character illustration placeholder */}
-                <div className={`flex-shrink-0 w-16 h-16 bg-gradient-to-br ${config.gradient} rounded-full flex items-center justify-center text-3xl border-2 border-white shadow-lg`}>
-                  {/* Character emoji placeholder - will be replaced with actual illustration */}
-                  👩‍✈️
+                {/* Avatar with Captain Marina character illustration */}
+                <div className={`flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center border-2 border-white shadow-lg overflow-hidden bg-white`}>
+                  <img
+                    src={`/assets/characters/captain-marina-${getEmotionImageName(emotion)}.png`}
+                    alt={`Captain Marina ${emotion}`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback to friendly if image fails to load
+                      if (e.target.src !== '/assets/characters/captain-marina-friendly.png') {
+                        e.target.src = '/assets/characters/captain-marina-friendly.png';
+                      }
+                    }}
+                  />
                 </div>
 
                 {/* Message */}

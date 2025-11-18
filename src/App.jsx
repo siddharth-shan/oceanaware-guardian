@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './index.css';
 import './styles/accessibility.css';
 import './styles/themes.css';
-import { Home, Brain, Map, Target, AlertTriangle, Zap, Users, Settings, Activity, Bell, X, Shield, MapPin, Waves, GraduationCap, Palette, Music, Sparkles, ChevronDown } from 'lucide-react';
+import { Home, Brain, Map, Target, AlertTriangle, Zap, Users, Settings, Activity, Bell, X, Shield, MapPin, Waves, GraduationCap, Palette, Music, Sparkles, ChevronDown, Heart } from 'lucide-react';
 
 // Import components
 import WeatherWidget from './components/weather/WeatherWidget';
