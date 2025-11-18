@@ -4,6 +4,7 @@ import {
   Target, TrendingUp, MapPin, Calendar, Heart, Award,
   ChevronRight, ChevronDown, Sparkles, Waves, Globe, Leaf
 } from 'lucide-react';
+import CaptainMarinaGuide, { marinaMessages } from '../guide/CaptainMarinaGuide';
 
 /**
  * Policy & Action Recommendation Engine
@@ -517,6 +518,15 @@ const PolicyActionEngine = ({ userLocation }) => {
           </a>
         </div>
       </div>
+
+      {/* Captain Marina Guide - Policy Introduction */}
+      <CaptainMarinaGuide
+        message={marinaMessages.policy.intro.message}
+        emotion={marinaMessages.policy.intro.emotion}
+        position="bottom-right"
+        dismissible={true}
+        showInitially={true}
+      />
     </div>
   );
 };

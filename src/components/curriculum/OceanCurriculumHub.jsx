@@ -16,6 +16,7 @@ import OceanExperimentsGuide from './OceanExperimentsGuide';
 import OceanLessonPlans from './OceanLessonPlans';
 import DigitalStorybook from './DigitalStorybook';
 import OceanWorksheets from './OceanWorksheets';
+import CaptainMarinaGuide, { marinaMessages } from '../guide/CaptainMarinaGuide';
 
 /**
  * Ocean Curriculum Hub - Point IV from ocean-contest.txt
@@ -204,6 +205,15 @@ const OceanCurriculumHub = () => {
           </div>
         </div>
       </div>
+
+      {/* Captain Marina Guide - Curriculum Introduction */}
+      <CaptainMarinaGuide
+        message={marinaMessages.curriculum.intro.message}
+        emotion={marinaMessages.curriculum.intro.emotion}
+        position="bottom-right"
+        dismissible={true}
+        showInitially={true}
+      />
     </div>
   );
 };
