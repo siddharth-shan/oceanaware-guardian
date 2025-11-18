@@ -103,6 +103,7 @@ coverage/
 !CONTEST-WINNER-STRATEGY.md
 !VERCEL-DEPLOYMENT-GUIDE.md
 !CONTEST-GAP-ANALYSIS.md
+!INTEGRATED-ACTION-PLAN.md
 
 # MCP configuration (contains API keys)
 .mcp.json
