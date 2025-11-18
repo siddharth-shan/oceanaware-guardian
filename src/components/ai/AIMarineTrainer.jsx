@@ -17,6 +17,7 @@ import {
   Info,
   Sparkles
 } from 'lucide-react';
+import CaptainMarinaGuide, { marinaMessages } from '../guide/CaptainMarinaGuide';
 
 const AIMarineTrainer = () => {
   const [phase, setPhase] = useState('intro'); // intro, training, lesson, testing, complete
@@ -280,6 +281,15 @@ const AIMarineTrainer = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Captain Marina Guide - Intro */}
+        <CaptainMarinaGuide
+          message={marinaMessages.aiGuardian.intro.message}
+          emotion={marinaMessages.aiGuardian.intro.emotion}
+          position="bottom-right"
+          dismissible={true}
+          showInitially={true}
+        />
       </div>
     );
   }
@@ -409,6 +419,19 @@ const AIMarineTrainer = () => {
             </motion.div>
           )}
         </div>
+
+        {/* Captain Marina Guide - Training Guidance */}
+        {trainingProgress > 20 && (
+          <CaptainMarinaGuide
+            message={marinaMessages.aiGuardian.training.message}
+            emotion={marinaMessages.aiGuardian.training.emotion}
+            position="bottom-right"
+            dismissible={true}
+            showInitially={true}
+            autoHide={true}
+            autoHideDuration={15000}
+          />
+        )}
       </div>
     );
   }

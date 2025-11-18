@@ -6,6 +6,7 @@ import {
   Globe, Leaf, Anchor, Compass, Activity
 } from 'lucide-react';
 import { useAccessibility } from '../accessibility/AccessibilityProvider';
+import CaptainMarinaGuide, { marinaMessages } from '../guide/CaptainMarinaGuide';
 
 /**
  * Ocean-Focused Dashboard for Bow Seat Contest
@@ -383,6 +384,15 @@ const OceanAwareDashboard = ({ userLocation, onLocationChange, onNavigateToAlert
           </div>
         </div>
       </div>
+
+      {/* Captain Marina Guide - Welcome Message */}
+      <CaptainMarinaGuide
+        message={marinaMessages.dashboard.welcome.message}
+        emotion={marinaMessages.dashboard.welcome.emotion}
+        position="bottom-right"
+        dismissible={true}
+        showInitially={true}
+      />
     </div>
   );
 };
