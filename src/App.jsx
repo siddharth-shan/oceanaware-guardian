@@ -13,7 +13,6 @@ import AlertsDashboard from './components/alerts/AlertsDashboard';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import LocationInput from './components/location/LocationInput';
 import OceanAwareDashboard from './components/dashboard/OceanAwareDashboard';
-import CommunityHub from './components/community/CommunityHub';
 import FamilySafetyHub from './components/family/FamilySafetyHub';
 import AccessibilityProvider from './components/accessibility/AccessibilityProvider';
 import { AuthProvider } from './services/auth/AuthContext';
@@ -25,7 +24,6 @@ import NotificationSettings from './components/settings/NotificationSettings';
 import PrivacyControlPanel from './components/privacy/PrivacyControlPanel';
 import { NotificationContainer, useNotifications } from './components/ui/EnhancedNotification';
 import PrivacyFirstAuth from './components/auth/PrivacyFirstAuth';
-import HooksErrorBoundary from './components/ui/HooksErrorBoundary';
 import OceanHazardDashboard from './components/ocean/OceanHazardDashboard';
 import InteractiveCoastalStory from './components/narrative/InteractiveCoastalStory';
 import OceanConservationGames from './components/games/OceanConservationGames';
@@ -204,7 +202,7 @@ const AppContent = () => {
       id: 'community-action',
       label: 'Take Action',
       icon: Target,
-      description: 'Policy recommendations and community coastal reporting',
+      description: 'Personalized policy recommendations and action commitments for ocean conservation',
       type: 'single',
       highlight: true,
       badge: 'Impact'
@@ -260,24 +258,8 @@ const AppContent = () => {
         return <OceanHazardDashboard userLocation={location} />;
 
       case 'community-action':
-        // Community reporting + Policy & Action Recommendations
-        return (
-          <HooksErrorBoundary
-            onNavigateHome={() => setActiveTab('dashboard')}
-            showDetails={process.env.NODE_ENV === 'development'}
-          >
-            <div className="space-y-6">
-              {/* Policy & Action Recommendations Engine - Enhanced with real actions */}
-              <PolicyActionEngine userLocation={location} />
-
-              {/* Community Coastal Safety Reports */}
-              <CommunityHub
-                userLocation={location}
-                emergencyLevel={emergencyLevel}
-              />
-            </div>
-          </HooksErrorBoundary>
-        );
+        // Policy & Action Recommendations
+        return <PolicyActionEngine userLocation={location} />;
 
       case 'ocean-curriculum':
         // Point IV from ocean-contest.txt - Educational curriculum for community impact
