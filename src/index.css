@@ -127,6 +127,11 @@
   .safe-area-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
+
+  /* Captain Marina guide bottom margin - prevents cut-off on mobile */
+  .mb-safe {
+    margin-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
   
   /* Enhanced touch targets for mobile - Updated for new action bar */
   @media (max-width: 768px) {

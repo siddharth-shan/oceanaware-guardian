@@ -20,7 +20,9 @@ const CaptainMarinaGuide = ({
   showInitially = true,
   onDismiss,
   autoHide = false,
-  autoHideDuration = 10000
+  autoHideDuration = 10000,
+  actionButton = null, // { label: string, onClick: function, variant: 'primary' | 'secondary' }
+  onNavigate = null // Optional navigation callback
 }) => {
   const [isVisible, setIsVisible] = useState(showInitially);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -109,13 +111,14 @@ const CaptainMarinaGuide = ({
     return imageMap[emotion] || 'friendly';
   };
 
-  // Position classes
+  // Position classes - increased bottom padding to prevent cut-off
   const positionClasses = {
-    'bottom-right': 'bottom-4 right-4 sm:bottom-6 sm:right-6',
-    'bottom-left': 'bottom-4 left-4 sm:bottom-6 sm:left-6',
+    'bottom-right': 'bottom-6 right-4 sm:bottom-8 sm:right-6 mb-safe',
+    'bottom-left': 'bottom-6 left-4 sm:bottom-8 sm:left-6 mb-safe',
     'top-right': 'top-4 right-4 sm:top-6 sm:right-6',
     'top-left': 'top-4 left-4 sm:top-6 sm:left-6',
-    'bottom-center': 'bottom-4 left-1/2 transform -translate-x-1/2',
+    'bottom-center': 'bottom-6 left-1/2 transform -translate-x-1/2 mb-safe',
+    'relative': 'relative' // For non-fixed positioning
   };
 
   if (!isVisible) return null;
@@ -127,7 +130,7 @@ const CaptainMarinaGuide = ({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.8, y: 20 }}
         transition={{ duration: 0.3 }}
-        className={`fixed ${positionClasses[position]} z-50 max-w-sm`}
+        className={`${position === 'relative' ? 'relative' : 'fixed'} ${positionClasses[position]} z-[100] max-w-sm`}
       >
         {isMinimized ? (
           // Minimized state - just avatar circle
@@ -216,6 +219,25 @@ const CaptainMarinaGuide = ({
                     <Sparkles className="w-3 h-3" />
                     You're doing great!
                   </p>
+                </div>
+              )}
+
+              {/* Action Button */}
+              {actionButton && (
+                <div className="mt-4 pt-3 border-t border-gray-200">
+                  <button
+                    onClick={actionButton.onClick}
+                    className={`w-full px-4 py-2.5 rounded-lg font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg transform hover:scale-105 ${
+                      actionButton.variant === 'secondary'
+                        ? 'bg-white text-blue-600 border-2 border-blue-500 hover:bg-blue-50'
+                        : `bg-gradient-to-r ${config.gradient} text-white hover:opacity-90`
+                    }`}
+                  >
+                    {actionButton.label}
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
                 </div>
               )}
             </div>

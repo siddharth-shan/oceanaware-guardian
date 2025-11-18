@@ -526,6 +526,8 @@ const PolicyActionEngine = ({ userLocation }) => {
         position="bottom-right"
         dismissible={true}
         showInitially={true}
+        autoHide={true}
+        autoHideDuration={15000}
       />
     </div>
   );

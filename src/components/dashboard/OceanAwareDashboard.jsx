@@ -392,6 +392,11 @@ const OceanAwareDashboard = ({ userLocation, onLocationChange, onNavigateToAlert
         position="bottom-right"
         dismissible={true}
         showInitially={true}
+        actionButton={{
+          label: "Start Marina's Journey",
+          onClick: () => onNavigateToTab?.('guided-experience'),
+          variant: 'primary'
+        }}
       />
     </div>
   );
