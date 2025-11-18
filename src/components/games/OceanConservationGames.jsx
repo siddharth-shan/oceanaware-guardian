@@ -4,6 +4,7 @@ import { Gamepad2, ArrowLeft, Trees, Waves, TrendingDown, Award } from 'lucide-r
 import RebuildTheCoast from './RebuildTheCoast';
 import TsunamiEscape from './TsunamiEscape';
 import StopTheShrinkingBeach from './StopTheShrinkingBeach';
+import CaptainMarinaGuide, { marinaMessages } from '../guide/CaptainMarinaGuide';
 
 /**
  * Ocean Conservation Games Hub
@@ -154,6 +155,15 @@ const OceanConservationGames = () => {
           </div>
         </div>
       </div>
+
+      {/* Captain Marina Guide - Games Introduction */}
+      <CaptainMarinaGuide
+        message={marinaMessages.games.intro.message}
+        emotion={marinaMessages.games.intro.emotion}
+        position="bottom-right"
+        dismissible={true}
+        showInitially={true}
+      />
     </div>
   );
 };

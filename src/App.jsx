@@ -35,6 +35,8 @@ import DataSonification from './components/visualization/DataSonification';
 import GenerativeArtTool from './components/visualization/GenerativeArtTool';
 import PolicyActionEngine from './components/policy/PolicyActionEngine';
 import AIMarineTrainer from './components/ai/AIMarineTrainer';
+import AboutMe from './components/about/AboutMe';
+import GuidedExperience from './components/guided/GuidedExperience';
 // import OfflineIndicator from './components/offline/OfflineIndicator'; // Temporarily disabled
 
 // Import services
@@ -114,6 +116,15 @@ const AppContent = () => {
       description: 'Ocean health overview with key metrics and quick actions',
       type: 'single',
       highlight: true
+    },
+    {
+      id: 'guided-experience',
+      label: "Marina's Journey",
+      icon: Waves,
+      description: "A Day in the Life of an Ocean Guardian - Complete guided tour",
+      type: 'single',
+      highlight: true,
+      badge: 'START HERE'
     },
     {
       id: 'explore',
@@ -197,6 +208,13 @@ const AppContent = () => {
       type: 'single',
       highlight: true,
       badge: 'Impact'
+    },
+    {
+      id: 'about',
+      label: 'About',
+      icon: Heart,
+      description: 'Meet the creator and learn the story behind OceanAware Guardian',
+      type: 'single'
     }
   ];
 
@@ -269,6 +287,18 @@ const AppContent = () => {
         // Educational games: Tsunami Escape, Rebuild the Coast, Stop the Shrinking Beach
         // Point VI from ocean-contest.txt - Interactive conservation games
         return <OceanConservationGames />;
+
+      case 'guided-experience':
+        // CRITICAL CONTEST FEATURE: "A Day in the Life" guided tour
+        // Addresses gap: "Structure modules into a storyline"
+        // 7-chapter narrative connecting all features
+        return <GuidedExperience onNavigate={setActiveTab} />;
+
+      case 'about':
+        // CRITICAL CONTEST FEATURE: Creator's personal story
+        // Addresses gap: "Make sure your own artistic voice comes through"
+        // Personal beach story, technical journey, vision
+        return <AboutMe />;
 
       default:
         return (

@@ -113,7 +113,7 @@ const OceanExperimentsGuide = () => {
       discussion: [
         'Why did the vegetated beach erode less than the bare beach?',
         'How is this similar to real dunes and mangroves protecting coasts?',
-        'What happened to the sand that eroded? (It didn\'t disappear - where did it go?)',
+        'What happened to the sand that eroded? (It did not disappear - where did it go?)',
         'If you added a seawall, did it protect the beach or just move erosion elsewhere?',
         'What does this teach us about natural vs. artificial coastal defenses?'
       ],

@@ -14,6 +14,7 @@ import {
   ArrowDown,
   Info
 } from 'lucide-react';
+import CaptainMarinaGuide, { marinaMessages } from '../guide/CaptainMarinaGuide';
 
 /**
  * Interactive Coastal Story - Point VII from ocean-contest.txt
@@ -50,6 +51,17 @@ const InteractiveCoastalStory = () => {
 
   return (
     <div ref={containerRef} className="relative">
+      {/* Captain Marina Guide - Introduction */}
+      <CaptainMarinaGuide
+        message={marinaMessages.interactiveStory.intro.message}
+        emotion={marinaMessages.interactiveStory.intro.emotion}
+        position="bottom-right"
+        dismissible={true}
+        showInitially={true}
+        autoHide={true}
+        autoHideDuration={12000}
+      />
+
       {/* Sticky Header showing current era */}
       <div className="sticky top-16 z-30 bg-white/95 backdrop-blur-sm shadow-md py-3 px-6 rounded-lg mb-6">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -196,6 +208,18 @@ const InteractiveCoastalStory = () => {
           }
         ]}
       />
+
+      {/* Captain Marina Guide - 2100 Warning (shows when user reaches this section) */}
+      {currentEra === 'future' && (
+        <CaptainMarinaGuide
+          message={marinaMessages.interactiveStory.future2100.message}
+          emotion={marinaMessages.interactiveStory.future2100.emotion}
+          position="bottom-right"
+          dismissible={true}
+          showInitially={true}
+          autoHide={false}
+        />
+      )}
 
       {/* Hope & Action Section */}
       <ActionSection />
