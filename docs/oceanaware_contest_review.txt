@@ -1,0 +1,456 @@
+OceanAware Guardian vs. Past Bow Seat Winners
+(2023–2025): Analysis and Recommendations
+Strengths of Past Interactive & Multimedia Winners (2023–2025)
+Rich Storytelling & Personal Narrative: A compelling story or personal angle is a hallmark of
+many winning entries. For example, the 2023 Gold-winning podcast “Unsung Climate Hero” told an
+immersive story of a Berber mountain guide in Morocco, featuring first-hand interviews about
+ancient farming methods and climate impacts . The student podcaster spent days trekking and
+interviewing locals, then centered her submission on this narrative of an “unsung” hero, making
+the climate crisis feel personal and urgent . Likewise, the Bamboo Bike interactive game (Junior
+Gold 2023) had a clear narrative thread: a friendly turtle character guides players through tasks
+(picking up ocean trash, planting trees, building a bamboo bike) while introducing real-life hero
+Bernice Dapaah’s story . These works read like stories rather than just presentations of facts,
+which helped judges connect emotionally. The strong storytelling in past winners demonstrates an
+artistic voice and imagination that judges prize , allowing complex environmental issues to be
+conveyed through relatable narratives.
+Community Engagement & Impact: Past winners often extend their impact beyond the screen by
+engaging communities or inspiring action. Many entries highlight community heroes or invite
+participation. The Junior team behind the “Sea Life” board game (2023) chose a multiplayer board
+game format specifically to educate family and friends together about beach cleanups inspired by
+activist Afroz Shah . Their reflection notes that playing the game with others helps “spread the
+word” on reducing plastic, showing an intent to galvanize their community . Similarly, the 2024
+Junior Gold website “3 Degrees” doubled as a fundraising and advocacy platform: it not only
+informed viewers about global warming but also featured a quiz and a donation link for a local
+#GoElectric initiative, encouraging users to take real-world action (funding electric cookers for the
+community) . Even digital projects found ways to be participatory – for instance, a 2023 AR filter
+project invited social media users to wear ocean-themed AR masks and share them, blending
+fashion, tech, and activism . Many winners drew on local or youth communities (interviewing
+neighbors, collaborating with school clubs, etc.), grounding their work in tangible impact. This focus
+on community-driven change amplified the entries’ resonance and showed judges that the artists
+were not only creative but also active young conservationists.
+Interactivity & Innovative Formats: Winning entries in this category leveraged creative interactive
+formats to engage their audience, often in playful or immersive ways. Games and multimedia
+experiences featured prominently. In 2024, Senior Gold winner “Island City” was a simulation game
+challenging players to manage a city’s carbon emissions and keep temperatures down – essentially
+teaching climate science through gameplay . It even presented a built-in story/tutorial about
+global warming’s seriousness to drive the message home . Another standout, “Bamboo Bike Maker
+Bernice Dapaah,” built in Scratch, let users drag-and-drop items and answer questions to learn how a
+Ghanaian entrepreneur built bikes from bamboo . This highly interactive approach turned
+•
+1
+2
+3
+4
+•
+5
+5
+6
+7
+•
+8
+9
+3
+1
+learning into a hands-on experience. Other winners mixed media in novel ways: the “Turning the Tide”
+entry (2023) structured a climate podcast as a game show (blending quiz elements with audio
+storytelling), and the “AR Masks: Plato’s Atlantis” project used augmented reality fashion filters to
+engage users in ocean-inspired art on social platforms . There were even immersive
+installations like 2025’s “Sea Life Hears More Than You,” which placed viewers in a 360° projection
+room with escalating ocean noise to evoke empathy for marine life . These examples show that
+winners often pushed the envelope of form – from games and AR to podcasts and physical
+installations – to make their message interactive. Such innovation not only captured audience
+attention but also showcased the entrants’ technical skill and creativity, aligning with the contest’s
+emphasis on originality and craftsmanship .
+Artistic Voice & Creativity: Despite using diverse mediums, past winners consistently demonstrated
+a strong artistic voice – a unique, imaginative perspective driving the work. Many projects
+combined art and science in creative ways. For instance, “Thriving Corals: Where Science Meets Art”
+(2024) blended scientific data with artistic presentation (coral illustrations, likely) to celebrate reef
+ecosystems, and “Patchwork for Change” wove together visuals and narrative like a textile of ideas (as
+the title suggests). In the 2025 Junior division, “Blurred Boundaries” used an original performance art
+concept – painted wooden cubes that the artist rotated on camera – to symbolize fragmented
+habitats and our interconnected fate with wildlife . This abstract yet personal piece was
+essentially storytelling through art: the faces of the cubes depicted a mountain lion’s world versus
+the student’s world, merging into one message about shared habitat. Judges appreciate when an
+entry’s style and medium amplify its message. Whether through vivid illustrations, evocative music,
+or inventive metaphors, top entries conveyed a clear point of view. They weren’t just reporting
+facts; they were interpreting the theme in a fresh, creative way. This originality and imagination in
+expression are explicitly part of the judging criteria . By infusing their work with personality – be
+it humor, satire, cultural perspective, or emotional depth – past winners made their pieces
+memorable and meaningful. In short, the best Interactive & Multimedia submissions from 2023–
+2025 married content with creativity: they told important stories about the ocean and climate, and
+did so in a way that only that young artist or team could, whether through a game, a film, or an
+interactive art piece.
+OceanAware Guardian App: Evaluation vs. Past Winners
+OceanAware Guardian is an ambitious web app platform (2025–26) that offers real-time ocean hazard
+mapping, AI-driven ocean health analysis, educational quests, data visualizations, and community action
+tools . In many ways, it represents a next-level interactive project, but when comparing it to the
+strengths of past Bow Seat winners, a few gaps emerge alongside notable advantages:
+Narrative & Emotional Hook – Potential Gap: OceanAware Guardian appears to be feature-rich
+and data-driven, but it currently lacks an obvious central narrative or personal story to tie it all
+together. Unlike past winners that focused on a single hero or a clear storyline, this app is structured
+as a multi-feature tool. There isn’t an immediately evident character, journey, or metaphor guiding
+the user’s experience (beyond the thematic framing of how the ocean sustains/protects/inspires us).
+This could be a weakness in terms of storytelling: judges might not feel the same emotional pull or
+personal connection that they did with, say, a podcast interviewing a climate hero or a game
+following a turtle guide. The Bow Seat prompt “Your Story, Our Ocean” emphasizes personal
+connection , and many winners literally shared their own or others’ ocean-related stories. By
+7
+10
+4
+•
+11 12
+4
+13 14
+•
+15
+2
+contrast, OceanAware Guardian presents a platform of tools and information; the onus is on the
+user to discover stories through data. If the app doesn’t foreground a narrative (for example, a dayin-
+the-life scenario, a fictional guide character, or the creator’s personal inspiration), it may come off
+as less artistically personal than other entries. In short, the app risks feeling more like a polished
+research project than an art piece with a soul, unless it weaves in a human narrative thread.
+🌍 Community Impact & Personal Engagement – Mixed Performance: OceanAware Guardian
+clearly values community action – it includes a “Coastal Community Hub” for crowd-sourced hazard
+reports and local project coordination , and even a policy recommendation engine to spur
+contacting representatives and joining conservation initiatives . These features align well with
+Bow Seat’s emphasis on youth activism and could impress judges as forward-thinking. However, the
+community impact in the app is mostly potential. It provides a platform for organizing and learning,
+but it’s unclear if any community is already using it. Past winners often demonstrated community
+engagement in practice – for example, 3 Degrees actually raised funds for community needs , and
+the Sea Life game creators literally participated in park cleanups and aimed to play their game with
+others . OceanAware Guardian’s community hub is a powerful idea (enabling users to help each
+other and share resources), but without a built-in user base or a specific community story, judges
+might not feel the impact as tangibly. Additionally, because the app tackles global data (NOAA,
+NASA, etc.) and broad issues, it might lose the localized, personal touch that made some entries so
+compelling. For instance, the app could alert a user about coastal erosion in their area, but that
+experience isn’t as inherently narrative as a student describing how sea-level rise is affecting their
+hometown. In summary, the platform provides great tools for community engagement, but it may
+not yet showcase a community narrative or outcome — a gap that could be addressed by integrating
+user stories or pilot usage examples.
+Artistic Voice & Visual Creativity – Potential Gap: From the documentation, OceanAware
+Guardian comes across as a highly technical project (AI models, data layers, etc.), which is
+impressive, but it raises the question of artistic voice. The app’s design and content need to convey
+a creative vision, not just technical proficiency. Many winning projects had a strong aesthetic or
+unique presentation style that reflected the creator’s personality or cultural background. For
+instance, the AR Masks project drew inspiration from high fashion and used a bold color scheme to
+make an environmental point , and Blurred Boundaries incorporated the artist’s own paintings and
+props . If OceanAware Guardian’s interface is too utilitarian or its tone too scientific, it might not
+score as high on originality and imagination . There is mention of an “interactive storytelling”
+mode called “A Day in the Life of a Coastline” within the data visualization studio – this could be a
+wonderfully artistic element if executed well (perhaps personifying a coastline over time). The risk is
+that, amid maps and charts, such creative touches might get overshadowed. In comparison to past
+entries, the app currently doesn’t obviously feature original artwork, music, or literary elements
+created by the student – it leans on data and code. Unless the visuals (like map art, icons, layout) and
+interactive scenarios are infused with creativity, the submission could appear less artistically
+expressive than a hand-drawn comic or a song or a film. Essentially, the student’s technical voice
+comes through clearly, but their artistic voice needs to shine through as well, so the project feels
+like a piece of creative advocacy, not just a tech demo. This is an area to strengthen so that the
+judges see the entrant’s imagination at work along with their coding skill.
+⚖ Scope and Focus: One unique challenge for OceanAware Guardian is its sheer scope. It attempts
+to cover everything from tsunami evacuation maps to coral reef AI analysis to policy tips. This
+•
+16
+17
+18
+19
+•
+20
+21
+4
+22
+•
+3
+breadth is a double-edged sword. On one hand, it’s very ambitious and addresses the contest theme
+from multiple angles – which could fulfill the “sustains, protects, inspires” sub-themes in a literal way
+. On the other hand, judges only have so much time to evaluate each entry, and an entry that
+tries to do too much might risk overwhelming them or diluting its core message. Past successful
+entries usually had a clear focus or a single concept executed deeply, rather than many disparate
+modules. For example, Island City zeroes in on climate and cities in a simulator , and Biscuit and
+Buttercup Lend A Fin (from 2024) likely was a coherent story (the title suggests a children’s story
+format). OceanAware Guardian will need to tie its many features into one cohesive experience for
+the judges. If presented haphazardly, the platform’s complexity could be seen as a weakness (“trying
+to do everything”) compared to a simpler, more poetic entry. However, if framed smartly (e.g.
+guiding the judges through a day in the life of a user who utilizes each feature in context), the app’s
+comprehensive approach can be a standout strength rather than a confusing sprawl. It’s crucial that
+the submission materials (description, screenshots, video) clearly communicate why each component
+exists and how they collectively tell a story about our relationship with the ocean.
+Notable Strengths: It’s important to note that OceanAware Guardian also has several built-in
+strengths vis-à-vis contest criteria, despite the gaps above. The project is highly interactive,
+arguably more so than typical entries, giving users maps to click, images to analyze, quizzes to play,
+and community posts to make. This level of interactivity is perfectly suited for the category and will
+likely impress judges who see a functional web app or demo. The use of cutting-edge technology (AI
+vision detecting plastic or coral health) is innovative and original, a clear differentiator – no
+previous Bow Seat entry has harnessed AI in this way, so it could earn points for imagination in
+problem-solving. Additionally, the app is deeply informative, embodying strong craftsmanship and
+research: it integrates real NOAA, NASA, and USGS data and even calculates an “Ocean Health
+Score” with multiple indicators . The accuracy and depth of content can boost the project’s
+credibility (as long as it remains accessible). And critically, OceanAware Guardian addresses the 2026
+theme directly – its features map exactly to how the ocean sustains (resources and climate
+regulation data), protects (hazard protection tools), and inspires (storytelling and community
+activism) . In terms of meeting contest requirements and theme alignment, the student has
+clearly been thorough. These strengths mean that, if the app’s presentation is refined, it has the
+potential to wow judges by showing that a student not only understands the issues but also
+created a functional solution. The key will be to package these strengths with a dose of storytelling
+and artistry so that the entry engages the heart as well as the mind.
+Features of OceanAware Guardian That Will Impress Judges
+Despite some differences from traditional entries, OceanAware Guardian has several features likely to stand
+out positively to contest judges:
+Multi-Faceted Interactivity: The app isn’t just one interactive element – it’s many in one. Judges
+exploring it (or watching a demo) will encounter maps, sliders, quizzes, and community boards. This
+goes beyond a typical “point and click” website. For example, the Ocean Hazard Intelligence Map
+lets users toggle layers (tsunami zones, erosion rates, etc.) and even see predictive timelines for sealevel
+rise . Such rich interactivity can deeply engage users in learning about ocean risks in a way a
+static infographic cannot. Likewise, the educational quests (e.g. Tsunami Safety Detective or
+Microplastic Hunter) turn knowledge into a game . This gamification element will likely appeal to
+23
+9
+•
+24
+25
+23
+•
+26
+27
+4
+judges as a creative teaching tool – much like previous game-based winners, but with more variety.
+Overall, the hands-on nature of the platform aligns perfectly with the Interactive category’s spirit.
+Cutting-Edge Tech & Innovation: OceanAware Guardian’s integration of AI and real-time data is
+highly innovative for a student project. It features an AI-powered vision module that can analyze
+coastal images for pollution or coral health , employing advanced machine learning models. This
+kind of technology-driven approach is unique; it shows the student pushing the boundaries of what
+youth artivism can encompass. Judges will likely remember an entry that, for instance, can scan a
+photo of a beach and identify plastic trash – that demonstrates originality in tackling ocean
+conservation. The platform essentially repurposes emergency tech (from the student’s previous
+wildfire app) for marine conservation , exemplifying creative problem-solving. This “high-tech”
+artistic innovation complements the more traditional art forms in the contest and can set the entry
+apart as forward-thinking. As long as it’s clearly the student’s own work (and not just an AI doing
+everything), this tech-savvy angle will be a strong asset.
+Depth of Content & Educational Value: The judges also consider how accurately and effectively an
+entry communicates environmental issues . Here, OceanAware Guardian shines with wellresearched
+content. It doesn’t just mention problems vaguely – it provides data, visual evidence,
+and context. The Data Visualization Studio component, for instance, includes an interactive
+timeline of sea-level rise from 2020 to 2100 and global ocean heatmaps . This gives viewers a
+clear, factual picture of climate trends, enhancing the persuasive power of the piece. By combining
+science and interactive visuals, the app educates in a compelling way (much like Bow Seat’s own
+Resource Studio does). The inclusion of features like a Marine Biodiversity tracker or a “Day in the
+Life of a Coastline” story mode indicates an effort to translate scientific data into relatable stories or
+visuals . Judges appreciate when student work is not only creative but also informative and
+accurate. OceanAware Guardian’s comprehensive approach can convince judges that the creator has
+a strong grasp of marine science and climate issues – strengthening the entry’s impact.
+Clear Call-to-Action & Empowerment: One of the most exciting aspects of OceanAware Guardian is
+how it doesn’t stop at raising awareness – it actively guides users toward solutions. The
+Conservation Action Recommendation section provides personalized ideas for local actions
+(wetland restoration, beach cleanups), policy advocacy tips, and ways to get involved in citizen
+science . This feature aligns perfectly with Bow Seat’s mission of turning creativity into action. It
+shows that the student wants to empower others to protect our blue planet, not just inform them.
+Judges tend to respond well to entries that inspire hope or action rather than despair. For example,
+the theme of the 2023 contest was to uplift climate heroes making a difference , and here the app
+essentially tries to turn the user into a climate hero by recommending advocacy steps. Such a
+positive, solutions-oriented tone can leave a strong impression. It demonstrates maturity and
+leadership – the contestant isn’t just saying “here’s a problem,” but also “here’s what we can do.” This
+proactive spirit, combined with the community hub (where users can coordinate real conservation
+projects or share resources), makes OceanAware Guardian more than an art piece; it becomes a tool
+for real-world impact. That kind of tangible empowerment is likely to be seen as a big plus.
+Alignment with Contest Theme: Finally, judges will immediately notice how directly OceanAware
+Guardian fits the 2026 theme “Your Story, Our Ocean: How Our Ocean Sustains, Protects, and Inspires
+Us.” The app’s very structure mirrors the sustains / protects / inspires framework . Each major
+module corresponds to one of those facets – for example, ocean sustains us is reflected in features
+•
+28
+29
+•
+30
+31
+22
+•
+17
+32
+•
+23
+5
+about resources and climate regulation data, ocean protects us comes through the hazard and safety
+tools, and ocean inspires us is embodied in the storytelling, educational quests, and art/activism
+components. This clear thematic coherence will not be lost on the judges. It shows that the student
+thoughtfully responded to all parts of the prompt, which is crucial since entries are evaluated on
+how well they address the theme . By explicitly breaking down the theme and covering it through
+interactive experiences, OceanAware Guardian demonstrates a comprehensive understanding of
+“Our Ocean, Our Story.” This thoroughness in theme alignment, combined with the innovative
+medium, is likely to score highly. In essence, the app transforms the theme’s abstract idea into an
+interactive reality – a place where anyone can explore how the ocean supports us, how we can be its
+guardians, and how that relationship can inspire action.
+Recommendations to Strengthen Storytelling, Artistic Voice &
+Impact
+To bridge the gaps identified and elevate OceanAware Guardian to its fullest potential, here are targeted
+recommendations:
+1. Introduce a Cohesive Narrative Thread: Incorporate a storytelling element that guides users
+through the app’s features in a meaningful way. For example, you could create a fictional guide or
+mascot (perhaps “Guardian” personified as a friendly ocean character or an avatar of the student)
+who narrates the user’s journey. This character could share personal anecdotes about the ocean
+(“When I was little, the tide pools inspired me to become a marine biologist…”) and prompt the user
+from one section to the next. Another approach is framing the experience as “a day in the life” story:
+start with a scenario (e.g. morning – a coastal town receives a storm surge alert on the hazard map,
+afternoon – volunteers use the AI tool to assess beach plastic, evening – the community hub
+organizes a cleanup, etc.). By tying the disparate modules into a storyline, you ensure the judges
+experience the app as one flowing narrative rather than a list of tools. This will add emotional
+continuity and make the submission more memorable. Essentially, let the app tell a story of how
+one becomes an “OceanAware Guardian,” transforming data into a personal journey.
+2. Infuse Personal Voice and Reflection: Make sure your own artistic voice and passion come
+through clearly in the submission. In the written Reflection (100–300 words required) , be candid
+about why you created this app and how the process has affected you. For instance, explain if a
+personal experience with the ocean (a coastal visit, an environmental event, a mentor) inspired
+specific features – this will connect “Your Story” to the project. Judges value authenticity and want to
+understand the creator’s motivation . You can even weave snippets of your personal story into
+the app itself: perhaps include a short intro message or an “About the Creator” section where you
+speak about what the ocean means to you. If you have a compelling origin story (such as how you
+adapted your wildfire app after witnessing an ocean issue, or how certain data opened your eyes),
+share that. By highlighting your unique perspective and imagination, you’ll address the contest’s
+artistic criteria head-on . In essence, don’t be afraid to be present in your work – let the judges
+hear your voice, not just the voice of the code or data.
+3. Enhance the Artistic & Visual Design: Strengthen the app’s artistic appeal by paying attention
+to visual and auditory details. Consider creating or integrating original graphics – for example, handdrawn
+icons of marine animals, a custom logo or color theme that reflects ocean aesthetics, or
+33
+•
+•
+34
+35
+4
+•
+6
+background illustrations for different sections (like waves, coral patterns, etc.). If you have the skills,
+you might add a short intro animation (even a simple one) that sets a creative tone when the app
+loads – something like a guardian figure emerging from waves. Ensure the “Interactive Storytelling:
+A Day in the Life of a Coastline” feature is presented with a narrative script or captions, almost like a
+mini graphic-novel or slideshow, rather than just raw data points . This will demonstrate your
+ability to translate data into art. Additionally, think about sound: gentle ocean sounds or a brief music
+snippet can make the experience more immersive (just make sure any audio is original or royaltyfree).
+The goal is to have the app feel as much like a creative work as it is an analytical tool. By
+polishing the UI/UX with an artist’s eye – using consistent ocean-inspired imagery, engaging
+typography, and visual storytelling – you’ll show judges a strong craftsmanship in your chosen
+medium (digital design) . This can elevate the app from “informative” to “inspiring,” aligning with
+the contest’s artistic standards.
+4. Highlight Community and Human Impact: To address the current lack of an on-the-ground
+community story, you can simulate or initiate one. One idea is to include a “Success Stories” or
+“Impact” panel in the community hub section – perhaps present a hypothetical (or real, if possible)
+example of a community using the app’s tools. For instance, “Community Spotlight: Malibu, CA –
+Students used OceanAware Guardian to identify an eroding beach section, and then organized a
+planting project to stabilize the dunes.” Even if this is aspirational, crafting a narrative of how the app
+could make a difference for a particular community makes the impact more concrete for judges. If
+you have time to pilot the app with a small group (maybe friends from a marine science club or
+classmates), you could describe their feedback or actions taken. Additionally, leverage the
+Community Hub in your presentation: show screenshots of a (mock) discussion thread or mutual
+aid request being answered – this will illustrate the human connectivity your platform enables .
+By demonstrating the app’s community aspect with story-driven examples (rather than just saying
+“users can report issues”), you’ll give the judges that warm sense of community engagement that past
+winners conveyed. It emphasizes that your project isn’t just you and a computer; it’s about people
+coming together, which is ultimately what Bow Seat is trying to encourage.
+5. Streamline the Presentation for Judges: Given the complexity of OceanAware Guardian, be very
+deliberate in how you present it in your submission materials. It’s recommended to create a short
+video tour (under 5 minutes, per guidelines ) that walks through the app’s main features in a
+logical, narrative order. Use this video to tell the story of the app (as suggested in Recommendation
+#1) so the judges can easily follow along. Narrate the video or use on-screen text to explain what’s
+happening and why each feature matters (“Here our guardian AI analyzes a beach photo – notice it
+flags pieces of plastic, informing our next cleanup quest…”). A video will let judges see the
+interactivity and wow factors without any setup hassle. Along with the video, select up to 5
+screenshots that best represent the app’s highlights . Choose images that are visually striking
+and self-explanatory: for example, the hazard map with colorful layers, the AI analysis output
+highlighting pollution, a quest page with its game-like interface, a data graph with an “Inspire” story
+caption, and the community forum screen. Caption each image (in the description) with one
+sentence that ties it to your ocean story or the theme. Also, use the required short description
+wisely – concisely describe the concept and how a user engages with the app (as if writing
+instructions or an overview) . Clarity here will ensure judges don’t get lost. By curating the
+experience for them, you prevent the scope from becoming a liability. In sum, guide the judges as
+users through your creation, just as you would guide an everyday user, making it easy for them to
+appreciate every facet of your project.
+22
+30
+•
+16
+•
+36
+37
+38
+7
+6. Emphasize Theme Alignment and Creativity in the Reflection: When writing your reflection
+(artist’s statement), explicitly connect OceanAware Guardian back to the contest theme and subthemes,
+so judges have no doubt you hit the target. You can say, for instance: “I wanted to explore
+how the ocean protects us – thus I built the hazard maps to show its protective role and how we can
+protect ourselves. To show how it sustains us, I included data on resources and climate regulation.
+To inspire others, I created storytelling quests and a platform for action.” This shows intentional
+design around the theme . Additionally, use the reflection to underscore your creative process
+and originality: describe how you brainstormed combining technology with art, any challenges you
+overcame (learning a new framework, training an AI model, etc.), and what makes your approach
+unique. Maybe mention that you were inspired by previous Bow Seat artworks or by a desire to make
+scientific data engaging and interactive, which is a fresh take on storytelling. According to the
+contest guidelines, judges do consider the content and authenticity of reflections , and a good
+reflection can help your entry “do better in the Contest” . So, make it heartfelt and insightful.
+Convey how creating the app changed or reinforced your perspective on the ocean (e.g. “Through
+developing this project, I learned how interconnected our community is with the ocean’s health, and
+I felt empowered turning data into action”). A strong reflection will effectively be the voice of your
+project, adding depth and meaning to the technical work. It’s your chance to address any subtle
+points that didn’t fit elsewhere (like ethical considerations, hopes for the future, or inviting the
+judges to imagine the app’s impact). By hitting all these notes, you ensure the judges fully grasp the
+passion and creativity behind OceanAware Guardian, not just the impressive tech.
+By implementing these recommendations, OceanAware Guardian can achieve a better balance between its
+high-tech innovation and the storytelling artistry that Bow Seat judges admire. The end goal is to have the
+app match the strengths of past winners – engaging narrative, community relevance, interactivity, and
+creative voice – while still leveraging its unique features. In doing so, the OceanAware Guardian app will not
+only stand out as a cutting-edge entry but also resonate on a human level, increasing its chances of making
+a lasting impact on the judges and the Bow Seat community.
+Sources:
+Bow Seat Ocean Awareness Contest – Interactive & Multimedia category winners and descriptions
+(2023–2025) . These examples illustrate storytelling, community
+engagement, innovation, and artistic approaches used by past award-winning students.
+Bow Seat Official Contest Guidance – submission requirements and judging criteria . These
+explain what judges look for (theme adherence, originality, skill, etc.) and the rules for Interactive &
+Multimedia entries, informing our evaluation and recommendations.
+OceanAware Guardian Project Documentation by S. Shan (2025) . This provided details on the
+app’s features, theme alignment, and objectives, serving as the basis for analyzing its strengths and
+areas for improvement in the context of the contest.
+Unsung Climate Hero: Wisdom from a Berber High Atlas Mountain Guide • Bow Seat Creative Action
+for Conservation
+https://bowseat.org/gallery/unsung-climate-hero-wisdom-from-a-berber-high-atlas-mountain-guide/
+Bamboo Bike Maker Bernice Dapaah • Bow Seat Ocean Awareness Programs
+https://bowseat.org/gallery/bamboo-bike-maker-bernice-dapaah/
+•
+23
+35
+39
+•
+3 1 5 6 9 7 10
+• 40 4
+• 23 16
+1 2
+3
+8
+FAQs | Ocean Awareness Contest | Bow Seat Creative Action for Conservation
+https://bowseat.org/programs/ocean-awareness-contest/faqs/
+Sea Life • Bow Seat Creative Action for Conservation
+https://bowseat.org/gallery/sea-life/
+3 Degrees • Bow Seat Creative Action for Conservation
+https://bowseat.org/gallery/3-degrees/
+AR Masks: Plato’s Atlantis • Bow Seat Creative Action for Conservation
+https://bowseat.org/gallery/ar-masks-platos-atlantis/
+Island City • Bow Seat Creative Action for Conservation
+https://bowseat.org/gallery/island-city/
+Sea Life Hears More Than You • Bow Seat Creative Action for Conservation
+https://bowseat.org/gallery/sea-life-hears-more-than-you/
+Blurred Boundaries • Bow Seat Creative Action for Conservation
+https://bowseat.org/gallery/blurred-boundaries/
+greenhive_review.rtf
+file://file_00000000eeb471f7b79732c3f57b57e6
+How to Enter | Ocean Awareness Contest | Bow Seat Creative Action for Conservation
+https://bowseat.org/programs/ocean-awareness-contest/how-to-enter/
+Past Themes | Ocean Awareness Contest | Bow Seat Creative Action for Conservation
+https://bowseat.org/programs/ocean-awareness-contest/past-contests/
+4 30 33 35 39
+5 19
+6 18
+7 20
+8 9
+10
+11 12 21
+13 14 16 17 22 23 24 25 26 27 28 29 31
+15 34 36 37 38 40
+32
+9
