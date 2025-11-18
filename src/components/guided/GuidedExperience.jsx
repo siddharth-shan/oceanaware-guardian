@@ -44,7 +44,7 @@ const GuidedExperience = ({ onNavigate }) => {
         feature: 'AI Ocean Guardian',
         description: "Learn how artificial intelligence helps scientists identify and track ocean pollution. You'll train your first AI model - just like real marine researchers do!",
         actionLabel: 'Train AI to Identify Pollution',
-        route: '/ai-guardian'
+        route: 'ai-ocean-guardian'
       },
       reflectionPrompt: "Now you understand how AI can be a powerful tool for ocean conservation. Scientists around the world use similar technology to track plastic pollution, identify marine species, and monitor coral reef health."
     },
@@ -62,7 +62,7 @@ const GuidedExperience = ({ onNavigate }) => {
         feature: 'Interactive Coastal Story',
         description: "Scroll through time to see how climate change transforms coastlines. This isn't science fiction - every projection is based on peer-reviewed research from NOAA, IPCC, and NASA.",
         actionLabel: 'Explore the Timeline',
-        route: '/coastal-story'
+        route: 'ocean-story'
       },
       reflectionPrompt: "The future isn't inevitable. Every choice we make today affects the timeline. That's why ocean guardians matter."
     },
@@ -80,7 +80,7 @@ const GuidedExperience = ({ onNavigate }) => {
         feature: 'Data Art Triptych',
         description: "Explore interactive visualizations that transform ocean data into art. Each chart tells part of the story - temperature rise, acidification, and coastal vulnerability.",
         actionLabel: 'Explore Ocean Data',
-        route: '/data-art'
+        route: 'data-art'
       },
       reflectionPrompt: "Beautiful data isn't just pretty - it helps us understand complex systems and communicate urgency to others."
     },
@@ -98,7 +98,7 @@ const GuidedExperience = ({ onNavigate }) => {
         feature: 'Ocean Curriculum',
         description: "Browse experiments, lesson plans, and learning resources. These are the activities that transformed me from a worried kid to an empowered guardian.",
         actionLabel: 'Explore Learning Resources',
-        route: '/curriculum'
+        route: 'ocean-curriculum'
       },
       reflectionPrompt: "Knowledge is power. Every experiment you do, every lesson you learn, makes you more capable of protecting what you love."
     },
@@ -116,7 +116,7 @@ const GuidedExperience = ({ onNavigate }) => {
         feature: 'Policy & Action Engine',
         description: "Explore personalized action recommendations. Pick ONE thing to commit to today - whether it's eliminating plastic, supporting coastal protection, or contacting representatives.",
         actionLabel: 'Find Your Action',
-        route: '/policy'
+        route: 'community-action'
       },
       reflectionPrompt: "You don't have to do everything. Just pick one action and start. Progress, not perfection."
     },
@@ -134,7 +134,7 @@ const GuidedExperience = ({ onNavigate }) => {
         feature: 'Conservation Games',
         description: "Play games that teach real ocean conservation skills. Learn tsunami evacuation routes, practice coastal restoration strategies, and understand erosion control methods.",
         actionLabel: 'Start Playing',
-        route: '/games'
+        route: 'ocean-quests'
       },
       reflectionPrompt: "Learning doesn't have to be serious to be effective. Play, experiment, and enjoy the journey of becoming an ocean guardian."
     },
@@ -152,7 +152,7 @@ const GuidedExperience = ({ onNavigate }) => {
         feature: 'Community Hub',
         description: "Connect with other ocean guardians. Share reports, coordinate local actions, and build the movement for ocean conservation.",
         actionLabel: 'Join the Community',
-        route: '/community'
+        route: 'community-action'
       },
       reflectionPrompt: "Every guardian needs a crew. Together, we're not just learning about the ocean - we're building the movement to protect it."
     }
@@ -354,7 +354,7 @@ const GuidedExperience = ({ onNavigate }) => {
 
             <div className="flex-1 text-center">
               <button
-                onClick={() => onNavigate && onNavigate('/dashboard')}
+                onClick={() => onNavigate && onNavigate('dashboard')}
                 className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1 mx-auto"
               >
                 <Home className="w-4 h-4" />
@@ -394,7 +394,7 @@ const GuidedExperience = ({ onNavigate }) => {
                 making a difference!
               </p>
               <button
-                onClick={() => onNavigate && onNavigate('/dashboard')}
+                onClick={() => onNavigate && onNavigate('dashboard')}
                 className="bg-white text-green-600 px-8 py-4 rounded-lg font-bold hover:bg-green-50 transition-all inline-flex items-center gap-2 shadow-lg"
               >
                 <Home className="w-5 h-5" />
