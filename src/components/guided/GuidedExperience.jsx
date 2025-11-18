@@ -37,12 +37,12 @@ const GuidedExperience = ({ onNavigate }) => {
       title: 'The Discovery',
       subtitle: 'Walking the beach at dawn',
       color: 'from-orange-400 to-pink-500',
-      marinaSays: "It's 6 AM, and I'm walking my favorite beach. The sun is just rising over the ocean...\n\nBut something's wrong. There's more plastic debris than usual. Bottles, bags, fishing nets – all tangled in the seaweed.\n\nI need to understand this problem better. Let me teach you how AI can help us track and identify ocean pollution.",
+      marinaSays: "It's 6 AM, and I'm walking my favorite beach. The sun is just rising over the ocean...\n\nBut something's wrong. There's more plastic debris than usual. Bottles, bags, fishing nets - all tangled in the seaweed.\n\nI need to understand this problem better. Let me teach you how AI can help us track and identify ocean pollution.",
       mariaEmotion: 'concerned',
       content: {
         type: 'feature-intro',
         feature: 'AI Ocean Guardian',
-        description: "Learn how artificial intelligence helps scientists identify and track ocean pollution. You'll train your first AI model – just like real marine researchers do!",
+        description: "Learn how artificial intelligence helps scientists identify and track ocean pollution. You'll train your first AI model - just like real marine researchers do!",
         actionLabel: 'Train AI to Identify Pollution',
         route: '/ai-guardian'
       },
@@ -55,12 +55,12 @@ const GuidedExperience = ({ onNavigate }) => {
       title: 'Understanding the Threat',
       subtitle: 'Researching coastal changes',
       color: 'from-yellow-400 to-orange-500',
-      marinaSays: "Back home, I'm searching for answers.\n\nWhat's happening to our coastlines? Why is this beach changing? What does the science say?\n\nI found something that changed my perspective forever. Let me show you the timeline – what happened to coastal areas from 2020 to today, and what could happen by 2100 if we don't act.",
+      marinaSays: "Back home, I'm searching for answers.\n\nWhat's happening to our coastlines? Why is this beach changing? What does the science say?\n\nI found something that changed my perspective forever. Let me show you the timeline - what happened to coastal areas from 2020 to today, and what could happen by 2100 if we don't act.",
       mariaEmotion: 'thoughtful',
       content: {
         type: 'feature-intro',
         feature: 'Interactive Coastal Story',
-        description: "Scroll through time to see how climate change transforms coastlines. This isn't science fiction – every projection is based on peer-reviewed research from NOAA, IPCC, and NASA.",
+        description: "Scroll through time to see how climate change transforms coastlines. This isn't science fiction - every projection is based on peer-reviewed research from NOAA, IPCC, and NASA.",
         actionLabel: 'Explore the Timeline',
         route: '/coastal-story'
       },
@@ -78,11 +78,11 @@ const GuidedExperience = ({ onNavigate }) => {
       content: {
         type: 'feature-intro',
         feature: 'Data Art Triptych',
-        description: "Explore interactive visualizations that transform ocean data into art. Each chart tells part of the story – temperature rise, acidification, and coastal vulnerability.",
+        description: "Explore interactive visualizations that transform ocean data into art. Each chart tells part of the story - temperature rise, acidification, and coastal vulnerability.",
         actionLabel: 'Explore Ocean Data',
         route: '/data-art'
       },
-      reflectionPrompt: "Beautiful data isn't just pretty – it helps us understand complex systems and communicate urgency to others."
+      reflectionPrompt: "Beautiful data isn't just pretty - it helps us understand complex systems and communicate urgency to others."
     },
     {
       id: 3,
@@ -91,7 +91,7 @@ const GuidedExperience = ({ onNavigate }) => {
       title: 'Learning Solutions',
       subtitle: 'Discovering what I can do',
       color: 'from-blue-400 to-indigo-500',
-      marinaSays: "Data and scary timelines left me feeling helpless. I kept asking: 'What can I actually DO?'\n\nThat's when I discovered that science isn't just about understanding problems – it's about finding solutions.\n\nI started doing experiments at home with simple materials. Each one taught me something new about how the ocean works and how we can protect it.",
+      marinaSays: "Data and scary timelines left me feeling helpless. I kept asking: 'What can I actually DO?'\n\nThat's when I discovered that science isn't just about understanding problems - it's about finding solutions.\n\nI started doing experiments at home with simple materials. Each one taught me something new about how the ocean works and how we can protect it.",
       mariaEmotion: 'encouraging',
       content: {
         type: 'feature-intro',
@@ -109,12 +109,12 @@ const GuidedExperience = ({ onNavigate }) => {
       title: 'Taking Action',
       subtitle: 'Making my first commitment',
       color: 'from-purple-400 to-pink-500',
-      marinaSays: "Learning gave me hope. But I needed to turn that hope into action.\n\nI sat down and asked myself: 'What's ONE thing I can start doing today?'\n\nNot save the whole ocean. Not solve climate change. Just... one concrete action I could commit to.\n\nLet me show you the path I followed – from individual actions to community organizing to policy advocacy.",
+      marinaSays: "Learning gave me hope. But I needed to turn that hope into action.\n\nI sat down and asked myself: 'What's ONE thing I can start doing today?'\n\nNot save the whole ocean. Not solve climate change. Just... one concrete action I could commit to.\n\nLet me show you the path I followed - from individual actions to community organizing to policy advocacy.",
       mariaEmotion: 'encouraging',
       content: {
         type: 'feature-intro',
         feature: 'Policy & Action Engine',
-        description: "Explore personalized action recommendations. Pick ONE thing to commit to today – whether it's eliminating plastic, supporting coastal protection, or contacting representatives.",
+        description: "Explore personalized action recommendations. Pick ONE thing to commit to today - whether it's eliminating plastic, supporting coastal protection, or contacting representatives.",
         actionLabel: 'Find Your Action',
         route: '/policy'
       },
@@ -127,7 +127,7 @@ const GuidedExperience = ({ onNavigate }) => {
       title: 'Playing to Learn',
       subtitle: 'Preparing for the future',
       color: 'from-indigo-500 to-purple-600',
-      marinaSays: "That evening, I thought about tsunamis, coastal erosion, and extreme weather.\n\nThese threats felt scary and abstract. So I created games – ways to learn about ocean dangers while staying hopeful and empowered.\n\nGames teach us to think strategically, make quick decisions, and understand complex systems. Let me show you how play can prepare us for real-world challenges.",
+      marinaSays: "That evening, I thought about tsunamis, coastal erosion, and extreme weather.\n\nThese threats felt scary and abstract. So I created games - ways to learn about ocean dangers while staying hopeful and empowered.\n\nGames teach us to think strategically, make quick decisions, and understand complex systems. Let me show you how play can prepare us for real-world challenges.",
       mariaEmotion: 'friendly',
       content: {
         type: 'feature-intro',
@@ -145,7 +145,7 @@ const GuidedExperience = ({ onNavigate }) => {
       title: 'Building Community',
       subtitle: 'Realizing I'm not alone',
       color: 'from-teal-400 to-green-500',
-      marinaSays: "I woke up the next day feeling different. I had tools, knowledge, and a commitment.\n\nBut I also realized: I can't do this alone. No guardian can.\n\nThat's when I started looking for my crew – other people who care about the ocean, who want to make a difference, who are ready to take action together.\n\nLet me show you how we can connect, organize, and multiply our impact.",
+      marinaSays: "I woke up the next day feeling different. I had tools, knowledge, and a commitment.\n\nBut I also realized: I can't do this alone. No guardian can.\n\nThat's when I started looking for my crew - other people who care about the ocean, who want to make a difference, who are ready to take action together.\n\nLet me show you how we can connect, organize, and multiply our impact.",
       mariaEmotion: 'celebrating',
       content: {
         type: 'feature-intro',
@@ -154,7 +154,7 @@ const GuidedExperience = ({ onNavigate }) => {
         actionLabel: 'Join the Community',
         route: '/community'
       },
-      reflectionPrompt: "Every guardian needs a crew. Together, we're not just learning about the ocean – we're building the movement to protect it."
+      reflectionPrompt: "Every guardian needs a crew. Together, we're not just learning about the ocean - we're building the movement to protect it."
     }
   ];
 

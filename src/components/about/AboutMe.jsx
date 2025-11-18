@@ -90,7 +90,7 @@ const AboutMe = () => {
           </p>
 
           <p>
-            Every summer, my family would visit the same coastal spot. I loved everything about it –
+            Every summer, my family would visit the same coastal spot. I loved everything about it -
             building sandcastles, searching for hermit crabs in tide pools, and watching the waves
             crash against the shore. The ocean was my playground, my classroom, and my source of wonder.
           </p>
@@ -119,24 +119,24 @@ const AboutMe = () => {
 
           <p className="bg-blue-50 border-l-4 border-blue-500 pl-4 py-3 italic">
             "What if I could teach other students to use technology for ocean conservation? What if
-            we didn't have to wait until we were adults to make a difference?"
+            we did not have to wait until we were adults to make a difference?"
           </p>
 
           <p>
             This app is the result of months of learning, coding, and dreaming. Every feature represents
-            something I wish I'd had when I was first learning about ocean conservation:
+            something I wish I had when I was first learning about ocean conservation:
           </p>
 
           <ul className="list-disc pl-6 space-y-2">
             <li><strong>The AI Ocean Guardian</strong> = Understanding that technology can help us solve environmental problems</li>
             <li><strong>The Ocean Curriculum</strong> = Experiments I could do at home without expensive equipment</li>
             <li><strong>The Conservation Games</strong> = Making learning fun instead of scary or overwhelming</li>
-            <li><strong>The Community Hub</strong> = Knowing I'm not alone in caring about this</li>
-            <li><strong>Captain Marina's Story</strong> = Having a guide who understood what it's like to feel small in the face of big problems</li>
+            <li><strong>The Community Hub</strong> = Knowing I am not alone in caring about this</li>
+            <li><strong>Captain Marina's Story</strong> = Having a guide who understood what it is like to feel small in the face of big problems</li>
           </ul>
 
           <p className="text-xl font-semibold text-gray-900 pt-4">
-            I built OceanAware Guardian because I believe the next generation shouldn't feel helpless.
+            I built OceanAware Guardian because I believe the next generation should not feel helpless.
             We should feel empowered.
           </p>
 
@@ -179,7 +179,7 @@ const AboutMe = () => {
           <TimelineItem
             icon={Cpu}
             title="Building the AI Trainer"
-            description="Created an interactive AI training interface that teaches machine learning AND ethics. This was the hardest part – making complex concepts accessible to students"
+            description="Created an interactive AI training interface that teaches machine learning AND ethics. This was the hardest part - making complex concepts accessible to students"
             color="green"
           />
 
@@ -243,7 +243,7 @@ const AboutMe = () => {
             </h3>
             <p className="text-gray-700 text-sm">
               634 million people live in coastal areas less than 10m above sea level. By 2100,
-              many of these communities could be underwater if we don't act.
+              many of these communities could be underwater if we do not act.
             </p>
           </div>
 
@@ -254,7 +254,7 @@ const AboutMe = () => {
             </h3>
             <p className="text-gray-700 text-sm">
               Scientists are using AI to track whale populations, detect plastic pollution, and
-              predict coral bleaching. Technology isn't the enemy – it's a tool for conservation.
+              predict coral bleaching. Technology is not the enemy - it is a tool for conservation.
             </p>
           </div>
 
@@ -276,7 +276,7 @@ const AboutMe = () => {
             </h3>
             <p className="text-gray-700 text-sm">
               Young people are ready to act. They just need the right tools, knowledge, and
-              support. That's what this platform provides.
+              support. That is what this platform provides.
             </p>
           </div>
         </div>
@@ -301,7 +301,7 @@ const AboutMe = () => {
               My Vision for OceanAware Guardian
             </h3>
             <p className="text-lg opacity-95 mb-4">
-              I want to reach <strong>10,000 ocean guardians by 2027</strong>. Here's how:
+              I want to reach <strong>10,000 ocean guardians by 2027</strong>. Here is how:
             </p>
             <ul className="space-y-2 text-cyan-100">
               <li className="flex items-start gap-2">
@@ -361,11 +361,11 @@ const AboutMe = () => {
       >
         <div className="flex items-center gap-3 mb-6">
           <Mail className="w-8 h-8 text-blue-600" />
-          <h2 className="text-3xl font-bold text-gray-900">Let's Connect</h2>
+          <h2 className="text-3xl font-bold text-gray-900">Let us Connect</h2>
         </div>
 
         <p className="text-gray-700 mb-6 text-lg">
-          I'd love to hear how you're using OceanAware Guardian! Whether you're a teacher looking
+          I would love to hear how you are using OceanAware Guardian! Whether you are a teacher looking
           for curriculum support, a student with questions, or just someone who cares about the ocean,
           reach out.
         </p>
@@ -437,7 +437,7 @@ const AboutMe = () => {
             It inspires my future.
           </p>
           <p className="text-xl text-blue-700 font-semibold">
-            Together, let's protect what we love. 🌊
+            Together, let us protect what we love. 🌊
           </p>
         </div>
       </motion.div>
