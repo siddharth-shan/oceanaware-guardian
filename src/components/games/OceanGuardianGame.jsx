@@ -1,138 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Waves, Fish, Trash2, Droplet, Heart, Star, Award, Book,
   CheckCircle, Lock, Play, RotateCcw, Home, Trophy, Sparkles,
-  AlertTriangle, Shield, Target, Zap, X, ChevronRight, Info
+  AlertTriangle, Shield, Target, Zap, X, ChevronRight, Info,
+  Timer, Move, Anchor
 } from 'lucide-react';
 
-// Game data structures
-const MISSIONS = [
-  {
-    id: 'coral-reef',
-    name: 'Coral Reef Rescue',
-    environment: 'Coral Reef',
-    difficulty: 'Beginner',
-    duration: '10 min',
-    description: 'Restore a dying coral reef and rescue trapped marine life',
-    objectives: [
-      'Remove 20 pieces of trash',
-      'Plant 10 coral fragments',
-      'Rescue 5 trapped fish',
-      'Restore reef health to 80%'
-    ],
-    unlocked: true,
-    rewards: ['Sea Turtle Card', 'Clownfish Card', 'Coral Badge'],
-    miniGame: 'reef-restoration',
-    bgColor: 'from-blue-400 to-cyan-500',
-    icon: '🪸',
-    facts: [
-      'Coral reefs support 25% of all marine species despite covering less than 1% of the ocean floor',
-      'Coral reefs are often called the "rainforests of the sea" due to their biodiversity',
-      'A single coral reef can support over 4,000 species of fish'
-    ]
-  },
-  {
-    id: 'ocean-cleanup',
-    name: 'Great Pacific Cleanup',
-    environment: 'Open Ocean',
-    difficulty: 'Intermediate',
-    duration: '15 min',
-    description: 'Navigate the ocean to collect plastic debris and protect marine animals',
-    objectives: [
-      'Collect 50 plastic items',
-      'Sort waste for recycling',
-      'Save 10 marine animals from entanglement',
-      'Complete cleanup in under 10 minutes'
-    ],
-    unlocked: false,
-    unlockRequirement: 'coral-reef',
-    rewards: ['Dolphin Card', 'Whale Card', 'Ocean Hero Badge'],
-    miniGame: 'trash-cleanup',
-    bgColor: 'from-blue-500 to-indigo-600',
-    icon: '🌊',
-    facts: [
-      'An estimated 8 million tons of plastic enter our oceans every year',
-      'By 2050, there could be more plastic than fish in the ocean by weight',
-      'A single plastic bottle can take 450 years to decompose in the ocean'
-    ]
-  },
-  {
-    id: 'polar-rescue',
-    name: 'Arctic Ice Mission',
-    environment: 'Polar Seas',
-    difficulty: 'Advanced',
-    duration: '20 min',
-    description: 'Help polar marine life adapt to melting ice and warming waters',
-    objectives: [
-      'Monitor ice levels and temperature',
-      'Guide seals to safe ice platforms',
-      'Clean up oil spill contamination',
-      'Document climate change impacts'
-    ],
-    unlocked: false,
-    unlockRequirement: 'ocean-cleanup',
-    rewards: ['Polar Bear Card', 'Seal Card', 'Climate Guardian Badge'],
-    miniGame: 'polar-survival',
-    bgColor: 'from-cyan-400 to-blue-500',
-    icon: '🧊',
-    facts: [
-      'Arctic sea ice is disappearing at a rate of 13% per decade',
-      'Polar bears rely on sea ice to hunt seals - their primary food source',
-      'The Arctic is warming twice as fast as the rest of the planet'
-    ]
-  },
-  {
-    id: 'oil-spill',
-    name: 'Oil Spill Emergency',
-    environment: 'Coastal Waters',
-    difficulty: 'Expert',
-    duration: '25 min',
-    description: 'Respond to an oil spill disaster and save affected wildlife',
-    objectives: [
-      'Deploy containment booms',
-      'Clean oil from 30 affected animals',
-      'Prevent oil from reaching shore',
-      'Restore water quality to safe levels'
-    ],
-    unlocked: false,
-    unlockRequirement: 'polar-rescue',
-    rewards: ['Seabird Card', 'Otter Card', 'Emergency Responder Badge'],
-    miniGame: 'oil-spill-response',
-    bgColor: 'from-orange-400 to-red-500',
-    icon: '⚠️',
-    facts: [
-      'Oil spills can devastate marine ecosystems for decades',
-      'Seabirds are especially vulnerable to oil spills because oil destroys the waterproofing of their feathers',
-      'The 2010 Deepwater Horizon spill released 210 million gallons of oil into the Gulf of Mexico'
-    ]
-  },
-  {
-    id: 'reef-overfishing',
-    name: 'Stop Overfishing',
-    environment: 'Tropical Ocean',
-    difficulty: 'Expert',
-    duration: '20 min',
-    description: 'Balance fishing needs with ocean sustainability',
-    objectives: [
-      'Monitor fish populations',
-      'Set sustainable catch limits',
-      'Protect breeding areas',
-      'Educate fishermen on sustainable practices'
-    ],
-    unlocked: false,
-    unlockRequirement: 'oil-spill',
-    rewards: ['Shark Card', 'Tuna Card', 'Conservation Leader Badge'],
-    miniGame: 'fishing-balance',
-    bgColor: 'from-teal-400 to-green-500',
-    icon: '🎣',
-    facts: [
-      'Over 90% of the world\'s fish stocks are fully exploited or overfished',
-      'Overfishing has reduced some fish populations by over 90%',
-      'Sustainable fishing practices can help ocean ecosystems recover within 10 years'
-    ]
-  }
-];
-
+// Marine creature encyclopedia data
 const MARINE_CREATURES = {
   'Sea Turtle Card': {
     name: 'Green Sea Turtle',
@@ -244,59 +119,149 @@ const BADGES = {
   'Conservation Leader Badge': { name: 'Conservation Leader', icon: '🎣', description: 'Promoted sustainable fishing' }
 };
 
+// Mission configurations
+const MISSIONS = [
+  {
+    id: 'coral-reef',
+    name: 'Coral Reef Rescue',
+    environment: 'Coral Reef',
+    difficulty: 'Beginner',
+    duration: '10 min',
+    description: 'Restore a dying coral reef by planting coral and removing trash',
+    objectives: [
+      'Remove 15 pieces of trash',
+      'Plant 8 coral fragments',
+      'Rescue 5 trapped fish',
+      'Reach 80% reef health'
+    ],
+    unlocked: true,
+    rewards: ['Sea Turtle Card', 'Clownfish Card', 'Coral Badge'],
+    bgColor: 'from-blue-400 to-cyan-500',
+    icon: '🪸',
+    facts: [
+      'Coral reefs support 25% of all marine species despite covering less than 1% of the ocean floor',
+      'Coral reefs are often called the "rainforests of the sea" due to their biodiversity',
+      'A single coral reef can support over 4,000 species of fish'
+    ]
+  },
+  {
+    id: 'ocean-cleanup',
+    name: 'Great Pacific Cleanup',
+    environment: 'Open Ocean',
+    difficulty: 'Intermediate',
+    duration: '15 min',
+    description: 'Sort floating trash into recycling bins while avoiding marine life',
+    objectives: [
+      'Catch 30 pieces of trash',
+      'Sort correctly into bins',
+      'Don\'t catch fish (3 strikes)',
+      'Complete in 2 minutes'
+    ],
+    unlocked: false,
+    unlockRequirement: 'coral-reef',
+    rewards: ['Dolphin Card', 'Whale Card', 'Ocean Hero Badge'],
+    bgColor: 'from-blue-500 to-indigo-600',
+    icon: '🌊',
+    facts: [
+      'An estimated 8 million tons of plastic enter our oceans every year',
+      'By 2050, there could be more plastic than fish in the ocean by weight',
+      'A single plastic bottle can take 450 years to decompose in the ocean'
+    ]
+  },
+  {
+    id: 'polar-rescue',
+    name: 'Arctic Ice Mission',
+    environment: 'Polar Seas',
+    difficulty: 'Advanced',
+    duration: '20 min',
+    description: 'Guide animals to safe ice platforms before they melt',
+    objectives: [
+      'Save 10 Arctic animals',
+      'Navigate melting ice',
+      'Deploy oil containment',
+      'Monitor temperature'
+    ],
+    unlocked: false,
+    unlockRequirement: 'ocean-cleanup',
+    rewards: ['Polar Bear Card', 'Seal Card', 'Climate Guardian Badge'],
+    bgColor: 'from-cyan-400 to-blue-500',
+    icon: '🧊',
+    facts: [
+      'Arctic sea ice is disappearing at a rate of 13% per decade',
+      'Polar bears rely on sea ice to hunt seals - their primary food source',
+      'The Arctic is warming twice as fast as the rest of the planet'
+    ]
+  },
+  {
+    id: 'oil-spill',
+    name: 'Oil Spill Emergency',
+    environment: 'Coastal Waters',
+    difficulty: 'Expert',
+    duration: '25 min',
+    description: 'Contain spreading oil and rescue affected wildlife',
+    objectives: [
+      'Deploy containment booms',
+      'Clean 15 affected animals',
+      'Prevent oil from spreading',
+      'Restore water quality'
+    ],
+    unlocked: false,
+    unlockRequirement: 'polar-rescue',
+    rewards: ['Seabird Card', 'Otter Card', 'Emergency Responder Badge'],
+    bgColor: 'from-orange-400 to-red-500',
+    icon: '⚠️',
+    facts: [
+      'Oil spills can devastate marine ecosystems for decades',
+      'Seabirds are especially vulnerable because oil destroys the waterproofing of their feathers',
+      'The 2010 Deepwater Horizon spill released 210 million gallons of oil'
+    ]
+  },
+  {
+    id: 'overfishing',
+    name: 'Stop Overfishing',
+    environment: 'Tropical Ocean',
+    difficulty: 'Expert',
+    duration: '20 min',
+    description: 'Balance fishing needs with sustainable ocean populations',
+    objectives: [
+      'Maintain fish population',
+      'Set sustainable quotas',
+      'Create protected zones',
+      'Reach equilibrium'
+    ],
+    unlocked: false,
+    unlockRequirement: 'oil-spill',
+    rewards: ['Shark Card', 'Tuna Card', 'Conservation Leader Badge'],
+    bgColor: 'from-teal-400 to-green-500',
+    icon: '🎣',
+    facts: [
+      'Over 90% of the world\'s fish stocks are fully exploited or overfished',
+      'Overfishing has reduced some fish populations by over 90%',
+      'Sustainable fishing practices can help ocean ecosystems recover within 10 years'
+    ]
+  }
+];
+
 const OceanGuardianGame = () => {
-  const [gameState, setGameState] = useState('menu'); // menu, mission-select, playing, encyclopedia, aquarium
+  const [gameState, setGameState] = useState('menu');
   const [selectedMission, setSelectedMission] = useState(null);
   const [completedMissions, setCompletedMissions] = useState([]);
   const [collectedCreatures, setCollectedCreatures] = useState([]);
   const [earnedBadges, setEarnedBadges] = useState([]);
-  const [currentFact, setCurrentFact] = useState(0);
   const [showEncyclopedia, setShowEncyclopedia] = useState(false);
   const [selectedCreature, setSelectedCreature] = useState(null);
-
-  // Mini-game states
-  const [miniGameState, setMiniGameState] = useState({
-    trashCollected: 0,
-    coralPlanted: 0,
-    animalsRescued: 0,
-    reefHealth: 0,
-    oilCleaned: 0,
-    timeRemaining: 600, // 10 minutes in seconds
-    score: 0
-  });
-
-  useEffect(() => {
-    // Rotate educational facts
-    const factInterval = setInterval(() => {
-      if (selectedMission && gameState === 'playing') {
-        setCurrentFact((prev) => (prev + 1) % selectedMission.facts.length);
-      }
-    }, 15000); // Change fact every 15 seconds
-
-    return () => clearInterval(factInterval);
-  }, [selectedMission, gameState]);
 
   const startMission = (mission) => {
     setSelectedMission(mission);
     setGameState('playing');
-    setMiniGameState({
-      trashCollected: 0,
-      coralPlanted: 0,
-      animalsRescued: 0,
-      reefHealth: 0,
-      oilCleaned: 0,
-      timeRemaining: 600,
-      score: 0
-    });
   };
 
-  const completeMission = () => {
+  const completeMission = (rewards) => {
     if (selectedMission && !completedMissions.includes(selectedMission.id)) {
       setCompletedMissions([...completedMissions, selectedMission.id]);
 
-      // Award creature cards and badges
-      const newCreatures = selectedMission.rewards.filter(r => r.includes('Card'));
-      const newBadges = selectedMission.rewards.filter(r => r.includes('Badge'));
+      const newCreatures = rewards.filter(r => r.includes('Card'));
+      const newBadges = rewards.filter(r => r.includes('Badge'));
 
       setCollectedCreatures([...new Set([...collectedCreatures, ...newCreatures])]);
       setEarnedBadges([...new Set([...earnedBadges, ...newBadges])]);
@@ -307,7 +272,6 @@ const OceanGuardianGame = () => {
   const renderMainMenu = () => (
     <div className="min-h-screen bg-gradient-to-b from-blue-400 via-cyan-500 to-blue-600 p-6">
       <div className="max-w-6xl mx-auto">
-        {/* Title */}
         <div className="text-center mb-12 animate-fade-in">
           <div className="inline-block bg-white/20 backdrop-blur-md rounded-3xl px-8 py-6 shadow-2xl">
             <h1 className="text-6xl font-bold text-white mb-4 drop-shadow-lg">
@@ -319,7 +283,6 @@ const OceanGuardianGame = () => {
           </div>
         </div>
 
-        {/* Stats Dashboard */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white/90 backdrop-blur rounded-2xl p-6 shadow-xl text-center">
             <Trophy className="h-10 w-10 text-yellow-500 mx-auto mb-2" />
@@ -345,11 +308,10 @@ const OceanGuardianGame = () => {
           </div>
         </div>
 
-        {/* Menu Options */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           <button
             onClick={() => setGameState('mission-select')}
-            className="group bg-gradient-to-br from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50"
+            className="group bg-gradient-to-br from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 hover:scale-105"
           >
             <Play className="h-16 w-16 mx-auto mb-4 group-hover:animate-pulse" />
             <h3 className="text-3xl font-bold mb-2">Start Mission</h3>
@@ -358,7 +320,7 @@ const OceanGuardianGame = () => {
 
           <button
             onClick={() => setGameState('encyclopedia')}
-            className="group bg-gradient-to-br from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-pink-500/50"
+            className="group bg-gradient-to-br from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 hover:scale-105"
           >
             <Book className="h-16 w-16 mx-auto mb-4 group-hover:animate-pulse" />
             <h3 className="text-3xl font-bold mb-2">Ocean Encyclopedia</h3>
@@ -367,16 +329,16 @@ const OceanGuardianGame = () => {
 
           <button
             onClick={() => setGameState('aquarium')}
-            className="group bg-gradient-to-br from-teal-500 to-green-600 hover:from-teal-600 hover:to-green-700 text-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-green-500/50"
+            className="group bg-gradient-to-br from-teal-500 to-green-600 hover:from-teal-600 hover:to-green-700 text-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 hover:scale-105"
           >
             <Fish className="h-16 w-16 mx-auto mb-4 group-hover:animate-pulse" />
             <h3 className="text-3xl font-bold mb-2">My Aquarium</h3>
-            <p className="text-teal-100">View your collected creatures ({collectedCreatures.length})</p>
+            <p className="text-teal-100">View collected creatures ({collectedCreatures.length})</p>
           </button>
 
           <button
             onClick={() => setGameState('badges')}
-            className="group bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-orange-500/50"
+            className="group bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white rounded-3xl p-8 shadow-2xl transform transition-all duration-300 hover:scale-105"
           >
             <Award className="h-16 w-16 mx-auto mb-4 group-hover:animate-pulse" />
             <h3 className="text-3xl font-bold mb-2">My Badges</h3>
@@ -387,651 +349,155 @@ const OceanGuardianGame = () => {
     </div>
   );
 
-  const renderMissionSelect = () => (
-    <div className="min-h-screen bg-gradient-to-b from-blue-400 via-cyan-500 to-blue-600 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-4xl font-bold text-white">Choose Your Mission</h2>
-          <button
-            onClick={() => setGameState('menu')}
-            className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl flex items-center space-x-2 transition-colors"
-          >
-            <Home className="h-5 w-5" />
-            <span>Back to Menu</span>
-          </button>
-        </div>
+  const renderMissionSelect = () => {
+    const unlockedMissions = MISSIONS.map(mission => {
+      const isCompleted = completedMissions.includes(mission.id);
+      const isLocked = !mission.unlocked &&
+        (!mission.unlockRequirement || !completedMissions.includes(mission.unlockRequirement));
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MISSIONS.map((mission, index) => {
-            const isCompleted = completedMissions.includes(mission.id);
-            const isLocked = !mission.unlocked &&
-              (!mission.unlockRequirement || !completedMissions.includes(mission.unlockRequirement));
-
-            return (
-              <div
-                key={mission.id}
-                className={`bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300 ${
-                  isLocked ? 'opacity-60' : 'hover:scale-105 hover:shadow-cyan-500/50'
-                }`}
-              >
-                <div className={`bg-gradient-to-r ${mission.bgColor} p-6 text-white`}>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-5xl">{mission.icon}</span>
-                    {isCompleted && <CheckCircle className="h-8 w-8 text-green-400" />}
-                    {isLocked && <Lock className="h-8 w-8 text-gray-300" />}
-                  </div>
-                  <h3 className="text-2xl font-bold mb-1">{mission.name}</h3>
-                  <p className="text-sm opacity-90">{mission.environment}</p>
-                </div>
-
-                <div className="p-6">
-                  <p className="text-gray-700 mb-4">{mission.description}</p>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
-                      <Target className="h-4 w-4" />
-                      <span>Difficulty: {mission.difficulty}</span>
-                    </div>
-                    <div className="flex items-center space-x-2 text-sm text-gray-600">
-                      <Zap className="h-4 w-4" />
-                      <span>Duration: {mission.duration}</span>
-                    </div>
-                  </div>
-
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-sm text-gray-700 mb-2">Objectives:</h4>
-                    <ul className="space-y-1">
-                      {mission.objectives.slice(0, 3).map((obj, i) => (
-                        <li key={i} className="text-xs text-gray-600 flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
-                          <span>{obj}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-sm text-gray-700 mb-2">Rewards:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {mission.rewards.map((reward, i) => (
-                        <span
-                          key={i}
-                          className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full"
-                        >
-                          {reward}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {isLocked ? (
-                    <div className="bg-gray-100 text-gray-600 px-4 py-3 rounded-lg text-center text-sm">
-                      <Lock className="h-5 w-5 inline mr-2" />
-                      Complete "{MISSIONS.find(m => m.id === mission.unlockRequirement)?.name}" to unlock
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => startMission(mission)}
-                      className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white py-3 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
-                    >
-                      <Play className="h-5 w-5" />
-                      <span>{isCompleted ? 'Play Again' : 'Start Mission'}</span>
-                    </button>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderMiniGame = () => {
-    if (!selectedMission) return null;
+      return { ...mission, isCompleted, isLocked };
+    });
 
     return (
       <div className="min-h-screen bg-gradient-to-b from-blue-400 via-cyan-500 to-blue-600 p-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Mission Header */}
-          <div className="bg-white/90 backdrop-blur rounded-2xl p-6 mb-6 shadow-xl">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-4">
-                <span className="text-5xl">{selectedMission.icon}</span>
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-800">{selectedMission.name}</h2>
-                  <p className="text-gray-600">{selectedMission.environment}</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setGameState('mission-select')}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2"
-              >
-                <X className="h-5 w-5" />
-                <span>Exit</span>
-              </button>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="grid grid-cols-4 gap-4">
-              {selectedMission.objectives.map((obj, i) => {
-                const progress =
-                  i === 0 ? (miniGameState.trashCollected / 20) * 100 :
-                  i === 1 ? (miniGameState.coralPlanted / 10) * 100 :
-                  i === 2 ? (miniGameState.animalsRescued / 5) * 100 :
-                  miniGameState.reefHealth;
-
-                return (
-                  <div key={i}>
-                    <div className="flex justify-between text-xs text-gray-600 mb-1">
-                      <span className="truncate">{obj.split(' ').slice(0, 3).join(' ')}</span>
-                      <span>{Math.round(progress)}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div
-                        className="bg-gradient-to-r from-blue-500 to-cyan-600 h-2 rounded-full transition-all duration-500"
-                        style={{ width: `${Math.min(progress, 100)}%` }}
-                      />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Educational Fact Banner */}
-          <div className="bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-2xl p-6 mb-6 shadow-xl">
-            <div className="flex items-start space-x-3">
-              <Info className="h-6 w-6 flex-shrink-0 mt-1" />
-              <div>
-                <h3 className="font-bold text-lg mb-2">Did You Know?</h3>
-                <p className="text-purple-100">{selectedMission.facts[currentFact]}</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Interactive Mini-Game Area */}
-          <div className="bg-white rounded-2xl p-8 shadow-xl mb-6">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-              Interactive Mission Area
-            </h3>
-
-            {/* Mini-game based on mission type */}
-            {selectedMission.miniGame === 'reef-restoration' && (
-              <div className="space-y-6">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <button
-                    onClick={() => setMiniGameState(prev => ({
-                      ...prev,
-                      trashCollected: Math.min(prev.trashCollected + 1, 20),
-                      score: prev.score + 10
-                    }))}
-                    className="bg-gradient-to-br from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 text-white p-6 rounded-xl shadow-lg transform transition-all hover:scale-105"
-                  >
-                    <Trash2 className="h-12 w-12 mx-auto mb-2" />
-                    <div className="text-2xl font-bold">{miniGameState.trashCollected}/20</div>
-                    <div className="text-sm">Remove Trash</div>
-                  </button>
-
-                  <button
-                    onClick={() => setMiniGameState(prev => ({
-                      ...prev,
-                      coralPlanted: Math.min(prev.coralPlanted + 1, 10),
-                      reefHealth: Math.min(prev.reefHealth + 8, 100),
-                      score: prev.score + 20
-                    }))}
-                    className="bg-gradient-to-br from-pink-400 to-purple-500 hover:from-pink-500 hover:to-purple-600 text-white p-6 rounded-xl shadow-lg transform transition-all hover:scale-105"
-                  >
-                    <Sparkles className="h-12 w-12 mx-auto mb-2" />
-                    <div className="text-2xl font-bold">{miniGameState.coralPlanted}/10</div>
-                    <div className="text-sm">Plant Coral</div>
-                  </button>
-
-                  <button
-                    onClick={() => setMiniGameState(prev => ({
-                      ...prev,
-                      animalsRescued: Math.min(prev.animalsRescued + 1, 5),
-                      score: prev.score + 30
-                    }))}
-                    className="bg-gradient-to-br from-blue-400 to-cyan-500 hover:from-blue-500 hover:to-cyan-600 text-white p-6 rounded-xl shadow-lg transform transition-all hover:scale-105"
-                  >
-                    <Fish className="h-12 w-12 mx-auto mb-2" />
-                    <div className="text-2xl font-bold">{miniGameState.animalsRescued}/5</div>
-                    <div className="text-sm">Rescue Fish</div>
-                  </button>
-
-                  <button
-                    onClick={() => setMiniGameState(prev => ({
-                      ...prev,
-                      reefHealth: Math.min(prev.reefHealth + 5, 100),
-                      score: prev.score + 15
-                    }))}
-                    className="bg-gradient-to-br from-green-400 to-teal-500 hover:from-green-500 hover:to-teal-600 text-white p-6 rounded-xl shadow-lg transform transition-all hover:scale-105"
-                  >
-                    <Heart className="h-12 w-12 mx-auto mb-2" />
-                    <div className="text-2xl font-bold">{miniGameState.reefHealth}%</div>
-                    <div className="text-sm">Reef Health</div>
-                  </button>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-gray-800 mb-2">
-                    Score: {miniGameState.score}
-                  </div>
-                  <p className="text-gray-600 mb-4">
-                    Click the buttons to complete your objectives!
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {selectedMission.miniGame === 'trash-cleanup' && (
-              <div className="space-y-6">
-                <div className="grid grid-cols-3 gap-4">
-                  {[...Array(15)].map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        if (miniGameState.trashCollected < 50) {
-                          setMiniGameState(prev => ({
-                            ...prev,
-                            trashCollected: prev.trashCollected + 1,
-                            score: prev.score + 10
-                          }));
-                        }
-                      }}
-                      className="bg-gradient-to-br from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 text-white p-4 rounded-xl shadow-lg transform transition-all hover:scale-110 disabled:opacity-50"
-                      disabled={miniGameState.trashCollected >= 50}
-                    >
-                      <Trash2 className="h-8 w-8 mx-auto" />
-                      <div className="text-xs mt-2">Collect</div>
-                    </button>
-                  ))}
-                </div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-gray-800 mb-2">
-                    {miniGameState.trashCollected}/50 Collected
-                  </div>
-                  <div className="text-2xl font-bold text-blue-600">
-                    Score: {miniGameState.score}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Other mini-games would be implemented similarly */}
-            {selectedMission.miniGame === 'polar-survival' && (
-              <div className="text-center p-12">
-                <div className="text-6xl mb-4">🧊</div>
-                <p className="text-xl text-gray-700 mb-6">
-                  Monitor ice levels and guide animals to safety
-                </p>
-                <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-                  <button
-                    onClick={() => setMiniGameState(prev => ({
-                      ...prev,
-                      animalsRescued: Math.min(prev.animalsRescued + 1, 10),
-                      score: prev.score + 25
-                    }))}
-                    className="bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-xl font-semibold"
-                  >
-                    Guide Seal to Ice ({miniGameState.animalsRescued}/10)
-                  </button>
-                  <button
-                    onClick={() => setMiniGameState(prev => ({
-                      ...prev,
-                      reefHealth: Math.min(prev.reefHealth + 10, 100),
-                      score: prev.score + 15
-                    }))}
-                    className="bg-cyan-500 hover:bg-cyan-600 text-white p-4 rounded-xl font-semibold"
-                  >
-                    Monitor Temperature ({miniGameState.reefHealth}%)
-                  </button>
-                </div>
-                <div className="text-3xl font-bold text-gray-800 mt-6">
-                  Score: {miniGameState.score}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Complete Mission Button */}
-          <div className="text-center">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-4xl font-bold text-white">Choose Your Mission</h2>
             <button
-              onClick={completeMission}
-              disabled={
-                miniGameState.trashCollected < 15 ||
-                miniGameState.coralPlanted < 5 ||
-                miniGameState.animalsRescued < 3
-              }
-              className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700 text-white px-12 py-4 rounded-2xl text-xl font-bold shadow-2xl transform transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              onClick={() => setGameState('menu')}
+              className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl flex items-center space-x-2"
             >
-              <div className="flex items-center space-x-3">
-                <CheckCircle className="h-6 w-6" />
-                <span>Complete Mission</span>
-              </div>
+              <Home className="h-5 w-5" />
+              <span>Back to Menu</span>
             </button>
-            {(miniGameState.trashCollected < 15 || miniGameState.coralPlanted < 5 || miniGameState.animalsRescued < 3) && (
-              <p className="text-white mt-4">
-                Complete more objectives to finish the mission!
-              </p>
-            )}
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {unlockedMissions.map((mission) => (
+              <MissionCard
+                key={mission.id}
+                mission={mission}
+                onStart={() => startMission(mission)}
+              />
+            ))}
           </div>
         </div>
       </div>
     );
   };
 
+  const renderGameplay = () => {
+    if (!selectedMission) return null;
+
+    switch (selectedMission.id) {
+      case 'coral-reef':
+        return <CoralReefGame mission={selectedMission} onComplete={completeMission} />;
+      case 'ocean-cleanup':
+        return <OceanCleanupGame mission={selectedMission} onComplete={completeMission} />;
+      case 'polar-rescue':
+        return <ArcticIceGame mission={selectedMission} onComplete={completeMission} />;
+      case 'oil-spill':
+        return <OilSpillGame mission={selectedMission} onComplete={completeMission} />;
+      case 'overfishing':
+        return <OverfishingGame mission={selectedMission} onComplete={completeMission} />;
+      default:
+        return null;
+    }
+  };
+
   const renderMissionComplete = () => (
     <div className="min-h-screen bg-gradient-to-b from-green-400 via-teal-500 to-blue-600 p-6 flex items-center justify-center">
       <div className="max-w-2xl w-full">
-        <div className="bg-white rounded-3xl shadow-2xl p-12 text-center">
-          <div className="mb-6">
-            <Trophy className="h-24 w-24 text-yellow-500 mx-auto mb-4 animate-bounce" />
-            <h2 className="text-5xl font-bold text-gray-800 mb-4">Mission Complete!</h2>
-            <p className="text-xl text-gray-600">You're a true Ocean Guardian! 🌊</p>
-          </div>
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="bg-white rounded-3xl shadow-2xl p-12 text-center"
+        >
+          <motion.div
+            initial={{ y: -20 }}
+            animate={{ y: 0 }}
+            transition={{ repeat: Infinity, duration: 1, repeatType: 'reverse' }}
+          >
+            <Trophy className="h-24 w-24 text-yellow-500 mx-auto mb-4" />
+          </motion.div>
+          <h2 className="text-5xl font-bold text-gray-800 mb-4">Mission Complete!</h2>
+          <p className="text-xl text-gray-600 mb-8">You're a true Ocean Guardian! 🌊</p>
 
           <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 mb-8">
             <h3 className="text-2xl font-bold text-gray-800 mb-4">Rewards Earned:</h3>
             <div className="space-y-3">
               {selectedMission?.rewards.map((reward, i) => (
-                <div key={i} className="flex items-center justify-center space-x-3 bg-white rounded-xl p-4 shadow">
+                <motion.div
+                  key={i}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: i * 0.2 }}
+                  className="flex items-center justify-center space-x-3 bg-white rounded-xl p-4 shadow"
+                >
                   <Star className="h-6 w-6 text-yellow-500" />
                   <span className="font-semibold text-gray-800">{reward}</span>
                   {reward.includes('Card') && (
                     <span className="text-3xl">{MARINE_CREATURES[reward]?.image}</span>
                   )}
-                </div>
+                </motion.div>
               ))}
-            </div>
-          </div>
-
-          <div className="mb-8">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Your Impact:</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-blue-100 rounded-xl p-4">
-                <div className="text-3xl font-bold text-blue-600">{miniGameState.score}</div>
-                <div className="text-sm text-blue-800">Points Earned</div>
-              </div>
-              <div className="bg-green-100 rounded-xl p-4">
-                <div className="text-3xl font-bold text-green-600">{miniGameState.animalsRescued}</div>
-                <div className="text-sm text-green-800">Animals Saved</div>
-              </div>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => setGameState('mission-select')}
-              className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
+              className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white px-8 py-4 rounded-xl font-semibold"
             >
-              <ChevronRight className="h-5 w-5" />
-              <span>Next Mission</span>
+              Next Mission →
             </button>
             <button
               onClick={() => setGameState('menu')}
-              className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-semibold flex items-center justify-center space-x-2 transition-all transform hover:scale-105"
+              className="bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white px-8 py-4 rounded-xl font-semibold"
             >
-              <Home className="h-5 w-5" />
-              <span>Main Menu</span>
+              Main Menu
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
 
   const renderEncyclopedia = () => (
-    <div className="min-h-screen bg-gradient-to-b from-purple-400 via-pink-500 to-purple-600 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-4xl font-bold text-white">Ocean Encyclopedia</h2>
-          <button
-            onClick={() => setGameState('menu')}
-            className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl flex items-center space-x-2 transition-colors"
-          >
-            <Home className="h-5 w-5" />
-            <span>Back to Menu</span>
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Object.entries(MARINE_CREATURES).map(([cardName, creature]) => {
-            const isCollected = collectedCreatures.includes(cardName);
-
-            return (
-              <button
-                key={cardName}
-                onClick={() => {
-                  if (isCollected) {
-                    setSelectedCreature(creature);
-                    setShowEncyclopedia(true);
-                  }
-                }}
-                className={`bg-white rounded-2xl shadow-xl overflow-hidden transform transition-all duration-300 ${
-                  isCollected ? 'hover:scale-105 hover:shadow-purple-500/50' : 'opacity-60'
-                }`}
-                disabled={!isCollected}
-              >
-                <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-6 text-center">
-                  <div className="text-6xl mb-4">{creature.image}</div>
-                  <h3 className="text-2xl font-bold text-white mb-1">{creature.name}</h3>
-                  <p className="text-sm text-purple-100 italic">{creature.scientificName}</p>
-                </div>
-
-                <div className="p-6">
-                  {isCollected ? (
-                    <>
-                      <div className="space-y-2 text-left mb-4">
-                        <div className="flex items-start space-x-2">
-                          <span className="text-blue-500 font-semibold text-sm">Habitat:</span>
-                          <span className="text-gray-700 text-sm">{creature.habitat}</span>
-                        </div>
-                        <div className="flex items-start space-x-2">
-                          <span className="text-green-500 font-semibold text-sm">Diet:</span>
-                          <span className="text-gray-700 text-sm">{creature.diet}</span>
-                        </div>
-                      </div>
-                      <div className="bg-blue-50 rounded-lg p-3 text-left">
-                        <p className="text-sm text-blue-800">
-                          <strong>Fun Fact:</strong> {creature.funFact}
-                        </p>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="text-center py-8">
-                      <Lock className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                      <p className="text-gray-500 text-sm">Complete missions to unlock</p>
-                    </div>
-                  )}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Creature Detail Modal */}
-      {showEncyclopedia && selectedCreature && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-8 text-white">
-              <div className="flex justify-between items-start mb-4">
-                <div className="text-7xl">{selectedCreature.image}</div>
-                <button
-                  onClick={() => setShowEncyclopedia(false)}
-                  className="bg-white/20 hover:bg-white/30 p-2 rounded-full transition-colors"
-                >
-                  <X className="h-6 w-6" />
-                </button>
-              </div>
-              <h2 className="text-4xl font-bold mb-2">{selectedCreature.name}</h2>
-              <p className="text-purple-100 italic text-lg">{selectedCreature.scientificName}</p>
-            </div>
-
-            <div className="p-8 space-y-6">
-              <div>
-                <h3 className="text-lg font-bold text-gray-800 mb-2 flex items-center">
-                  <span className="text-blue-500 mr-2">🏠</span> Habitat
-                </h3>
-                <p className="text-gray-700">{selectedCreature.habitat}</p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-bold text-gray-800 mb-2 flex items-center">
-                  <span className="text-green-500 mr-2">🍽️</span> Diet
-                </h3>
-                <p className="text-gray-700">{selectedCreature.diet}</p>
-              </div>
-
-              <div className="bg-yellow-50 rounded-xl p-4">
-                <h3 className="text-lg font-bold text-yellow-800 mb-2 flex items-center">
-                  <Sparkles className="h-5 w-5 mr-2" /> Fun Fact
-                </h3>
-                <p className="text-yellow-900">{selectedCreature.funFact}</p>
-              </div>
-
-              <div className="bg-red-50 rounded-xl p-4">
-                <h3 className="text-lg font-bold text-red-800 mb-2 flex items-center">
-                  <AlertTriangle className="h-5 w-5 mr-2" /> Conservation Status
-                </h3>
-                <p className="text-red-900 mb-3">{selectedCreature.threat}</p>
-                <div className="bg-white rounded-lg p-3">
-                  <h4 className="font-semibold text-green-800 mb-2 flex items-center">
-                    <Shield className="h-4 w-4 mr-2" /> How You Can Help
-                  </h4>
-                  <p className="text-gray-700 text-sm">{selectedCreature.conservation}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
+    <EncyclopediaView
+      creatures={MARINE_CREATURES}
+      collectedCreatures={collectedCreatures}
+      onBack={() => setGameState('menu')}
+      onSelectCreature={(creature) => {
+        setSelectedCreature(creature);
+        setShowEncyclopedia(true);
+      }}
+    />
   );
 
   const renderAquarium = () => (
-    <div className="min-h-screen bg-gradient-to-b from-teal-400 via-blue-500 to-cyan-600 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-4xl font-bold text-white mb-2">My Virtual Aquarium</h2>
-            <p className="text-blue-100">
-              You've collected {collectedCreatures.length} of {Object.keys(MARINE_CREATURES).length} creatures!
-            </p>
-          </div>
-          <button
-            onClick={() => setGameState('menu')}
-            className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl flex items-center space-x-2 transition-colors"
-          >
-            <Home className="h-5 w-5" />
-            <span>Back to Menu</span>
-          </button>
-        </div>
-
-        {collectedCreatures.length === 0 ? (
-          <div className="bg-white/90 backdrop-blur rounded-3xl p-12 text-center">
-            <Fish className="h-24 w-24 text-gray-400 mx-auto mb-6" />
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Your aquarium is empty!</h3>
-            <p className="text-gray-600 mb-8">
-              Complete missions to collect marine creatures and fill your virtual aquarium.
-            </p>
-            <button
-              onClick={() => setGameState('mission-select')}
-              className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white px-8 py-4 rounded-xl font-semibold inline-flex items-center space-x-2"
-            >
-              <Play className="h-5 w-5" />
-              <span>Start a Mission</span>
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {collectedCreatures.map((cardName, index) => {
-              const creature = MARINE_CREATURES[cardName];
-              return (
-                <div
-                  key={index}
-                  className="bg-white rounded-2xl shadow-xl p-6 text-center transform transition-all duration-300 hover:scale-110 hover:shadow-cyan-500/50 animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="text-6xl mb-4">{creature.image}</div>
-                  <h3 className="font-bold text-gray-800 text-lg mb-1">{creature.name}</h3>
-                  <p className="text-xs text-gray-600 italic">{creature.scientificName}</p>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    </div>
+    <AquariumView
+      collectedCreatures={collectedCreatures}
+      creatures={MARINE_CREATURES}
+      onBack={() => setGameState('menu')}
+      onStartMission={() => setGameState('mission-select')}
+    />
   );
 
   const renderBadges = () => (
-    <div className="min-h-screen bg-gradient-to-b from-yellow-400 via-orange-500 to-red-600 p-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-4xl font-bold text-white mb-2">Achievement Badges</h2>
-            <p className="text-yellow-100">
-              You've earned {earnedBadges.length} of {Object.keys(BADGES).length} badges!
-            </p>
-          </div>
-          <button
-            onClick={() => setGameState('menu')}
-            className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl flex items-center space-x-2 transition-colors"
-          >
-            <Home className="h-5 w-5" />
-            <span>Back to Menu</span>
-          </button>
-        </div>
-
-        {earnedBadges.length === 0 ? (
-          <div className="bg-white/90 backdrop-blur rounded-3xl p-12 text-center">
-            <Award className="h-24 w-24 text-gray-400 mx-auto mb-6" />
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">No badges yet!</h3>
-            <p className="text-gray-600 mb-8">
-              Complete missions to earn achievement badges and show off your conservation efforts.
-            </p>
-            <button
-              onClick={() => setGameState('mission-select')}
-              className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white px-8 py-4 rounded-xl font-semibold inline-flex items-center space-x-2"
-            >
-              <Play className="h-5 w-5" />
-              <span>Start a Mission</span>
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {earnedBadges.map((badgeName, index) => {
-              const badge = BADGES[badgeName];
-              return (
-                <div
-                  key={index}
-                  className="bg-white rounded-2xl shadow-xl p-8 text-center transform transition-all duration-300 hover:scale-105 hover:shadow-yellow-500/50 animate-fade-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="text-7xl mb-4">{badge.icon}</div>
-                  <h3 className="font-bold text-gray-800 text-2xl mb-2">{badge.name}</h3>
-                  <p className="text-gray-600">{badge.description}</p>
-                  <div className="mt-4 inline-block bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold">
-                    Unlocked!
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-    </div>
+    <BadgesView
+      earnedBadges={earnedBadges}
+      badges={BADGES}
+      onBack={() => setGameState('menu')}
+      onStartMission={() => setGameState('mission-select')}
+    />
   );
 
-  // Main render logic
   switch (gameState) {
     case 'mission-select':
       return renderMissionSelect();
     case 'playing':
-      return renderMiniGame();
+      return renderGameplay();
     case 'mission-complete':
       return renderMissionComplete();
     case 'encyclopedia':
@@ -1044,5 +510,727 @@ const OceanGuardianGame = () => {
       return renderMainMenu();
   }
 };
+
+// Mission Card Component
+const MissionCard = ({ mission, onStart }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className={`bg-white rounded-2xl shadow-2xl overflow-hidden ${
+        mission.isLocked ? 'opacity-60' : 'hover:scale-105'
+      } transition-transform`}
+    >
+      <div className={`bg-gradient-to-r ${mission.bgColor} p-6 text-white`}>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-5xl">{mission.icon}</span>
+          {mission.isCompleted && <CheckCircle className="h-8 w-8 text-green-400" />}
+          {mission.isLocked && <Lock className="h-8 w-8 text-gray-300" />}
+        </div>
+        <h3 className="text-2xl font-bold mb-1">{mission.name}</h3>
+        <p className="text-sm opacity-90">{mission.environment}</p>
+      </div>
+
+      <div className="p-6">
+        <p className="text-gray-700 mb-4">{mission.description}</p>
+
+        <div className="space-y-2 mb-4">
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <Target className="h-4 w-4" />
+            <span>{mission.difficulty}</span>
+          </div>
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
+            <Timer className="h-4 w-4" />
+            <span>{mission.duration}</span>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <h4 className="font-semibold text-sm text-gray-700 mb-2">Objectives:</h4>
+          <ul className="space-y-1">
+            {mission.objectives.slice(0, 3).map((obj, i) => (
+              <li key={i} className="text-xs text-gray-600 flex items-start">
+                <span className="text-blue-500 mr-2">•</span>
+                <span>{obj}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {mission.isLocked ? (
+          <div className="bg-gray-100 text-gray-600 px-4 py-3 rounded-lg text-center text-sm">
+            <Lock className="h-5 w-5 inline mr-2" />
+            Locked - Complete previous missions
+          </div>
+        ) : (
+          <button
+            onClick={onStart}
+            className="w-full bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white py-3 rounded-xl font-semibold"
+          >
+            <Play className="h-5 w-5 inline mr-2" />
+            {mission.isCompleted ? 'Play Again' : 'Start Mission'}
+          </button>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+// GAME 1: Coral Reef Rescue - Interactive Grid-Based Game
+const CoralReefGame = ({ mission, onComplete }) => {
+  const [reefGrid, setReefGrid] = useState([]);
+  const [score, setScore] = useState(0);
+  const [objectives, setObjectives] = useState({
+    trashRemoved: 0,
+    coralPlanted: 0,
+    fishRescued: 0,
+    reefHealth: 0
+  });
+  const [selectedTool, setSelectedTool] = useState('coral');
+  const [currentFact, setCurrentFact] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
+
+  // Initialize reef grid
+  useEffect(() => {
+    const grid = [];
+    for (let row = 0; row < 6; row++) {
+      const rowCells = [];
+      for (let col = 0; col < 8; col++) {
+        const rand = Math.random();
+        let cellType = 'empty';
+
+        if (rand < 0.15) cellType = 'trash';
+        else if (rand < 0.25) cellType = 'dead-coral';
+        else if (rand < 0.30) cellType = 'trapped-fish';
+        else if (rand < 0.45) cellType = 'damaged';
+
+        rowCells.push({
+          id: `${row}-${col}`,
+          type: cellType,
+          row,
+          col
+        });
+      }
+      grid.push(rowCells);
+    }
+    setReefGrid(grid);
+    setGameStarted(true);
+  }, []);
+
+  // Rotate facts
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentFact((prev) => (prev + 1) % mission.facts.length);
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [mission.facts.length]);
+
+  // Calculate reef health
+  useEffect(() => {
+    if (reefGrid.length === 0) return;
+
+    let total = 0;
+    let healthy = 0;
+
+    reefGrid.forEach(row => {
+      row.forEach(cell => {
+        total++;
+        if (cell.type === 'coral' || cell.type === 'empty') healthy++;
+      });
+    });
+
+    const health = Math.round((healthy / total) * 100);
+    setObjectives(prev => ({ ...prev, reefHealth: health }));
+  }, [reefGrid]);
+
+  const handleCellClick = (rowIndex, colIndex) => {
+    const cell = reefGrid[rowIndex][colIndex];
+
+    if (selectedTool === 'coral' && (cell.type === 'dead-coral' || cell.type === 'damaged')) {
+      // Plant coral
+      const newGrid = [...reefGrid];
+      newGrid[rowIndex][colIndex] = { ...cell, type: 'coral' };
+      setReefGrid(newGrid);
+      setObjectives(prev => ({ ...prev, coralPlanted: prev.coralPlanted + 1 }));
+      setScore(prev => prev + 20);
+    } else if (selectedTool === 'trash' && cell.type === 'trash') {
+      // Remove trash
+      const newGrid = [...reefGrid];
+      newGrid[rowIndex][colIndex] = { ...cell, type: 'empty' };
+      setReefGrid(newGrid);
+      setObjectives(prev => ({ ...prev, trashRemoved: prev.trashRemoved + 1 }));
+      setScore(prev => prev + 10);
+    } else if (selectedTool === 'rescue' && cell.type === 'trapped-fish') {
+      // Rescue fish
+      const newGrid = [...reefGrid];
+      newGrid[rowIndex][colIndex] = { ...cell, type: 'empty' };
+      setReefGrid(newGrid);
+      setObjectives(prev => ({ ...prev, fishRescued: prev.fishRescued + 1 }));
+      setScore(prev => prev + 30);
+    }
+  };
+
+  const getCellColor = (type) => {
+    switch (type) {
+      case 'trash': return 'bg-red-500';
+      case 'dead-coral': return 'bg-gray-400';
+      case 'coral': return 'bg-pink-400';
+      case 'damaged': return 'bg-yellow-300';
+      case 'trapped-fish': return 'bg-orange-400';
+      default: return 'bg-blue-200';
+    }
+  };
+
+  const getCellEmoji = (type) => {
+    switch (type) {
+      case 'trash': return '🗑️';
+      case 'dead-coral': return '💀';
+      case 'coral': return '🪸';
+      case 'damaged': return '🟡';
+      case 'trapped-fish': return '🐠';
+      default: return '💧';
+    }
+  };
+
+  const isComplete = objectives.trashRemoved >= 15 &&
+                     objectives.coralPlanted >= 8 &&
+                     objectives.fishRescued >= 5 &&
+                     objectives.reefHealth >= 80;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-400 to-cyan-600 p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="bg-white/90 rounded-2xl p-6 mb-6 shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800 flex items-center">
+                <span className="text-4xl mr-3">{mission.icon}</span>
+                {mission.name}
+              </h2>
+              <p className="text-gray-600">Click on reef cells to restore the ecosystem!</p>
+            </div>
+            <div className="text-right">
+              <div className="text-3xl font-bold text-blue-600">{score}</div>
+              <div className="text-sm text-gray-600">Score</div>
+            </div>
+          </div>
+
+          {/* Progress */}
+          <div className="grid grid-cols-4 gap-4">
+            <ProgressIndicator label="Trash" current={objectives.trashRemoved} target={15} />
+            <ProgressIndicator label="Coral" current={objectives.coralPlanted} target={8} />
+            <ProgressIndicator label="Fish" current={objectives.fishRescued} target={5} />
+            <ProgressIndicator label="Health" current={objectives.reefHealth} target={80} suffix="%" />
+          </div>
+        </div>
+
+        {/* Tool Selection */}
+        <div className="bg-white/90 rounded-2xl p-6 mb-6 shadow-xl">
+          <h3 className="font-bold text-gray-800 mb-4">Select Tool:</h3>
+          <div className="grid grid-cols-3 gap-4">
+            <button
+              onClick={() => setSelectedTool('coral')}
+              className={`p-4 rounded-xl font-semibold transition-all ${
+                selectedTool === 'coral'
+                  ? 'bg-pink-500 text-white scale-105'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <span className="text-3xl block mb-2">🪸</span>
+              Plant Coral
+            </button>
+            <button
+              onClick={() => setSelectedTool('trash')}
+              className={`p-4 rounded-xl font-semibold transition-all ${
+                selectedTool === 'trash'
+                  ? 'bg-red-500 text-white scale-105'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <span className="text-3xl block mb-2">🗑️</span>
+              Remove Trash
+            </button>
+            <button
+              onClick={() => setSelectedTool('rescue')}
+              className={`p-4 rounded-xl font-semibold transition-all ${
+                selectedTool === 'rescue'
+                  ? 'bg-orange-500 text-white scale-105'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              <span className="text-3xl block mb-2">🐠</span>
+              Rescue Fish
+            </button>
+          </div>
+        </div>
+
+        {/* Educational Fact */}
+        <div className="bg-purple-500 text-white rounded-2xl p-6 mb-6 shadow-xl">
+          <div className="flex items-start space-x-3">
+            <Info className="h-6 w-6 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-bold text-lg mb-2">Did You Know?</h3>
+              <p>{mission.facts[currentFact]}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Reef Grid */}
+        <div className="bg-white/90 rounded-2xl p-6 shadow-xl mb-6">
+          <h3 className="font-bold text-gray-800 mb-4 text-center text-xl">
+            Interactive Coral Reef
+          </h3>
+          <div className="inline-block mx-auto">
+            {reefGrid.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex">
+                {row.map((cell, colIndex) => (
+                  <motion.button
+                    key={cell.id}
+                    onClick={() => handleCellClick(rowIndex, colIndex)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`w-16 h-16 m-1 rounded-lg ${getCellColor(cell.type)}
+                      shadow-md hover:shadow-lg transition-all flex items-center justify-center text-2xl
+                      border-2 border-white/50`}
+                  >
+                    {getCellEmoji(cell.type)}
+                  </motion.button>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Complete Button */}
+        {isComplete && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="text-center"
+          >
+            <button
+              onClick={() => onComplete(mission.rewards)}
+              className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700
+                text-white px-12 py-6 rounded-2xl text-2xl font-bold shadow-2xl transform hover:scale-105"
+            >
+              <CheckCircle className="inline h-8 w-8 mr-3" />
+              Complete Mission!
+            </button>
+          </motion.div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// GAME 2: Ocean Cleanup - Catch and Sort Game
+const OceanCleanupGame = ({ mission, onComplete }) => {
+  const [trashItems, setTrashItems] = useState([]);
+  const [score, setScore] = useState(0);
+  const [caught, setCaught] = useState(0);
+  const [mistakes, setMistakes] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(120);
+  const [gameActive, setGameActive] = useState(false);
+  const containerRef = useRef(null);
+
+  const trashTypes = [
+    { type: 'plastic', emoji: '🧴', bin: 'plastic', points: 10 },
+    { type: 'metal', emoji: '🥫', bin: 'metal', points: 15 },
+    { type: 'glass', emoji: '🍾', bin: 'glass', points: 20 },
+    { type: 'fish', emoji: '🐟', bin: 'none', points: -30 },
+    { type: 'plastic', emoji: '🥤', bin: 'plastic', points: 10 },
+    { type: 'metal', emoji: '⚙️', bin: 'metal', points: 15 },
+  ];
+
+  useEffect(() => {
+    if (!gameActive) return;
+
+    const interval = setInterval(() => {
+      const randomTrash = trashTypes[Math.floor(Math.random() * trashTypes.length)];
+      const newItem = {
+        id: Date.now() + Math.random(),
+        ...randomTrash,
+        x: Math.random() * 80,
+        y: -10
+      };
+      setTrashItems(prev => [...prev, newItem]);
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [gameActive]);
+
+  useEffect(() => {
+    if (!gameActive) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev <= 1) {
+          setGameActive(false);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [gameActive]);
+
+  useEffect(() => {
+    if (!gameActive) return;
+
+    const moveInterval = setInterval(() => {
+      setTrashItems(prev =>
+        prev
+          .map(item => ({ ...item, y: item.y + 2 }))
+          .filter(item => item.y < 100)
+      );
+    }, 50);
+
+    return () => clearInterval(moveInterval);
+  }, [gameActive]);
+
+  const handleTrashClick = (item, binType) => {
+    if (item.type === 'fish') {
+      setMistakes(prev => prev + 1);
+      setScore(prev => prev - 30);
+    } else if (item.bin === binType) {
+      setCaught(prev => prev + 1);
+      setScore(prev => prev + item.points);
+    } else {
+      setMistakes(prev => prev + 1);
+    }
+
+    setTrashItems(prev => prev.filter(i => i.id !== item.id));
+  };
+
+  const isComplete = caught >= 30 && mistakes < 3;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-blue-500 to-indigo-700 p-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="bg-white/90 rounded-2xl p-6 mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-3xl font-bold">🌊 {mission.name}</h2>
+              <p className="text-gray-600">Catch trash and sort into bins!</p>
+            </div>
+            <div className="flex space-x-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600">{caught}/30</div>
+                <div className="text-sm">Caught</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-red-600">{mistakes}/3</div>
+                <div className="text-sm">Mistakes</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600">{timeLeft}s</div>
+                <div className="text-sm">Time</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {!gameActive && timeLeft === 120 ? (
+          <div className="text-center">
+            <button
+              onClick={() => setGameActive(true)}
+              className="bg-green-500 hover:bg-green-600 text-white px-12 py-6 rounded-2xl text-2xl font-bold"
+            >
+              Start Cleanup!
+            </button>
+          </div>
+        ) : (
+          <>
+            {/* Ocean Area */}
+            <div
+              ref={containerRef}
+              className="relative bg-gradient-to-b from-blue-400 to-blue-600 rounded-2xl h-96 overflow-hidden mb-6 shadow-xl"
+            >
+              <AnimatePresence>
+                {trashItems.map(item => (
+                  <motion.div
+                    key={item.id}
+                    initial={{ y: -10, opacity: 0 }}
+                    animate={{ y: `${item.y}%`, opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    style={{ left: `${item.x}%` }}
+                    className="absolute text-5xl cursor-pointer hover:scale-125 transition-transform"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // For now, just remove on click - in full version would need drag
+                    }}
+                  >
+                    {item.emoji}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+
+            {/* Sorting Bins */}
+            <div className="grid grid-cols-4 gap-4">
+              {[
+                { type: 'plastic', label: 'Plastic', color: 'bg-yellow-500', emoji: '♻️' },
+                { type: 'metal', label: 'Metal', color: 'bg-gray-500', emoji: '🔩' },
+                { type: 'glass', label: 'Glass', color: 'bg-green-500', emoji: '🍾' },
+                { type: 'general', label: 'General', color: 'bg-brown-500', emoji: '🗑️' }
+              ].map(bin => (
+                <div
+                  key={bin.type}
+                  className={`${bin.color} text-white rounded-2xl p-8 text-center shadow-xl`}
+                >
+                  <div className="text-6xl mb-3">{bin.emoji}</div>
+                  <div className="font-bold text-xl">{bin.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {isComplete && (
+              <div className="text-center mt-8">
+                <button
+                  onClick={() => onComplete(mission.rewards)}
+                  className="bg-green-500 hover:bg-green-600 text-white px-12 py-6 rounded-2xl text-2xl font-bold"
+                >
+                  Complete Mission!
+                </button>
+              </div>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Simplified versions of remaining games (Arctic, Oil Spill, Overfishing)
+// These would be fully fleshed out with their own unique mechanics
+
+const ArcticIceGame = ({ mission, onComplete }) => {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-cyan-300 to-blue-600 p-6">
+      <div className="max-w-6xl mx-auto text-center">
+        <div className="bg-white rounded-2xl p-12">
+          <h2 className="text-4xl font-bold mb-6">🧊 {mission.name}</h2>
+          <p className="text-xl mb-8">Pathfinding puzzle - guide animals to safe ice platforms!</p>
+          <p className="text-gray-600 mb-8">(Full game mechanics will be implemented with drag-and-drop pathfinding)</p>
+          <button
+            onClick={() => onComplete(mission.rewards)}
+            className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-xl text-xl font-bold"
+          >
+            Complete (Demo)
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const OilSpillGame = ({ mission, onComplete }) => {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-orange-300 to-red-600 p-6">
+      <div className="max-w-6xl mx-auto text-center">
+        <div className="bg-white rounded-2xl p-12">
+          <h2 className="text-4xl font-bold mb-6">⚠️ {mission.name}</h2>
+          <p className="text-xl mb-8">Strategic containment - drag booms to stop oil spread!</p>
+          <p className="text-gray-600 mb-8">(Full game with spreading oil animation and boom placement)</p>
+          <button
+            onClick={() => onComplete(mission.rewards)}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl text-xl font-bold"
+          >
+            Complete (Demo)
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const OverfishingGame = ({ mission, onComplete }) => {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-teal-300 to-green-600 p-6">
+      <div className="max-w-6xl mx-auto text-center">
+        <div className="bg-white rounded-2xl p-12">
+          <h2 className="text-4xl font-bold mb-6">🎣 {mission.name}</h2>
+          <p className="text-xl mb-8">Population simulation - balance fishing vs sustainability!</p>
+          <p className="text-gray-600 mb-8">(Full simulation with fish breeding and quota management)</p>
+          <button
+            onClick={() => onComplete(mission.rewards)}
+            className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl text-xl font-bold"
+          >
+            Complete (Demo)
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Helper Components
+const ProgressIndicator = ({ label, current, target, suffix = '' }) => (
+  <div>
+    <div className="flex justify-between text-xs text-gray-600 mb-1">
+      <span>{label}</span>
+      <span>{current}/{target}{suffix}</span>
+    </div>
+    <div className="w-full bg-gray-200 rounded-full h-2">
+      <div
+        className="bg-gradient-to-r from-blue-500 to-cyan-600 h-2 rounded-full transition-all"
+        style={{ width: `${Math.min((current / target) * 100, 100)}%` }}
+      />
+    </div>
+  </div>
+);
+
+const EncyclopediaView = ({ creatures, collectedCreatures, onBack, onSelectCreature }) => (
+  <div className="min-h-screen bg-gradient-to-b from-purple-400 to-pink-600 p-6">
+    <div className="max-w-7xl mx-auto">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-4xl font-bold text-white">Ocean Encyclopedia</h2>
+        <button
+          onClick={onBack}
+          className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl"
+        >
+          <Home className="inline h-5 w-5 mr-2" />
+          Back
+        </button>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {Object.entries(creatures).map(([cardName, creature]) => {
+          const isCollected = collectedCreatures.includes(cardName);
+          return (
+            <div
+              key={cardName}
+              className={`bg-white rounded-2xl shadow-xl overflow-hidden ${
+                isCollected ? 'cursor-pointer hover:scale-105' : 'opacity-60'
+              } transition-transform`}
+              onClick={() => isCollected && onSelectCreature(creature)}
+            >
+              <div className="bg-gradient-to-br from-purple-500 to-pink-600 p-6 text-center">
+                <div className="text-6xl mb-4">{creature.image}</div>
+                <h3 className="text-2xl font-bold text-white">{creature.name}</h3>
+              </div>
+              <div className="p-6">
+                {isCollected ? (
+                  <p className="text-sm text-gray-700">{creature.funFact}</p>
+                ) : (
+                  <div className="text-center py-8">
+                    <Lock className="h-12 w-12 text-gray-400 mx-auto mb-3" />
+                    <p className="text-gray-500 text-sm">Complete missions to unlock</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+);
+
+const AquariumView = ({ collectedCreatures, creatures, onBack, onStartMission }) => (
+  <div className="min-h-screen bg-gradient-to-b from-teal-400 to-cyan-600 p-6">
+    <div className="max-w-7xl mx-auto">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h2 className="text-4xl font-bold text-white">My Virtual Aquarium</h2>
+          <p className="text-blue-100">
+            Collected {collectedCreatures.length} of {Object.keys(creatures).length} creatures!
+          </p>
+        </div>
+        <button onClick={onBack} className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl">
+          <Home className="inline h-5 w-5 mr-2" />
+          Back
+        </button>
+      </div>
+
+      {collectedCreatures.length === 0 ? (
+        <div className="bg-white/90 rounded-3xl p-12 text-center">
+          <Fish className="h-24 w-24 text-gray-400 mx-auto mb-6" />
+          <h3 className="text-2xl font-bold mb-4">Your aquarium is empty!</h3>
+          <button
+            onClick={onStartMission}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-xl font-semibold"
+          >
+            Start a Mission
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          {collectedCreatures.map((cardName, index) => {
+            const creature = creatures[cardName];
+            return (
+              <motion.div
+                key={index}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white rounded-2xl p-6 text-center shadow-xl hover:scale-110 transition-transform"
+              >
+                <div className="text-6xl mb-4">{creature.image}</div>
+                <h3 className="font-bold text-lg">{creature.name}</h3>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </div>
+);
+
+const BadgesView = ({ earnedBadges, badges, onBack, onStartMission }) => (
+  <div className="min-h-screen bg-gradient-to-b from-yellow-400 to-orange-600 p-6">
+    <div className="max-w-7xl mx-auto">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h2 className="text-4xl font-bold text-white">Achievement Badges</h2>
+          <p className="text-yellow-100">
+            Earned {earnedBadges.length} of {Object.keys(badges).length} badges!
+          </p>
+        </div>
+        <button onClick={onBack} className="bg-white/20 hover:bg-white/30 text-white px-6 py-3 rounded-xl">
+          <Home className="inline h-5 w-5 mr-2" />
+          Back
+        </button>
+      </div>
+
+      {earnedBadges.length === 0 ? (
+        <div className="bg-white/90 rounded-3xl p-12 text-center">
+          <Award className="h-24 w-24 text-gray-400 mx-auto mb-6" />
+          <h3 className="text-2xl font-bold mb-4">No badges yet!</h3>
+          <button
+            onClick={onStartMission}
+            className="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-xl font-semibold"
+          >
+            Start a Mission
+          </button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {earnedBadges.map((badgeName, index) => {
+            const badge = badges[badgeName];
+            return (
+              <motion.div
+                key={index}
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ delay: index * 0.2, type: 'spring' }}
+                className="bg-white rounded-2xl p-8 text-center shadow-xl hover:scale-105 transition-transform"
+              >
+                <div className="text-7xl mb-4">{badge.icon}</div>
+                <h3 className="font-bold text-2xl mb-2">{badge.name}</h3>
+                <p className="text-gray-600 mb-4">{badge.description}</p>
+                <div className="inline-block bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold">
+                  Unlocked!
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  </div>
+);
 
 export default OceanGuardianGame;
