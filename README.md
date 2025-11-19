@@ -21,7 +21,7 @@ This platform explores how our ocean **sustains**, **protects**, and **inspires*
 3. **🤖 AI Ocean Guardian** - Train your own marine life classifier
 4. **🎨 Data Art Studio** - Transform ocean data into shareable visualizations
 5. **🎓 Ocean Curriculum** - Free K-12 educational resources for teachers
-6. **🎮 Ocean Quests** - Three educational games (Tsunami Escape, Rebuild the Coast, Stop the Shrinking Beach)
+6. **🎮 Ocean Quests** - Four educational games including NEW Ocean Guardian marine conservation adventure
 7. **📊 Live Ocean Data** - Real-time NOAA/NASA/USGS monitoring dashboard
 8. **🎯 Take Action** - 30+ actionable conservation recommendations with impact tracking
 9. **👤 About** - Personal creator story connecting art and science
@@ -33,7 +33,9 @@ This platform explores how our ocean **sustains**, **protects**, and **inspires*
 - **9 Major Feature Sections** with 20+ interactive components
 - **30+ Conservation Actions** across individual, community, policy, and financial categories
 - **7-Chapter Guided Experience** introducing all features through narrative
-- **3 Educational Games** teaching tsunami safety, coastal restoration, and erosion control
+- **4 Educational Games** including new Ocean Guardian with 5 missions and collectible marine creatures
+- **10 Collectible Marine Creatures** with full encyclopedia entries (habitats, diets, conservation status)
+- **5 Achievement Badges** in Ocean Guardian game (Reef Protector, Ocean Hero, Climate Guardian, etc.)
 - **5 Hands-On Experiments** + **5 Lesson Plans** + **6 Worksheets** in free curriculum
 - **40 AI Training Images** for machine learning education
 - **Real-Time Data** from NOAA, NASA, USGS, EPA, and Nature Conservancy
@@ -102,6 +104,18 @@ This platform explores how our ocean **sustains**, **protects**, and **inspires*
 - **100% Free**: All resources freely downloadable
 
 #### **Ocean Quests** - Educational Games
+**NEW: Ocean Guardian** - Complete Marine Conservation Adventure
+- **5 Mission-Based Levels**: Coral Reef Rescue, Ocean Cleanup, Arctic Ice Mission, Oil Spill Emergency, Stop Overfishing
+- **Interactive Mini-Games**: Clean trash, plant coral, rescue animals, combat oil spills
+- **Collectible System**: Earn 10 marine creature cards with detailed species information
+- **Virtual Aquarium**: Build your collection as you complete missions
+- **Ocean Encyclopedia**: Learn about marine life, habitats, diets, and conservation status
+- **Achievement Badges**: Unlock 5 conservation badges (Reef Protector, Ocean Hero, Climate Guardian, Emergency Responder, Conservation Leader)
+- **Educational Facts**: Learn while you play - each mission teaches real ocean science
+- **Progressive Difficulty**: Beginner to Expert levels (10-25 min per mission)
+- **Skills Learned**: Marine Biology, Conservation, Problem Solving, Environmental Awareness
+
+**Other Games:**
 - **Rebuild the Coast**: Strategy game for restoration (mangroves, dunes, coral reefs)
 - **Tsunami Escape**: Learn evacuation routes, warning signs, and safety decisions
 - **Stop the Shrinking Beach**: Master erosion control strategies

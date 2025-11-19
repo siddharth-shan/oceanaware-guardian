@@ -1,24 +1,39 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Gamepad2, ArrowLeft, Trees, Waves, TrendingDown, Award } from 'lucide-react';
+import { Gamepad2, ArrowLeft, Trees, Waves, TrendingDown, Award, Fish } from 'lucide-react';
 import RebuildTheCoast from './RebuildTheCoast';
 import TsunamiEscape from './TsunamiEscape';
 import StopTheShrinkingBeach from './StopTheShrinkingBeach';
+import OceanGuardianGame from './OceanGuardianGame';
 import CaptainMarinaGuide, { marinaMessages } from '../guide/CaptainMarinaGuide';
 
 /**
  * Ocean Conservation Games Hub
  * Point VI from ocean-contest.txt
  *
- * Three interactive educational games:
- * 1. Rebuild the Coast - Restoration strategy game
- * 2. Tsunami Escape - Evacuation route learning
- * 3. Stop the Shrinking Beach - Erosion control strategy
+ * Four interactive educational games:
+ * 1. Ocean Guardian - Marine conservation adventure (NEW!)
+ * 2. Rebuild the Coast - Restoration strategy game
+ * 3. Tsunami Escape - Evacuation route learning
+ * 4. Stop the Shrinking Beach - Erosion control strategy
  */
 const OceanConservationGames = () => {
   const [selectedGame, setSelectedGame] = useState(null);
 
   const games = [
+    {
+      id: 'ocean-guardian',
+      name: 'Ocean Guardian',
+      icon: Fish,
+      emoji: '🐠',
+      description: 'Complete 5 missions to protect marine life! Clean oceans, restore reefs, rescue animals, and collect creatures in your virtual aquarium.',
+      difficulty: 'Beginner-Expert',
+      duration: '10-25 min per mission',
+      skills: ['Marine Biology', 'Conservation', 'Problem Solving', 'Environmental Awareness'],
+      color: 'from-cyan-500 to-blue-600',
+      component: OceanGuardianGame,
+      badge: 'NEW!'
+    },
     {
       id: 'rebuild',
       name: 'Rebuild the Coast',
@@ -118,7 +133,7 @@ const OceanConservationGames = () => {
       </div>
 
       {/* Games Grid */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {games.map((game, index) => (
           <GameCard key={game.id} game={game} index={index} onSelect={() => setSelectedGame(game.id)} />
         ))}
@@ -182,7 +197,12 @@ const GameCard = ({ game, index, onSelect }) => {
       onClick={onSelect}
     >
       {/* Gradient Header */}
-      <div className={`bg-gradient-to-r ${game.color} p-6 text-white`}>
+      <div className={`bg-gradient-to-r ${game.color} p-6 text-white relative`}>
+        {game.badge && (
+          <div className="absolute top-3 right-3 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold animate-pulse">
+            {game.badge}
+          </div>
+        )}
         <div className="flex items-center justify-between mb-3">
           <Icon className="w-12 h-12" />
           <span className="text-5xl">{game.emoji}</span>
