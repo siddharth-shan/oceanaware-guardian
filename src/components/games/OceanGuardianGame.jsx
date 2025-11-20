@@ -1003,64 +1003,838 @@ const OceanCleanupGame = ({ mission, onComplete }) => {
   );
 };
 
-// Simplified versions of remaining games (Arctic, Oil Spill, Overfishing)
-// These would be fully fleshed out with their own unique mechanics
-
+// GAME 3: Arctic Ice Mission - Pathfinding Puzzle
 const ArcticIceGame = ({ mission, onComplete }) => {
+  const [iceGrid, setIceGrid] = useState([]);
+  const [animals, setAnimals] = useState([]);
+  const [selectedAnimal, setSelectedAnimal] = useState(null);
+  const [animalsSaved, setAnimalsSaved] = useState(0);
+  const [turns, setTurns] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [score, setScore] = useState(0);
+  const [currentFact, setCurrentFact] = useState(0);
+
+  // Initialize ice grid and animals
+  useEffect(() => {
+    if (!gameStarted) return;
+
+    const grid = [];
+    for (let row = 0; row < 8; row++) {
+      const rowCells = [];
+      for (let col = 0; col < 10; col++) {
+        const rand = Math.random();
+        let cellType = 'ice';
+
+        if (rand < 0.1) cellType = 'weak-ice';
+        else if (rand < 0.15) cellType = 'oil';
+        else if (row === 7 && (col === 8 || col === 9)) cellType = 'safe';
+
+        rowCells.push({
+          id: `${row}-${col}`,
+          type: cellType,
+          row,
+          col
+        });
+      }
+      grid.push(rowCells);
+    }
+    setIceGrid(grid);
+
+    // Place animals at starting positions
+    const initialAnimals = [
+      { id: 1, row: 0, col: 0, type: 'polar-bear', saved: false, emoji: '🐻‍❄️' },
+      { id: 2, row: 1, col: 1, type: 'seal', saved: false, emoji: '🦭' },
+      { id: 3, row: 0, col: 2, type: 'penguin', saved: false, emoji: '🐧' },
+      { id: 4, row: 2, col: 0, type: 'walrus', saved: false, emoji: '🦭' },
+    ];
+    setAnimals(initialAnimals);
+  }, [gameStarted]);
+
+  // Rotate facts
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentFact((prev) => (prev + 1) % mission.facts.length);
+    }, 15000);
+    return () => clearInterval(interval);
+  }, [mission.facts.length]);
+
+  // Ice melting mechanic
+  useEffect(() => {
+    if (!gameStarted || turns === 0) return;
+
+    const meltInterval = setInterval(() => {
+      setIceGrid(prevGrid => {
+        const newGrid = prevGrid.map(row =>
+          row.map(cell => {
+            if (cell.type === 'weak-ice') {
+              return { ...cell, type: 'water' };
+            } else if (cell.type === 'ice' && Math.random() < 0.05) {
+              return { ...cell, type: 'weak-ice' };
+            }
+            return cell;
+          })
+        );
+        return newGrid;
+      });
+    }, 3000);
+
+    return () => clearInterval(meltInterval);
+  }, [gameStarted, turns]);
+
+  const moveAnimal = (animalId, newRow, newCol) => {
+    const animal = animals.find(a => a.id === animalId);
+    if (!animal || animal.saved) return;
+
+    // Check if movement is valid (adjacent cell)
+    const rowDiff = Math.abs(animal.row - newRow);
+    const colDiff = Math.abs(animal.col - newCol);
+    if (rowDiff > 1 || colDiff > 1 || (rowDiff === 1 && colDiff === 1)) return;
+
+    const targetCell = iceGrid[newRow]?.[newCol];
+    if (!targetCell || targetCell.type === 'water' || targetCell.type === 'oil') return;
+
+    const newAnimals = animals.map(a => {
+      if (a.id === animalId) {
+        const isSafe = targetCell.type === 'safe';
+        if (isSafe) {
+          setAnimalsSaved(prev => prev + 1);
+          setScore(prev => prev + 100);
+        }
+        return { ...a, row: newRow, col: newCol, saved: isSafe };
+      }
+      return a;
+    });
+
+    setAnimals(newAnimals);
+    setSelectedAnimal(null);
+    setTurns(prev => prev + 1);
+  };
+
+  const getCellColor = (type) => {
+    switch (type) {
+      case 'ice': return 'bg-blue-100';
+      case 'weak-ice': return 'bg-blue-200';
+      case 'water': return 'bg-blue-500';
+      case 'oil': return 'bg-gray-800';
+      case 'safe': return 'bg-green-400';
+      default: return 'bg-blue-300';
+    }
+  };
+
+  const getCellEmoji = (type) => {
+    switch (type) {
+      case 'weak-ice': return '❄️';
+      case 'water': return '🌊';
+      case 'oil': return '⚫';
+      case 'safe': return '🏁';
+      default: return '';
+    }
+  };
+
+  const isComplete = animalsSaved >= 3;
+
+  if (!gameStarted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-cyan-300 to-blue-600 p-6 flex items-center justify-center">
+        <div className="bg-white rounded-3xl p-12 max-w-2xl">
+          <h2 className="text-4xl font-bold mb-6 text-center">🧊 {mission.name}</h2>
+          <p className="text-xl text-gray-700 mb-4">
+            Guide Arctic animals to safety before the ice melts!
+          </p>
+          <div className="bg-cyan-50 rounded-xl p-6 mb-6">
+            <h3 className="font-bold mb-3">How to Play:</h3>
+            <ul className="space-y-2 text-sm text-gray-700">
+              <li>• Click an animal to select it</li>
+              <li>• Click an adjacent ice cell to move</li>
+              <li>• Reach the safe zone (green) before ice melts</li>
+              <li>• Avoid water and oil spills</li>
+              <li>• Save at least 3 animals to win!</li>
+            </ul>
+          </div>
+          <button
+            onClick={() => setGameStarted(true)}
+            className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white py-4 rounded-xl text-xl font-bold"
+          >
+            Start Mission
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-300 to-blue-600 p-6">
-      <div className="max-w-6xl mx-auto text-center">
-        <div className="bg-white rounded-2xl p-12">
-          <h2 className="text-4xl font-bold mb-6">🧊 {mission.name}</h2>
-          <p className="text-xl mb-8">Pathfinding puzzle - guide animals to safe ice platforms!</p>
-          <p className="text-gray-600 mb-8">(Full game mechanics will be implemented with drag-and-drop pathfinding)</p>
-          <button
-            onClick={() => onComplete(mission.rewards)}
-            className="bg-cyan-500 hover:bg-cyan-600 text-white px-8 py-4 rounded-xl text-xl font-bold"
-          >
-            Complete (Demo)
-          </button>
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="bg-white/90 rounded-2xl p-6 mb-6 shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800">🧊 {mission.name}</h2>
+              <p className="text-gray-600">Click animals, then click where to move them!</p>
+            </div>
+            <div className="text-right">
+              <div className="text-3xl font-bold text-cyan-600">{animalsSaved}/4</div>
+              <div className="text-sm text-gray-600">Animals Saved</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4">
+            <ProgressIndicator label="Saved" current={animalsSaved} target={3} />
+            <div>
+              <div className="text-sm text-gray-600 mb-1">Moves: {turns}</div>
+              <div className="text-sm text-gray-600">Score: {score}</div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-600 mb-1">Ice Status</div>
+              <div className="text-xs text-orange-600">⚠️ Melting!</div>
+            </div>
+          </div>
         </div>
+
+        {/* Educational Fact */}
+        <div className="bg-purple-500 text-white rounded-2xl p-6 mb-6">
+          <div className="flex items-start space-x-3">
+            <Info className="h-6 w-6 flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="font-bold text-lg mb-2">Did You Know?</h3>
+              <p>{mission.facts[currentFact]}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Game Grid */}
+        <div className="bg-white/90 rounded-2xl p-6 shadow-xl mb-6">
+          <h3 className="font-bold text-gray-800 mb-4 text-center text-xl">
+            Arctic Ice - Guide Animals to Safety (Green Zone)
+          </h3>
+          <div className="inline-block mx-auto">
+            {iceGrid.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex">
+                {row.map((cell, colIndex) => {
+                  const animal = animals.find(a => a.row === rowIndex && a.col === colIndex && !a.saved);
+                  const isSelected = selectedAnimal?.id === animal?.id;
+
+                  return (
+                    <motion.button
+                      key={cell.id}
+                      onClick={() => {
+                        if (animal) {
+                          setSelectedAnimal(animal);
+                        } else if (selectedAnimal) {
+                          moveAnimal(selectedAnimal.id, rowIndex, colIndex);
+                        }
+                      }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className={`w-16 h-16 m-0.5 rounded-lg ${getCellColor(cell.type)}
+                        shadow-md hover:shadow-lg transition-all flex items-center justify-center text-2xl
+                        ${isSelected ? 'ring-4 ring-yellow-400' : ''}
+                        ${selectedAnimal && cell.type !== 'water' && cell.type !== 'oil' ? 'cursor-pointer' : ''}`}
+                    >
+                      {animal ? (
+                        <span className={isSelected ? 'animate-bounce' : ''}>{animal.emoji}</span>
+                      ) : (
+                        <span>{getCellEmoji(cell.type)}</span>
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+
+          {selectedAnimal && (
+            <div className="text-center mt-4 text-sm text-gray-600">
+              Selected: {selectedAnimal.emoji} - Click an adjacent ice cell to move!
+            </div>
+          )}
+        </div>
+
+        {/* Complete Button */}
+        {isComplete && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="text-center"
+          >
+            <button
+              onClick={() => onComplete(mission.rewards)}
+              className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700
+                text-white px-12 py-6 rounded-2xl text-2xl font-bold shadow-2xl"
+            >
+              <CheckCircle className="inline h-8 w-8 mr-3" />
+              Mission Complete!
+            </button>
+          </motion.div>
+        )}
       </div>
     </div>
   );
 };
 
+// GAME 4: Oil Spill Emergency - Strategic Boom Placement
 const OilSpillGame = ({ mission, onComplete }) => {
+  const [oceanGrid, setOceanGrid] = useState([]);
+  const [booms, setBooms] = useState([]);
+  const [boomsAvailable, setBoomsAvailable] = useState(12);
+  const [oilContained, setOilContained] = useState(0);
+  const [animalsClean, setAnimalsClean] = useState(0);
+  const [spreading, setSpreading] = useState(true);
+  const [score, setScore] = useState(0);
+  const [turn, setTurn] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [selectedAnimal, setSelectedAnimal] = useState(null);
+
+  // Initialize ocean grid
+  useEffect(() => {
+    if (!gameStarted) return;
+
+    const grid = [];
+    for (let row = 0; row < 8; row++) {
+      const rowCells = [];
+      for (let col = 0; col < 12; col++) {
+        let cellType = 'water';
+
+        // Initial oil spill in center
+        if (row >= 3 && row <= 4 && col >= 5 && col <= 6) {
+          cellType = 'oil';
+        }
+
+        // Place some animals
+        if (Math.random() < 0.08) {
+          cellType = 'animal-clean';
+        }
+
+        rowCells.push({
+          id: `${row}-${col}`,
+          type: cellType,
+          row,
+          col
+        });
+      }
+      grid.push(rowCells);
+    }
+    setOceanGrid(grid);
+  }, [gameStarted]);
+
+  // Oil spreading mechanic
+  useEffect(() => {
+    if (!gameStarted || !spreading) return;
+
+    const spreadInterval = setInterval(() => {
+      setOceanGrid(prevGrid => {
+        const newGrid = prevGrid.map(row => [...row]);
+
+        // Spread oil to adjacent cells
+        for (let row = 0; row < newGrid.length; row++) {
+          for (let col = 0; col < newGrid[row].length; col++) {
+            if (newGrid[row][col].type === 'oil') {
+              // Check adjacent cells
+              const adjacent = [
+                [row - 1, col], [row + 1, col],
+                [row, col - 1], [row, col + 1]
+              ];
+
+              adjacent.forEach(([r, c]) => {
+                if (newGrid[r]?.[c]) {
+                  const cell = newGrid[r][c];
+                  const hasBoom = booms.some(b => b.row === r && b.col === c);
+
+                  if (!hasBoom && Math.random() < 0.3) {
+                    if (cell.type === 'water') {
+                      newGrid[r][c] = { ...cell, type: 'oil' };
+                    } else if (cell.type === 'animal-clean') {
+                      newGrid[r][c] = { ...cell, type: 'animal-oiled' };
+                    }
+                  }
+                }
+              });
+            }
+          }
+        }
+
+        return newGrid;
+      });
+
+      setTurn(prev => prev + 1);
+    }, 2000);
+
+    return () => clearInterval(spreadInterval);
+  }, [gameStarted, spreading, booms]);
+
+  const placeBoom = (row, col) => {
+    if (boomsAvailable <= 0) return;
+
+    const cell = oceanGrid[row]?.[col];
+    if (!cell || cell.type === 'oil' || cell.type.includes('animal')) return;
+
+    const alreadyPlaced = booms.some(b => b.row === row && b.col === col);
+    if (alreadyPlaced) return;
+
+    setBooms([...booms, { row, col }]);
+    setBoomsAvailable(prev => prev - 1);
+    setScore(prev => prev + 10);
+  };
+
+  const cleanAnimal = (row, col) => {
+    const cell = oceanGrid[row][col];
+    if (cell?.type !== 'animal-oiled') return;
+
+    const newGrid = [...oceanGrid];
+    newGrid[row][col] = { ...cell, type: 'animal-clean' };
+    setOceanGrid(newGrid);
+    setAnimalsClean(prev => prev + 1);
+    setScore(prev => prev + 50);
+    setSelectedAnimal(null);
+  };
+
+  const getCellColor = (type) => {
+    switch (type) {
+      case 'water': return 'bg-blue-400';
+      case 'oil': return 'bg-gray-900';
+      case 'animal-clean': return 'bg-green-400';
+      case 'animal-oiled': return 'bg-orange-600';
+      default: return 'bg-blue-300';
+    }
+  };
+
+  const getCellContent = (row, col) => {
+    const cell = oceanGrid[row]?.[col];
+    const hasBoom = booms.some(b => b.row === row && b.col === col);
+
+    if (hasBoom) return <span className="text-2xl">🛡️</span>;
+    if (cell?.type === 'oil') return <span className="text-xl">⚫</span>;
+    if (cell?.type === 'animal-clean') return <span className="text-2xl">🐦</span>;
+    if (cell?.type === 'animal-oiled') return <span className="text-2xl">🐦‍⬛</span>;
+    return <span className="text-xl">🌊</span>;
+  };
+
+  // Calculate containment percentage
+  const oilCells = oceanGrid.flat().filter(c => c.type === 'oil').length;
+  const totalOil = Math.max(oilCells, 1);
+  const containmentPercent = Math.min(100, Math.round((booms.length / totalOil) * 100));
+
+  const isComplete = animalsClean >= 10 && containmentPercent >= 70;
+
+  if (!gameStarted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-orange-300 to-red-600 p-6 flex items-center justify-center">
+        <div className="bg-white rounded-3xl p-12 max-w-2xl">
+          <h2 className="text-4xl font-bold mb-6 text-center">⚠️ {mission.name}</h2>
+          <p className="text-xl text-gray-700 mb-4">
+            Stop oil from spreading and rescue affected wildlife!
+          </p>
+          <div className="bg-orange-50 rounded-xl p-6 mb-6">
+            <h3 className="font-bold mb-3">How to Play:</h3>
+            <ul className="space-y-2 text-sm text-gray-700">
+              <li>• Click water cells to place containment booms (🛡️)</li>
+              <li>• Booms stop oil from spreading through that cell</li>
+              <li>• Click oiled birds (🐦‍⬛) to clean them</li>
+              <li>• Clean 10 birds and contain 70% of oil to win</li>
+              <li>• You have 12 booms - use them wisely!</li>
+            </ul>
+          </div>
+          <button
+            onClick={() => setGameStarted(true)}
+            className="w-full bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white py-4 rounded-xl text-xl font-bold"
+          >
+            Start Emergency Response
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-300 to-red-600 p-6">
-      <div className="max-w-6xl mx-auto text-center">
-        <div className="bg-white rounded-2xl p-12">
-          <h2 className="text-4xl font-bold mb-6">⚠️ {mission.name}</h2>
-          <p className="text-xl mb-8">Strategic containment - drag booms to stop oil spread!</p>
-          <p className="text-gray-600 mb-8">(Full game with spreading oil animation and boom placement)</p>
-          <button
-            onClick={() => onComplete(mission.rewards)}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-xl text-xl font-bold"
-          >
-            Complete (Demo)
-          </button>
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="bg-white/90 rounded-2xl p-6 mb-6 shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800">⚠️ {mission.name}</h2>
+              <p className="text-gray-600">Place booms & clean animals!</p>
+            </div>
+            <div className="text-right">
+              <div className="text-3xl font-bold text-orange-600">{boomsAvailable}</div>
+              <div className="text-sm text-gray-600">Booms Left</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <div className="text-sm text-gray-600 mb-1">Animals Cleaned</div>
+              <div className="text-2xl font-bold text-green-600">{animalsClean}/10</div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-600 mb-1">Containment</div>
+              <div className="text-2xl font-bold text-blue-600">{containmentPercent}%</div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-600 mb-1">Score</div>
+              <div className="text-2xl font-bold text-gray-800">{score}</div>
+            </div>
+          </div>
         </div>
+
+        {/* Game Grid */}
+        <div className="bg-white/90 rounded-2xl p-6 shadow-xl mb-6">
+          <h3 className="font-bold text-gray-800 mb-4 text-center text-xl">
+            Deploy Booms & Clean Wildlife
+          </h3>
+          <div className="inline-block mx-auto">
+            {oceanGrid.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex">
+                {row.map((cell, colIndex) => (
+                  <motion.button
+                    key={cell.id}
+                    onClick={() => {
+                      if (cell.type === 'water') {
+                        placeBoom(rowIndex, colIndex);
+                      } else if (cell.type === 'animal-oiled') {
+                        cleanAnimal(rowIndex, colIndex);
+                      }
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`w-14 h-14 m-0.5 rounded-lg ${getCellColor(cell.type)}
+                      shadow-md hover:shadow-lg transition-all flex items-center justify-center
+                      border border-white/30`}
+                  >
+                    {getCellContent(rowIndex, colIndex)}
+                  </motion.button>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-4 flex justify-center space-x-6 text-sm">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-400 rounded flex items-center justify-center">🌊</div>
+              <span>Water</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gray-900 rounded flex items-center justify-center">⚫</div>
+              <span>Oil</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-400 rounded flex items-center justify-center">🛡️</div>
+              <span>Boom</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-green-400 rounded flex items-center justify-center">🐦</div>
+              <span>Clean</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-orange-600 rounded flex items-center justify-center">🐦‍⬛</div>
+              <span>Oiled</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Complete Button */}
+        {isComplete && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="text-center"
+          >
+            <button
+              onClick={() => onComplete(mission.rewards)}
+              className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700
+                text-white px-12 py-6 rounded-2xl text-2xl font-bold shadow-2xl"
+            >
+              <CheckCircle className="inline h-8 w-8 mr-3" />
+              Emergency Resolved!
+            </button>
+          </motion.div>
+        )}
       </div>
     </div>
   );
 };
 
+// GAME 5: Overfishing - Population Simulation
 const OverfishingGame = ({ mission, onComplete }) => {
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-teal-300 to-green-600 p-6">
-      <div className="max-w-6xl mx-auto text-center">
-        <div className="bg-white rounded-2xl p-12">
-          <h2 className="text-4xl font-bold mb-6">🎣 {mission.name}</h2>
-          <p className="text-xl mb-8">Population simulation - balance fishing vs sustainability!</p>
-          <p className="text-gray-600 mb-8">(Full simulation with fish breeding and quota management)</p>
+  const [fishPopulation, setFishPopulation] = useState(100);
+  const [fishQuota, setFishQuota] = useState(10);
+  const [protectedZones, setProtectedZones] = useState(2);
+  const [year, setYear] = useState(1);
+  const [gameActive, setGameActive] = useState(false);
+  const [history, setHistory] = useState([100]);
+  const [economy, setEconomy] = useState(50);
+  const [sustainabilityScore, setSustainabilityScore] = useState(0);
+  const [fish, setFish] = useState([]);
+
+  // Initialize fish visualization
+  useEffect(() => {
+    if (!gameActive) return;
+
+    const initialFish = Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 90,
+      y: Math.random() * 90,
+      size: 20 + Math.random() * 20
+    }));
+    setFish(initialFish);
+  }, [gameActive]);
+
+  // Simulate fish population each year
+  useEffect(() => {
+    if (!gameActive) return;
+
+    const yearInterval = setInterval(() => {
+      setFishPopulation(prev => {
+        // Base growth rate
+        let growth = prev * 0.15; // 15% natural growth
+
+        // Protected zones boost
+        growth += protectedZones * 5;
+
+        // Fishing impact
+        const caught = Math.min(fishQuota, prev);
+
+        // Calculate new population
+        let newPop = prev + growth - caught;
+        newPop = Math.max(0, Math.min(200, newPop));
+
+        // Update economy based on catch
+        setEconomy(prevEcon => {
+          const econGain = caught * 0.5;
+          const econLoss = newPop < 50 ? 5 : 0; // Penalty for low population
+          return Math.max(0, Math.min(100, prevEcon + econGain - econLoss));
+        });
+
+        // Update history
+        setHistory(prev => [...prev, Math.round(newPop)]);
+
+        return newPop;
+      });
+
+      setYear(prev => prev + 1);
+
+      // Update fish visualization count
+      setFish(prevFish => {
+        const targetCount = Math.round((fishPopulation / 200) * 40);
+        if (prevFish.length < targetCount) {
+          return [...prevFish, {
+            id: Date.now(),
+            x: Math.random() * 90,
+            y: Math.random() * 90,
+            size: 20 + Math.random() * 20
+          }];
+        } else if (prevFish.length > targetCount) {
+          return prevFish.slice(0, -1);
+        }
+        return prevFish;
+      });
+    }, 2500);
+
+    return () => clearInterval(yearInterval);
+  }, [gameActive, fishQuota, protectedZones, fishPopulation]);
+
+  // Calculate sustainability score
+  useEffect(() => {
+    const popHealth = (fishPopulation / 200) * 100;
+    const econHealth = economy;
+    const balance = 100 - Math.abs(popHealth - econHealth);
+    setSustainabilityScore(Math.round((popHealth + econHealth + balance) / 3));
+  }, [fishPopulation, economy]);
+
+  const isWinning = sustainabilityScore >= 70 && fishPopulation >= 80 && economy >= 60;
+  const isComplete = year >= 10 && isWinning;
+
+  if (!gameActive) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-teal-300 to-green-600 p-6 flex items-center justify-center">
+        <div className="bg-white rounded-3xl p-12 max-w-2xl">
+          <h2 className="text-4xl font-bold mb-6 text-center">🎣 {mission.name}</h2>
+          <p className="text-xl text-gray-700 mb-4">
+            Balance fishing economy with sustainable ocean populations!
+          </p>
+          <div className="bg-teal-50 rounded-xl p-6 mb-6">
+            <h3 className="font-bold mb-3">How to Play:</h3>
+            <ul className="space-y-2 text-sm text-gray-700">
+              <li>• Adjust fishing quota (how many fish caught per year)</li>
+              <li>• Create protected zones to boost population</li>
+              <li>• Maintain fish population above 80</li>
+              <li>• Keep economy above 60</li>
+              <li>• Reach 70% sustainability for 10 years to win!</li>
+            </ul>
+          </div>
           <button
-            onClick={() => onComplete(mission.rewards)}
-            className="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-xl text-xl font-bold"
+            onClick={() => setGameActive(true)}
+            className="w-full bg-gradient-to-r from-teal-500 to-green-600 hover:from-teal-600 hover:to-green-700 text-white py-4 rounded-xl text-xl font-bold"
           >
-            Complete (Demo)
+            Start Simulation
           </button>
         </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-teal-300 to-green-600 p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="bg-white/90 rounded-2xl p-6 mb-6 shadow-xl">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-800">🎣 {mission.name}</h2>
+              <p className="text-gray-600">Year {year} - Balance population & economy</p>
+            </div>
+            <div className="text-right">
+              <div className="text-3xl font-bold text-teal-600">{sustainabilityScore}%</div>
+              <div className="text-sm text-gray-600">Sustainability</div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <div className="text-sm text-gray-600 mb-1">Fish Population</div>
+              <div className={`text-2xl font-bold ${fishPopulation < 50 ? 'text-red-600' : 'text-green-600'}`}>
+                {Math.round(fishPopulation)}/200
+              </div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-600 mb-1">Economy</div>
+              <div className={`text-2xl font-bold ${economy < 40 ? 'text-red-600' : 'text-blue-600'}`}>
+                {Math.round(economy)}/100
+              </div>
+            </div>
+            <div>
+              <div className="text-sm text-gray-600 mb-1">Years Remaining</div>
+              <div className="text-2xl font-bold text-gray-800">{10 - year}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Ocean Visualization */}
+        <div className="bg-gradient-to-b from-blue-400 to-blue-600 rounded-2xl p-8 mb-6 shadow-xl relative h-64 overflow-hidden">
+          <h3 className="text-white font-bold mb-4 text-center">Ocean Population</h3>
+          <AnimatePresence>
+            {fish.map((f) => (
+              <motion.div
+                key={f.id}
+                initial={{ x: `${f.x}%`, y: `${f.y}%`, opacity: 0 }}
+                animate={{
+                  x: [`${f.x}%`, `${(f.x + 20) % 100}%`],
+                  y: [`${f.y}%`, `${(f.y + 10) % 100}%`],
+                  opacity: 1
+                }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 4 + Math.random() * 2,
+                  repeat: Infinity,
+                  repeatType: 'reverse'
+                }}
+                className="absolute text-2xl"
+                style={{ fontSize: `${f.size}px` }}
+              >
+                🐟
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Controls */}
+        <div className="bg-white/90 rounded-2xl p-6 mb-6 shadow-xl">
+          <h3 className="font-bold text-gray-800 mb-4">Management Controls</h3>
+
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Fishing Quota: {fishQuota} fish/year
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="40"
+                value={fishQuota}
+                onChange={(e) => setFishQuota(Number(e.target.value))}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              />
+              <div className="flex justify-between text-xs text-gray-600 mt-1">
+                <span>No Fishing</span>
+                <span>Heavy Fishing</span>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Protected Zones: {protectedZones}
+              </label>
+              <input
+                type="range"
+                min="0"
+                max="5"
+                value={protectedZones}
+                onChange={(e) => setProtectedZones(Number(e.target.value))}
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              />
+              <div className="flex justify-between text-xs text-gray-600 mt-1">
+                <span>No Protection</span>
+                <span>Maximum Protection</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Population History Chart */}
+        <div className="bg-white/90 rounded-2xl p-6 shadow-xl mb-6">
+          <h3 className="font-bold text-gray-800 mb-4">Population Trend</h3>
+          <div className="flex items-end space-x-1 h-32">
+            {history.slice(-20).map((pop, i) => (
+              <div
+                key={i}
+                className={`flex-1 ${pop < 50 ? 'bg-red-500' : pop < 100 ? 'bg-yellow-500' : 'bg-green-500'} rounded-t transition-all`}
+                style={{ height: `${(pop / 200) * 100}%` }}
+                title={`Year ${i + 1}: ${pop} fish`}
+              />
+            ))}
+          </div>
+          <div className="flex justify-between text-xs text-gray-600 mt-2">
+            <span>Endangered (&lt;50)</span>
+            <span>Healthy (&gt;100)</span>
+          </div>
+        </div>
+
+        {/* Status Messages */}
+        {fishPopulation < 50 && (
+          <div className="bg-red-100 border-l-4 border-red-500 p-4 mb-6 rounded">
+            <p className="text-red-700 font-semibold">⚠️ Population Crisis! Reduce fishing immediately!</p>
+          </div>
+        )}
+
+        {economy < 40 && (
+          <div className="bg-orange-100 border-l-4 border-orange-500 p-4 mb-6 rounded">
+            <p className="text-orange-700 font-semibold">💰 Economy Struggling! Consider increasing quota slightly.</p>
+          </div>
+        )}
+
+        {isWinning && (
+          <div className="bg-green-100 border-l-4 border-green-500 p-4 mb-6 rounded">
+            <p className="text-green-700 font-semibold">✅ Sustainable balance achieved! Keep it up!</p>
+          </div>
+        )}
+
+        {/* Complete Button */}
+        {isComplete && (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            className="text-center"
+          >
+            <button
+              onClick={() => onComplete(mission.rewards)}
+              className="bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700
+                text-white px-12 py-6 rounded-2xl text-2xl font-bold shadow-2xl"
+            >
+              <CheckCircle className="inline h-8 w-8 mr-3" />
+              Sustainability Achieved!
+            </button>
+          </motion.div>
+        )}
       </div>
     </div>
   );
